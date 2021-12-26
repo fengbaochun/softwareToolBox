@@ -1,0 +1,34 @@
+{
+    "errorTest": [
+        [
+            "63",
+            "\u79df\u623f\u4feexxx",
+            "400",
+            "https://appapi.xxxx.com/appapi/brainchoosehouse/v1/updaterent",
+            " \u8bf7\u6c42\u7684\u6570\u636e\u6709\u8bef\uff0c\u8bf7\u68c0\u67e5[Request Data]\u5b57\u6bb5\u662f\u5426\u662f\u6807\u51c6\u7684json\u683c\u5f0f",
+            "\u66f9\u64cd"
+        ]
+    ],
+    "run_data": {
+        "stime": "2019-10-10 10:22:39",
+        "fail_case": 1,
+        "etime": "2019-10\u65f600\u520600\u79d2",
+        "all_case": 1341,
+        "jump_case": 176,
+        "run_case": 1165,
+        "pass_case": 1164
+    }
+}
+
+{
+    "red_hsv" : [108, 190, 120, 255, 163, 223],
+    "blue_hsv" : [74, 131, 107, 241, 146, 255],
+    "yellow_hsv" : [30, 83, 60, 209, 156, 255],
+
+    "color_dict" :{
+       "red_place":      [-180,280,0],
+        "blue_place":     [-180,200,0],
+        "yellow_place":   [-180,120,0]
+      }   
+}
+
