@@ -9,6 +9,7 @@ import time
 import binascii
 import struct
 import shutil
+from gengrate import *
 
 class MyMainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self,parent = None):
