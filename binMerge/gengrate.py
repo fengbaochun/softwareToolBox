@@ -5,39 +5,37 @@ import binascii
 import struct
 import shutil
 
-
 binInfo = {
     'bin0':{
-        'path':'./aibus200.bin',       
+        'path':'./App210.bin',       
         'startAddr':0x00,      
         'maxSize':0,         
         'isWriteBinInfo':False,      
         'version':'0.0', 
     },    
     'bin1':{
-        'path':'./app.bin',         #固件所在路径
-        'startAddr':0x00,           #固件起始地址
-        'maxSize':16*1024,          #固件对齐大小
-        'isWriteBinInfo': False,      #是否在固件开始写入固件信息
+        'path':'./App.bin',             #固件所在路径
+        'startAddr':0x00,               #固件起始地址
+        'maxSize':400*1024,             #固件对齐大小
+        'isWriteBinInfo': False,        #是否在固件开始写入固件信息
         'version':'0.0', 
     },
     'bin2':{
-        'path':'./drive.bin',       
+        'path':'./StepperMotorDrive_APP.bin',       
         'startAddr':0x00,      
-        'maxSize':16*1024,         
+        'maxSize':40*1024,         
         'isWriteBinInfo':True,     
         'version':'1.2', 
     },
     'bin3':{            
-        'path':'./force.bin',       
+        'path':'./forceAcqu.bin',       
         'startAddr':0x00,      
-        'maxSize':32*1024,         
+        'maxSize':30*1024,         
         'isWriteBinInfo':True,      
         'version':'1.2', 
     },
+    
 }
-
-newBinPath = './aibus200.bin'
 
 
 def writeBinInfo(newBin,binSize,mainVer,subVer):
@@ -95,14 +93,18 @@ def creatBin(newBinPath,offset,info):
     pass
 
 
-def main():   
-    open(newBinPath,'wb+')                              #删除并创建源文件
+def gengrate():
+    main()
+    pass
 
+def main():  
+    newBinPath = binInfo['bin0']['path']
+
+    open(newBinPath,'wb+')                              #删除并创建源文件
     creatBin(newBinPath,0,binInfo['bin1'])
     creatBin(newBinPath,binInfo['bin1']['maxSize'],binInfo['bin2'])
     creatBin(newBinPath,binInfo['bin1']['maxSize'] + binInfo['bin2']['maxSize'],binInfo['bin3'])
-    pass
-    
+    pass    
 
 if __name__ == '__main__':
     main()
