@@ -53,7 +53,8 @@ static QColor chColor[16] = {
 // 构造函数
 MWaveView::MWaveView(QWidget *parent) : QChartView(parent)
 {
-    this->wave_layout = new QBoxLayout(QBoxLayout::LeftToRight,parent);
+    //布局
+//    this->wave_layout = new QBoxLayout(QBoxLayout::LeftToRight,parent);
 
     // set Axis------------------
     this->m_wave.axisX = new QValueAxis;
