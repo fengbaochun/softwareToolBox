@@ -6,291 +6,340 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1224</width>
-    <height>888</height>
+    <width>1212</width>
+    <height>617</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QWidget" name="widget" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>1000</width>
-          <height>500</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
+   <layout class="QVBoxLayout" name="verticalLayout_6">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string> chart</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QPushButton" name="pushButton_pause">
-              <property name="text">
-               <string>波形暂停</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_start">
-              <property name="text">
-               <string>波形开始</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QWidget" name="widget" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>1000</width>
+              <height>500</height>
+             </size>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QFormLayout" name="formLayout">
-            <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout">
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <widget class="QCheckBox" name="checkBox_0">
-                <property name="text">
-                 <string>通道0使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <widget class="QPushButton" name="pushButton_pause">
+                  <property name="text">
+                   <string>波形暂停</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_start">
+                  <property name="text">
+                   <string>波形开始</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox_1">
-                <property name="text">
-                 <string>通道1使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_2">
-                <property name="text">
-                 <string>通道2使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_3">
-                <property name="text">
-                 <string>通道3使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_4">
-                <property name="text">
-                 <string>通道4使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_5">
-                <property name="text">
-                 <string>通道5使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_6">
-                <property name="text">
-                 <string>通道6使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_7">
-                <property name="text">
-                 <string>通道7使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_8">
-                <property name="text">
-                 <string>通道8使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_9">
-                <property name="text">
-                 <string>通道9使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_10">
-                <property name="text">
-                 <string>通道10使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_11">
-                <property name="text">
-                 <string>通道11使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_12">
-                <property name="text">
-                 <string>通道12使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_13">
-                <property name="text">
-                 <string>通道13使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_14">
-                <property name="text">
-                 <string>通道14使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_15">
-                <property name="text">
-                 <string>通道15使能</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
+               <layout class="QFormLayout" name="formLayout">
+                <item row="0" column="0">
+                 <layout class="QVBoxLayout" name="verticalLayout">
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_0">
+                    <property name="text">
+                     <string>通道0使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_1">
+                    <property name="text">
+                     <string>通道1使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_2">
+                    <property name="text">
+                     <string>通道2使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_3">
+                    <property name="text">
+                     <string>通道3使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_4">
+                    <property name="text">
+                     <string>通道4使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_5">
+                    <property name="text">
+                     <string>通道5使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_6">
+                    <property name="text">
+                     <string>通道6使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_7">
+                    <property name="text">
+                     <string>通道7使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_8">
+                    <property name="text">
+                     <string>通道8使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_9">
+                    <property name="text">
+                     <string>通道9使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_10">
+                    <property name="text">
+                     <string>通道10使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_11">
+                    <property name="text">
+                     <string>通道11使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_12">
+                    <property name="text">
+                     <string>通道12使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_13">
+                    <property name="text">
+                     <string>通道13使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_14">
+                    <property name="text">
+                     <string>通道14使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_15">
+                    <property name="text">
+                     <string>通道15使能</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item row="0" column="1">
+                 <layout class="QVBoxLayout" name="verticalLayout_3">
+                  <item>
+                   <widget class="QDial" name="dial_X">
+                    <property name="maximum">
+                     <number>10</number>
+                    </property>
+                    <property name="value">
+                     <number>5</number>
+                    </property>
+                    <property name="invertedAppearance">
+                     <bool>false</bool>
+                    </property>
+                    <property name="invertedControls">
+                     <bool>false</bool>
+                    </property>
+                    <property name="wrapping">
+                     <bool>true</bool>
+                    </property>
+                    <property name="notchesVisible">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label">
+                    <property name="text">
+                     <string>X轴</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QDial" name="dial_Y">
+                    <property name="maximum">
+                     <number>10</number>
+                    </property>
+                    <property name="value">
+                     <number>5</number>
+                    </property>
+                    <property name="wrapping">
+                     <bool>true</bool>
+                    </property>
+                    <property name="notchesVisible">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_2">
+                    <property name="text">
+                     <string>Y轴</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
-            <item row="0" column="1">
-             <layout class="QVBoxLayout" name="verticalLayout_3">
-              <item>
-               <widget class="QDial" name="dial_X">
-                <property name="maximum">
-                 <number>10</number>
-                </property>
-                <property name="value">
-                 <number>5</number>
-                </property>
-                <property name="invertedAppearance">
-                 <bool>false</bool>
-                </property>
-                <property name="invertedControls">
-                 <bool>false</bool>
-                </property>
-                <property name="wrapping">
-                 <bool>true</bool>
-                </property>
-                <property name="notchesVisible">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label">
-                <property name="text">
-                 <string>X轴</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QDial" name="dial_Y">
-                <property name="maximum">
-                 <number>10</number>
-                </property>
-                <property name="value">
-                 <number>5</number>
-                </property>
-                <property name="wrapping">
-                 <bool>true</bool>
-                </property>
-                <property name="notchesVisible">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_2">
-                <property name="text">
-                 <string>Y轴</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>300</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </item>
          </layout>
         </item>
-        <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>300</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
        </layout>
-      </item>
-     </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>set</string>
+       </attribute>
+       <widget class="QTableWidget" name="tableWidget">
+        <property name="geometry">
+         <rect>
+          <x>170</x>
+          <y>150</y>
+          <width>331</width>
+          <height>241</height>
+         </rect>
+        </property>
+        <row>
+         <property name="text">
+          <string>新建行</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>新建行</string>
+         </property>
+        </row>
+        <column>
+         <property name="text">
+          <string>新建列</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>新建列</string>
+         </property>
+        </column>
+       </widget>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -299,8 +348,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1224</width>
-     <height>26</height>
+     <width>1212</width>
+     <height>23</height>
     </rect>
    </property>
   </widget>
