@@ -4,19 +4,26 @@
 #include <QObject>
 #include <QWidget>
 
+#include <QDebug>
+#include <QTimer>
+
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <QCombobox>
+//#include <QCombobox>
 #include <QHeaderView>
 
 #include <QBoxLayout>
 
-class tableView
+class tableView : public QObject
 {
-//    Q_OBJECT
+    Q_OBJECT
 public:
     tableView(QWidget *parent);
     ~tableView();
+
+private slots:
+    void onMsGetTimeOut();
+
 private:
     QTableWidget *tableWidget;
     QBoxLayout *layout;

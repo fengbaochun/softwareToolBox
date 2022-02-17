@@ -1,4 +1,5 @@
 #include "tableview.h"
+#include <QTime>
 
 tableView::tableView(QWidget *parent)
 {
@@ -36,9 +37,15 @@ tableView::tableView(QWidget *parent)
     ////    comBox->addItem("N");
     ////    tableWidget->setCellWidget(0,2,comBox);
 
+    QTimer *timer = new QTimer();
+    connect(timer, SIGNAL(timeout()), this, SLOT(onMsGetTimeOut()));
+    timer->start(1000);
 }
 
-tableView::~tableView()
-{
+void tableView::onMsGetTimeOut(){
+    qDebug()<<"123456789\r\n";
+}
+
+tableView::~tableView(){
 
 }
