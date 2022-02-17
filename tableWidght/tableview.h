@@ -20,6 +20,8 @@ class tableView : public QObject
 public:
     tableView(QWidget *parent);
     ~tableView();
+    void apindData();
+    int index;
 
 private slots:
     void onMsGetTimeOut();

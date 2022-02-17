@@ -36,14 +36,19 @@ tableView::tableView(QWidget *parent)
     ////    comBox->addItem("Y");
     ////    comBox->addItem("N");
     ////    tableWidget->setCellWidget(0,2,comBox);
-
+    index=0;
     QTimer *timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(onMsGetTimeOut()));
-    timer->start(1000);
+    timer->start(100);
 }
 
 void tableView::onMsGetTimeOut(){
-    qDebug()<<"123456789\r\n";
+    index++;
+    this->tableWidget->setItem(index,0,new QTableWidgetItem(QString::number(index)));
+    this->tableWidget->setItem(index,1,new QTableWidgetItem(QString::number(index)));
+    this->tableWidget->setItem(index,2,new QTableWidgetItem(QString::number(index)));
+    this->tableWidget->setItem(index,3,new QTableWidgetItem(QString::number(index)));
+    qDebug()<<index<<"\r\n";
 }
 
 tableView::~tableView(){
