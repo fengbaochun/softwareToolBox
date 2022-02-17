@@ -19,6 +19,7 @@ public:
     ~tableView();
 private:
     QTableWidget *tableWidget;
+    QBoxLayout *layout;
 };
 
 #endif // TABLEVIEW_H
