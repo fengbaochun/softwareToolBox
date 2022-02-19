@@ -6,7 +6,7 @@ tableView::tableView(QWidget *parent)
     this->layout = new QBoxLayout(QBoxLayout::LeftToRight,parent);
     QStringList header;
     header<<"序号"<<"系统时间"<<"CAN通道"<<"传输方向"<<"ID"<<"长度"<<"数据";
-    this->tableWidget = new QTableWidget(2000,header.length(),parent);
+    this->tableWidget = new QTableWidget(1,header.length(),parent);
     this->tableWidget->setWindowTitle("QTableWidget & Item");
     this->tableWidget->resize(800, 400);                      //设置表格
     this->tableWidget->verticalHeader()->setVisible(false);   //隐藏列表头
@@ -36,19 +36,21 @@ tableView::tableView(QWidget *parent)
     ////    comBox->addItem("Y");
     ////    comBox->addItem("N");
     ////    tableWidget->setCellWidget(0,2,comBox);
-    index=0;
     QTimer *timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(onMsGetTimeOut()));
     timer->start(100);
 }
 
 void tableView::onMsGetTimeOut(){
-    index++;
-    this->tableWidget->setItem(index,0,new QTableWidgetItem(QString::number(index)));
-    this->tableWidget->setItem(index,1,new QTableWidgetItem(QString::number(index)));
-    this->tableWidget->setItem(index,2,new QTableWidgetItem(QString::number(index)));
-    this->tableWidget->setItem(index,3,new QTableWidgetItem(QString::number(index)));
-    qDebug()<<index<<"\r\n";
+    int row = tableWidget->rowCount();          //获取表格中当前总行数
+    this->tableWidget->setRowCount(row+1);      //加一
+
+    this->tableWidget->setItem(row,0,new QTableWidgetItem(QString::number(row)));
+    this->tableWidget->setItem(row,1,new QTableWidgetItem(QString::number(row)));
+    this->tableWidget->setItem(row,2,new QTableWidgetItem(QString::number(row)));
+    this->tableWidget->setItem(row,3,new QTableWidgetItem(QString::number(row)));
+    this->tableWidget->scrollToBottom();
+    qDebug()<<row<<"\r\n";
 }
 
 tableView::~tableView(){
