@@ -4,7 +4,7 @@ canDev::canDev()
 {
     qRegisterMetaType<VCI_CAN_OBJ>("VCI_CAN_OBJ");
     qRegisterMetaType<DWORD>("DWORD");
-    nCANInd = 0;    //通道选择
+    nCANInd = 1;    //通道选择
     connect(this, SIGNAL(reveiced(VCI_CAN_OBJ)), this, SLOT(revDataSlot(VCI_CAN_OBJ)));
 
 }
@@ -55,21 +55,15 @@ bool canDev::open()
 
         VCI_INIT_CONFIG cfg = paramConfig();
 
-        if(VCI_InitCAN(VCI_USBCAN2, 0, nCANInd, &cfg) == STATUS_OK)
-        {
+        if(VCI_InitCAN(VCI_USBCAN2, 0, nCANInd, &cfg) == STATUS_OK){
             qDebug()<<"init succeed";
-        }
-        else
-        {
+        }else{
             return false;
         }
 
-        if(VCI_StartCAN(VCI_USBCAN2, 0, nCANInd) == STATUS_OK)
-        {
+        if(VCI_StartCAN(VCI_USBCAN2, 0, nCANInd) == STATUS_OK){
              qDebug()<<"start"<<nCANInd<<"succeed:";
-        }
-        else
-        {
+        }else{
            return false;
         }
     }
@@ -80,9 +74,8 @@ bool canDev::open()
     }
 
 
-    uint8_t data[8]={0x81,0x00,0x00,0x00,0x00,0x00,0x00,0x2f};
-
-    sendData(0x01,8,data);
+//    uint8_t data[8]={0x81,0x00,0x00,0x00,0x00,0x00,0x00,0x2f};
+//    sendData(0x01,8,data);
 
     return true;
 }
@@ -96,12 +89,9 @@ void canDev::sendData(int id,int len, uint8_t *data)
     buf.ExternFlag = 0;
     buf.DataLen = len;
     memcpy(buf.Data,data,len);
-    if(VCI_Transmit(VCI_USBCAN2, 0, nCANInd, &buf,1) == STATUS_OK)
-    {
+    if(VCI_Transmit(VCI_USBCAN2, 0, nCANInd, &buf,1) == STATUS_OK){
         qDebug()<<"send succeed!!!";
-    }
-    else
-    {
+    }else{
         qDebug()<<"send failed!!!";
     }
 }
@@ -122,7 +112,7 @@ void canDev::revDataSlot(VCI_CAN_OBJ buf)
 
 void canDev::run()
 {
-    uint8_t data[8]={0x81,0x00,0x00,0x00,0x00,0x00,0x00,0x2f};
+//    uint8_t data[8]={0x81,0x00,0x00,0x00,0x00,0x00,0x00,0x2f};
     int frameNum = 0;
     VCI_CAN_OBJ buf;
 
@@ -135,7 +125,7 @@ void canDev::run()
         {
             VCI_Receive(VCI_USBCAN2, 0, nCANInd, &buf,1,0);
             emit reveiced(buf);
-            sendData(0x01,8,data);
+//            sendData(0x01,8,data);
         }
     }
 }
