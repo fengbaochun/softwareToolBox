@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'f:\01-work\Driver\A9D Plus Drive\updateDriveBin\update_UI.ui'
+# Form implementation generated from reading ui file 'f:\01-work\gitlab 本地\force_sensor\tools\updateDriveBin\update_UI.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.3
 #
@@ -14,27 +14,18 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(594, 197)
+        MainWindow.resize(643, 221)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.directory_text = QtWidgets.QTextBrowser(self.centralwidget)
-        self.directory_text.setGeometry(QtCore.QRect(160, 10, 351, 21))
-        self.directory_text.setObjectName("directory_text")
         self.maxPosBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.maxPosBtn.setGeometry(QtCore.QRect(90, 130, 61, 23))
+        self.maxPosBtn.setGeometry(QtCore.QRect(80, 130, 61, 23))
         self.maxPosBtn.setObjectName("maxPosBtn")
-        self.logText = QtWidgets.QTextBrowser(self.centralwidget)
-        self.logText.setGeometry(QtCore.QRect(160, 40, 421, 111))
-        self.logText.setObjectName("logText")
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
-        self.progressBar.setGeometry(QtCore.QRect(10, 160, 521, 23))
+        self.progressBar.setGeometry(QtCore.QRect(10, 190, 581, 23))
         self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName("progressBar")
-        self.choseBinBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.choseBinBtn.setGeometry(QtCore.QRect(520, 10, 61, 23))
-        self.choseBinBtn.setObjectName("choseBinBtn")
         self.updateStart = QtWidgets.QPushButton(self.centralwidget)
-        self.updateStart.setGeometry(QtCore.QRect(530, 160, 51, 23))
+        self.updateStart.setGeometry(QtCore.QRect(580, 190, 51, 23))
         self.updateStart.setObjectName("updateStart")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox.setGeometry(QtCore.QRect(10, 10, 141, 111))
@@ -78,19 +69,41 @@ class Ui_MainWindow(object):
         self.minPosBtn = QtWidgets.QPushButton(self.centralwidget)
         self.minPosBtn.setGeometry(QtCore.QRect(10, 130, 61, 23))
         self.minPosBtn.setObjectName("minPosBtn")
+        self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget.setGeometry(QtCore.QRect(150, 0, 481, 181))
+        self.tabWidget.setTabPosition(QtWidgets.QTabWidget.North)
+        self.tabWidget.setObjectName("tabWidget")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setObjectName("tab")
+        self.choseBinBtn = QtWidgets.QPushButton(self.tab)
+        self.choseBinBtn.setGeometry(QtCore.QRect(410, 10, 61, 23))
+        self.choseBinBtn.setObjectName("choseBinBtn")
+        self.logText = QtWidgets.QTextBrowser(self.tab)
+        self.logText.setGeometry(QtCore.QRect(10, 40, 461, 111))
+        self.logText.setObjectName("logText")
+        self.directory_text = QtWidgets.QTextBrowser(self.tab)
+        self.directory_text.setGeometry(QtCore.QRect(10, 10, 391, 21))
+        self.directory_text.setObjectName("directory_text")
+        self.tabWidget.addTab(self.tab, "")
+        self.tab_2 = QtWidgets.QWidget()
+        self.tab_2.setObjectName("tab_2")
+        self.tabWidget.addTab(self.tab_2, "")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.maxPosBtn.setText(_translate("MainWindow", "MAX 位置"))
-        self.choseBinBtn.setText(_translate("MainWindow", "选择"))
         self.updateStart.setText(_translate("MainWindow", "更新"))
         self.groupBox.setTitle(_translate("MainWindow", "驱动板"))
         self.label_3.setText(_translate("MainWindow", "设备号"))
         self.label_4.setText(_translate("MainWindow", "版本号"))
         self.openBtn.setText(_translate("MainWindow", "打开"))
         self.minPosBtn.setText(_translate("MainWindow", "归零"))
+        self.choseBinBtn.setText(_translate("MainWindow", "选择"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "升级"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "校准"))

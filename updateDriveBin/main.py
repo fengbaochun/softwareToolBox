@@ -22,9 +22,9 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
 
         self.setWindowTitle("bin tool")   
         # 设置驱动板ID  
-        self.devID = ["A1", "A2", "A3","B1", "B2", "B3"]
+        self.devID = ["A1", "A2", "A3","B1", "B2", "B3","B8","A8"]
         self.devNum.addItems(self.devID)
-        self.devNum.setCurrentIndex(4)
+        self.devNum.setCurrentIndex(6)
 
         # 显示驱动板软件版本
         self.verNum.append(str(1.0))
@@ -35,8 +35,10 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         self.maxPosBtn.clicked.connect(self.maxPosCallback)
         self.updateStart.clicked.connect(self.startUpdateBinCallBack)
 
+        # 信号及槽函数
         revTh.progressSignal.connect(self.progressCallback)
         revTh.logoSingal.connect(self.logoCallback)
+        revTh.revAnswerSingal.connect(updateTh.updateBinCallBack)
         self.logoSingal.connect(self.logoCallback)
         updateTh.logoSingal.connect(self.logoCallback)
 
@@ -99,10 +101,12 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         pass
 
     def minPosCallback(self):
+        updateTh.setFun('上报使能',1)
         print("minPosCallback")
         pass
     
     def maxPosCallback(self):
+        updateTh.setFun('上报使能',0)
         print("maxPosCallback")
         pass
     

@@ -2,6 +2,7 @@ from PyQt5.QtCore import QThread, pyqtSignal
 from ctypes import *
 import time
 from update import *
+from agreement import *
 
 class _VCI_INIT_CONFIG(Structure):
     _fields_ = [('AccCode', c_ulong),
@@ -28,6 +29,7 @@ class revDataThread(QThread):
     revDataSignal = pyqtSignal(int,list)
     progressSignal = pyqtSignal(int)
     logoSingal = pyqtSignal(str)
+    revAnswerSingal = pyqtSignal(int)
     def __init__(self):
         super(revDataThread, self).__init__()
         self.canConfig()
@@ -36,6 +38,7 @@ class revDataThread(QThread):
         self.enterBootStatus = False
         self.binSizeStatus = False
         self.binDataStatus = False
+        self.binAnswer = False
         pass
     
     #CAN总线配置 
@@ -60,22 +63,25 @@ class revDataThread(QThread):
         print(otherStyleTime+" REV - ID: "+hex(id)+" Data: "+str(frameData))
         self.logoSingal.emit(otherStyleTime+" REV - ID: "+hex(id)+" Data: "+str(frameData))
         # bootloader 应答成功
-        if (frameData[0] is 0xF3) and (frameData[1] is 0x00) and (frameData[2] is 0x00):
+        if (frameData[0] is ANSWER_CMD) and (frameData[1] is funDict['功能']['升级']) and (frameData[2] is 0xFF)and (frameData[3] is 0xFF):
             self.enterBootStatus = True
             self.logoSingal.emit("boot start successful!!!")
             print("boot start successful!!!")
         # bin size 应答成功
-        elif (frameData[0] is 0xF3) and (frameData[1] is 0x01) and (frameData[2] is 0x00):
+        elif (frameData[0] is ANSWER_CMD) and (frameData[1] is funDict['功能']['固件大小']):
             self.binSizeStatus = True
             self.logoSingal.emit("send bin size successful!!!")
             print("send bin size successful!!!")
             pass
         # 发送1KB数据 应答成功
-        elif (frameData[0] is 0xF3) and (frameData[1] is 0x02) and (frameData[2] is not 0x00):
+        elif (frameData[0] is ANSWER_CMD) and (frameData[1] is funDict['功能']['固件数据']):
             self.binDataStatus = True
-            self.progressSignal.emit(frameData[2])
+            self.revAnswerSingal.emit(frameData[3])         #接收到应答后发射信号
+            self.progressSignal.emit(frameData[3])
             pass        
-                
+        else:
+            # print(frameData)
+            pass
         pass
 
 
