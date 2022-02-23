@@ -77,9 +77,7 @@ struct Event
     bool rightButtonPressed = false;
     bool leftButtonPressed = false;
     QPoint PressedPos;
-
     double moveX,moveY;  // 记录移动
-
     bool pauseWave;
     QMenu *menu;
     QAction* startAction;
@@ -94,52 +92,26 @@ class MWaveView:public QChartView
 public:
     MWaveView(QWidget *parent);
     ~MWaveView();
-
-    // 设置的通道数量
-    #define SET_GLOBLE_CHANNEL  16
-
-    // 打开某个通道显示
-    void openChannel(WAVE_CH ch);
-    // 关闭某个通道显示
-    void closeChannel(WAVE_CH ch);
-
-    // 清除某个通道波形数据
-    void clearChannel(WAVE_CH ch);
-    // 追加某个通道的坐标点
-    void addSeriesData(WAVE_CH ch, const QPointF& point);
-    // 传入某个通道的波形
-    void addSeriesData(WAVE_CH ch, const QList<QPointF>& point_list);
-
-    // 设置X轴范围
-    void setRangeX(int rangeX);
-    // 设置Y轴范围
-    void setRangeY(int rangeY);
-
-    // 设置X轴范围放大倍数,默认1.2，不可为0，对应缩小为1/multiple
-    void setZoomX(double multiple);
-    // 设置Y轴范围放大倍数，默认1.2，不可为0，对应缩小为1/multiple
-    void setZoomY(double multiple);
-
-    // X轴范围按比例缩小
-    void ZoomOutX(void);
-    // X轴范围按比例放大
-    void ZoomX(void);
-
-    // Y轴范围按比例缩小
-    void ZoomOutY(void);
-    // Y轴范围按比例放大
-    void ZoomY(void);
-
-    // 波形开始
-    void startGraph(void);
-    // 波形暂停
-    void pauseGraph(void);
+    #define SET_GLOBLE_CHANNEL  16  // 设置的通道数量
+    void openChannel(WAVE_CH ch);   // 打开某个通道显示
+    void closeChannel(WAVE_CH ch);  // 关闭某个通道显示
+    void clearChannel(WAVE_CH ch);  // 清除某个通道波形数据
+    void addSeriesData(WAVE_CH ch, const QPointF& point);   // 追加某个通道的坐标点
+    void addSeriesData(WAVE_CH ch, const QList<QPointF>& point_list);   // 传入某个通道的波形
+    void setRangeX(int rangeX);     // 设置X轴范围
+    void setRangeY(int rangeY);     // 设置Y轴范围
+    void setZoomX(double multiple); // 设置X轴范围放大倍数,默认1.2，不可为0，对应缩小为1/multiple
+    void setZoomY(double multiple); // 设置Y轴范围放大倍数，默认1.2，不可为0，对应缩小为1/multiple
+    void ZoomOutX(void);            // X轴范围按比例缩小
+    void ZoomX(void);       // X轴范围按比例放大
+    void ZoomOutY(void);    // Y轴范围按比例缩小
+    void ZoomY(void);       // Y轴范围按比例放大
+    void startGraph(void);  // 波形开始
+    void pauseGraph(void);  // 波形暂停
 
 public slots:
-    // 波形开始槽函数
-    void slots_startGraph(void);
-    // 波形暂停槽函数
-    void slots_pauseGraph(void);
+    void slots_startGraph(void);// 波形开始槽函数
+    void slots_pauseGraph(void); // 波形暂停槽函数
 protected:
     // 事件重写
     virtual void mouseMoveEvent(QMouseEvent *pEvent) override;
