@@ -16,6 +16,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_peelButton_clicked();
+
+    void on_calButton_clicked();
+
+    void on_zeroButton_clicked();
+
+    void on_canclePeelButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     canDev *can;
