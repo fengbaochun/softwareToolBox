@@ -11,7 +11,6 @@
 #include <QTableWidgetItem>
 //#include <QCombobox>
 #include <QHeaderView>
-
 #include <QBoxLayout>
 
 class tableView : public QObject

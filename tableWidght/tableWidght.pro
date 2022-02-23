@@ -17,16 +17,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    can/candev.cpp \
     main.cpp \
     mainwindow.cpp \
     tableview.cpp
 
 HEADERS += \
+    can/ControlCAN.h \
+    can/candev.h \
     mainwindow.h \
     tableview.h
 
 FORMS += \
     mainwindow.ui
+
+win32: LIBS += -L$$PWD/./can/ -lControlCAN
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

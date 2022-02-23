@@ -36,6 +36,7 @@ tableView::tableView(QWidget *parent)
     ////    comBox->addItem("Y");
     ////    comBox->addItem("N");
     ////    tableWidget->setCellWidget(0,2,comBox);
+
     QTimer *timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(onMsGetTimeOut()));
     timer->start(100);

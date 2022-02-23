@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <tableview.h>
+#include "./can/candev.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -18,5 +20,7 @@ public:
 private:
     Ui::MainWindow *ui;
     tableView *table;
+    canDev *can;
+
 };
 #endif // MAINWINDOW_H

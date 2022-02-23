@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     table = new tableView(ui->widget);
+    can = new canDev();
+    can->start();
 }
 
 MainWindow::~MainWindow()
