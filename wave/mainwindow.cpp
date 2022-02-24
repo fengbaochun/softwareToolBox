@@ -46,10 +46,11 @@ void MainWindow::onMsGetTimeOut()
     result = sin(param*PI/180);
     static QPointF point;
 
-    for (int i = 0; i< 16; i++)
+    //for (int i = 0; i< 16; i++)
+    int i = 0;
     {
-        Ydata[i] = result* 50*(i+1) ;
-
+//        Ydata[i] = result* 50*(i+1) ;
+        Ydata[i] = 10;
         point.setY(Ydata[i]);
         point.setX(param);
         this->wave_data[i].append(point);
@@ -90,6 +91,7 @@ int limit(int value, int last_value, int size)
     }
     return dir;
 }
+
 void MainWindow::on_dial_X_sliderMoved(int position)
 {
     static int last_value = 5;
