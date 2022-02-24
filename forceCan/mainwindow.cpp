@@ -27,39 +27,48 @@ void MainWindow::updateData(){
     int val = can->force.val;
     ui->weightLineEdit->setText(QString::number(val,10));
 
+    static int index=0;
+    QPointF point;
+
+    QPointF point1;
+
+    point.setY(10);
+    point.setX(index);
+
+    point1.setY(20);
+    point1.setX(index);
+
+    wave->addSeriesData(WAVE_CH0,point);
+    wave->addSeriesData(WAVE_CH1,point1);
+
+    qDebug()<< point<<" \r\n";
+    index = index + 1;
+
+    //    static double Ydata[16];
+//    static double  param,result;
+//    #define PI 3.14159265
+//    // 测试
+//    param++;
+
+//    result = sin(param*PI/180);
 //    static QPointF point;
-//    static int index = 0;
-//    point.setY((double)val);
-//    point.setX(index++);
-//    this->wave_data[1].append(point);
-//    wave->addSeriesData((WAVE_CH)1,this->wave_data[1]);
-//    qDebug()<<index<<"  "<<val<<"  \r\n";
 
-    static double Ydata[16];
-    static double  param,result;
-    #define PI 3.14159265
-    // 测试
-    param++;
+//    //for (int i = 0; i< 16; i++)
+//    int i = 0;
+//    {
+////        Ydata[i] = result* 50*(i+1) ;
+//        Ydata[i] = val;
+//        point.setY(Ydata[i]);
+//        point.setX(param);
+//        this->wave_data[i].append(point);
 
-    result = sin(param*PI/180);
-    static QPointF point;
+//        if (this->wave_data[i].size() > 20000)
+//        {
+//            this->wave_data[i].removeFirst();
+//        }
 
-    //for (int i = 0; i< 16; i++)
-    int i = 0;
-    {
-//        Ydata[i] = result* 50*(i+1) ;
-        Ydata[i] = val;
-        point.setY(Ydata[i]);
-        point.setX(param);
-        this->wave_data[i].append(point);
-
-        if (this->wave_data[i].size() > 20000)
-        {
-            this->wave_data[i].removeFirst();
-        }
-
-        wave->addSeriesData((WAVE_CH)i,this->wave_data[i]);
-    }
+//        wave->addSeriesData((WAVE_CH)i,this->wave_data[i]);
+//    }
 }
 
 void MainWindow::appindLog(QString temp){
