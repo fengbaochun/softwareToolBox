@@ -30,11 +30,17 @@ private slots:
     void on_canclePeelButton_clicked();
     void updateData();
 
+    void on_savePushButton_clicked();
+
+    void on_devComboBox_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
     MWaveView *wave;
     QList<QPointF> wave_data[16];
     canDev *can;
+    QList<uint8_t> devList;
+    uint8_t devId;
 //    QTimer*  mvGetTimer;
 };
 #endif // MAINWINDOW_H

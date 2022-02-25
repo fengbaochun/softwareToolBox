@@ -10,6 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
     can = new canDev();
     can->start();
 
+    devList << 0xA8<<0xB8;
+    this->devId = 0xA8;
+
     wave = new MWaveView(ui->widget);
     wave->resize(ui->widget->size());
 
@@ -41,7 +44,7 @@ void MainWindow::updateData(){
 
     wave->addSeriesData(WAVE_CH0,this->wave_data[WAVE_CH0]);
 
-    qDebug()<< point<<" \r\n";
+//    qDebug()<< point<<" \r\n";
     index = index + 1;
 }
 
@@ -52,7 +55,7 @@ void MainWindow::appindLog(QString temp){
 
 void MainWindow::on_peelButton_clicked(){
     uint8_t data[8]={0x42,0x54,0x00,0x00,0x00,0x00,0x00,0x00};
-    can->sendData(0xA8,8,data);
+    can->sendData(devId,8,data);
     appindLog("去皮");
 }
 
@@ -63,7 +66,7 @@ void MainWindow::on_calButton_clicked(){
         uint8_t l = val&0x00FF;
 
         uint8_t data[8]={0x42,0x53,h,l,0x00,0x00,0x00,0x00};
-        can->sendData(0xA8,8,data);
+        can->sendData(devId,8,data);
         appindLog("标定值ok");
     }else{
         appindLog("标定值无效");
@@ -72,12 +75,24 @@ void MainWindow::on_calButton_clicked(){
 
 void MainWindow::on_zeroButton_clicked(){
     uint8_t data[8]={0x42,0x52,0x00,0x00,0x00,0x00,0x00,0x00};
-    can->sendData(0xA8,8,data);
+    can->sendData(devId,8,data);
     appindLog("标零");
 }
 
 void MainWindow::on_canclePeelButton_clicked(){
     uint8_t data[8]={0x42,0x55,0x00,0x00,0x00,0x00,0x00,0x00};
-    can->sendData(0xA8,8,data);
+    can->sendData(devId,8,data);
     appindLog("取消去皮");
+}
+
+void MainWindow::on_savePushButton_clicked(){
+    uint8_t data[8]={0x42,0x5D,0x00,0x00,0x00,0x00,0x00,0x00};
+    can->sendData(devId,8,data);
+    appindLog("参数保存");
+}
+
+void MainWindow::on_devComboBox_currentIndexChanged(int index)
+{
+    this->devId = devList[index];
+    qDebug()<< devList[index]<<" \r\n";
 }
