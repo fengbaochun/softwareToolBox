@@ -30,45 +30,19 @@ void MainWindow::updateData(){
     static int index=0;
     QPointF point;
 
-    QPointF point1;
-
-    point.setY(10);
+    point.setY(val);
     point.setX(index);
 
-    point1.setY(20);
-    point1.setX(index);
+    this->wave_data[WAVE_CH0].append(point);
 
-    wave->addSeriesData(WAVE_CH0,point);
-    wave->addSeriesData(WAVE_CH1,point1);
+    if (this->wave_data[WAVE_CH0].size() > 20000){
+        this->wave_data[WAVE_CH0].removeFirst();
+    }
+
+    wave->addSeriesData(WAVE_CH0,this->wave_data[WAVE_CH0]);
 
     qDebug()<< point<<" \r\n";
     index = index + 1;
-
-    //    static double Ydata[16];
-//    static double  param,result;
-//    #define PI 3.14159265
-//    // 测试
-//    param++;
-
-//    result = sin(param*PI/180);
-//    static QPointF point;
-
-//    //for (int i = 0; i< 16; i++)
-//    int i = 0;
-//    {
-////        Ydata[i] = result* 50*(i+1) ;
-//        Ydata[i] = val;
-//        point.setY(Ydata[i]);
-//        point.setX(param);
-//        this->wave_data[i].append(point);
-
-//        if (this->wave_data[i].size() > 20000)
-//        {
-//            this->wave_data[i].removeFirst();
-//        }
-
-//        wave->addSeriesData((WAVE_CH)i,this->wave_data[i]);
-//    }
 }
 
 void MainWindow::appindLog(QString temp){

@@ -34,7 +34,6 @@ private:
     Ui::MainWindow *ui;
     MWaveView *wave;
     QList<QPointF> wave_data[16];
-
     canDev *can;
 //    QTimer*  mvGetTimer;
 };
