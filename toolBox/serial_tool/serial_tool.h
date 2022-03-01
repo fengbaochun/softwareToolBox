@@ -60,10 +60,14 @@ public:
     void loop_send_callback();
 
     void sendDataToBus(cmdTypedef cmd, funsionType fun, float val);       //发送数据（带有协议）
+    float encVal;                                                         //旋钮的值（多圈）
+    int trunNum;                                                          //圈数
 private slots:
     void on_dial_valueChanged(int value);   
 
     void on_speedHorizontalSlider_valueChanged(int value);
+
+    void on_goZeroPushButton_clicked();
 
 private:
     Ui::serial_tool *ui;

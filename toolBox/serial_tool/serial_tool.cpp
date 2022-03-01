@@ -65,6 +65,7 @@ serial_tool::serial_tool(QWidget *parent) :
     ui->Rev_textBrowser->setText("Welcome to use Serial Assistant!!!");
 
     find_portinfo();
+    this->trunNum = 0;
 
 }
 
@@ -374,26 +375,31 @@ void serial_tool::sendDataToBus(cmdTypedef cmd, funsionType fun, float val){
 }
 
 
-void serial_tool::on_dial_valueChanged(int value)
-{
+void serial_tool::on_dial_valueChanged(int value){
     static int lastVal = 0;
-    static int encVal = 0;
-
-    static int trunNum = 0;
     if(lastVal - value > 180){
         trunNum++;
     }else if(lastVal - value < -180){
         trunNum--;
     }
     lastVal = value;
-    encVal = (value + 360*trunNum)*(-1);
+    this->encVal = (value + 360*trunNum)*(-1);
 
-    sendDataToBus(WRITE_CMD,POS,encVal);
+    sendDataToBus(WRITE_CMD,POS,this->encVal);
 
-    ui->posLineEdit->setText(QString::number(encVal));
+    ui->posLineEdit->setText(QString::number(this->encVal));
 }
 
-void serial_tool::on_speedHorizontalSlider_valueChanged(int value)
-{
+void serial_tool::on_speedHorizontalSlider_valueChanged(int value){
+    ui->speedLineEdit->setText(QString::number(value));
+    sendDataToBus(WRITE_CMD,SPEED,value);
     qDebug()<<value;
+}
+
+void serial_tool::on_goZeroPushButton_clicked(){
+    sendDataToBus(WRITE_CMD,POS,0);
+    this->encVal=0;
+    this->trunNum = 0;
+    ui->dial->setValue(0);
+    ui->posLineEdit->setText(QString::number(0));
 }
