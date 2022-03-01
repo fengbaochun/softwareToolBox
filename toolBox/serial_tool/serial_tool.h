@@ -11,6 +11,35 @@ namespace Ui {
 class serial_tool;
 }
 
+#define BYTE0(dwTemp)       (*(char *)(&dwTemp))
+#define BYTE1(dwTemp)       (*((char *)(&dwTemp) + 1))
+#define BYTE2(dwTemp)       (*((char *)(&dwTemp) + 2))
+#define BYTE3(dwTemp)       (*((char *)(&dwTemp) + 3))
+
+#define CMD_BASE_ADDR    	0x20	        //命令基地址
+typedef enum{
+    CMD_BASE = CMD_BASE_ADDR,
+    READ_CMD,                           //读
+    WRITE_CMD,                          //写
+    ANSWER_CMD,                         //应答
+    AUTO_REPORT_CMD,                    //主动上报
+    CMD_MAX,                            //最大值
+}cmdTypedef;
+
+
+#define FUN_BASE_ADDR		0x30
+
+typedef enum{
+    FUNSION_BASE = FUN_BASE_ADDR,
+
+    MODE,
+    SPEED,			//速度
+    POS,			//位置
+    CURRENT,		//力矩
+
+    MAX_ADDR,
+}funsionType;
+
 class serial_tool : public QWidget
 {
     Q_OBJECT
@@ -29,9 +58,12 @@ public:
     QByteArray HexStringToByteArray(QString HexString);
     void timed_callback();
     void loop_send_callback();
-private slots:
-    void on_dial_valueChanged(int value);
 
+    void sendDataToBus(cmdTypedef cmd, funsionType fun, float val);       //发送数据（带有协议）
+private slots:
+    void on_dial_valueChanged(int value);   
+
+    void on_speedHorizontalSlider_valueChanged(int value);
 
 private:
     Ui::serial_tool *ui;

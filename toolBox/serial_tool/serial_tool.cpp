@@ -335,6 +335,44 @@ QByteArray serial_tool::HexStringToByteArray(QString HexString)
     return ret;
 }
 
+void serial_tool::sendDataToBus(cmdTypedef cmd, funsionType fun, float val){
+    #define BUF_LEN	50
+    char buf[BUF_LEN];
+    memset(buf,0,BUF_LEN);
+    int cnt = 0;
+    buf[cnt++] = 0xFF;
+    buf[cnt++] = 0xFF;              	//头
+
+    buf[cnt++] = 0x01;              	//ID
+    buf[cnt++] = 0x00;              	//长度
+
+    buf[cnt++] = (uint8_t)cmd;			//属性
+    buf[cnt++] = (uint8_t)fun;			//功能
+
+    QByteArray outputdata;
+
+    outputdata.resize(sizeof(val));    //重新调整QByteArray的大小
+    memcpy(outputdata.data(),&val,sizeof(val));
+    buf[cnt++] = outputdata[0];        	//数据
+    buf[cnt++] = outputdata[1];
+    buf[cnt++] = outputdata[2];
+    buf[cnt++] = outputdata[3];
+
+    buf[3] = cnt - 3;
+
+    uint8_t sum = 0;
+    for (int i = 0; i < cnt; i++)		//计算校验
+        sum += buf[i];
+
+    buf[cnt++] = sum;
+
+    serial.write(buf,cnt);
+//    QString s;
+//    s.sprintf("data 0x%X ,0x%X ,0x%X ,0x%X ,0x%X ,0x%X ,0x%X ,0x%X ,0x%X ,0x%X ,0x%X,0x%X \r\n",\
+//              buf[0],buf[1],buf[2],buf[3],buf[4],buf[5],buf[6],buf[7],buf[8],buf[9],buf[10]);
+//    qDebug()<<s;
+}
+
 
 void serial_tool::on_dial_valueChanged(int value)
 {
@@ -348,40 +386,14 @@ void serial_tool::on_dial_valueChanged(int value)
         trunNum--;
     }
     lastVal = value;
-
     encVal = (value + 360*trunNum)*(-1);
 
-    #define BUF_LEN	50
-    #define BYTE0(dwTemp)       (*(char *)(&dwTemp))
-    #define BYTE1(dwTemp)       (*((char *)(&dwTemp) + 1))
-    #define BYTE2(dwTemp)       (*((char *)(&dwTemp) + 2))
-    #define BYTE3(dwTemp)       (*((char *)(&dwTemp) + 3))
+    sendDataToBus(WRITE_CMD,POS,encVal);
 
-    char buf[BUF_LEN];
-    memset(buf,0,BUF_LEN);
-    int cnt = 0;
-    buf[cnt++] = 0xFF;
-    buf[cnt++] = 0xFF;			//头
+    ui->posLineEdit->setText(QString::number(encVal));
+}
 
-    buf[cnt++] = 0x01;			//ID
-    buf[cnt++] = 0x00;			//长度
-
-    buf[cnt++] = 0x22;			//属性
-    buf[cnt++] = 0x33;			//功能
-
-    buf[cnt++] = BYTE3(encVal);	//数据
-    buf[cnt++] = BYTE2(encVal);
-    buf[cnt++] = BYTE1(encVal);
-    buf[cnt++] = BYTE0(encVal);
-
-    buf[3] = cnt - 3;
-
-    uint8_t sum = 0;
-    for (int i = 0; i < cnt; i++)		//计算校验
-        sum += buf[i];
-
-    buf[cnt++] = sum;
-
-    serial.write(buf,cnt);
-    qDebug()<<encVal;
+void serial_tool::on_speedHorizontalSlider_valueChanged(int value)
+{
+    qDebug()<<value;
 }

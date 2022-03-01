@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1118</width>
-    <height>587</height>
+    <width>853</width>
+    <height>369</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -208,24 +208,24 @@ QLineEdit:hover {
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0" colspan="2">
-       <widget class="QDial" name="dial">
-        <property name="wrapping">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
+      <item row="2" column="0">
        <widget class="QPushButton" name="readPidButton">
         <property name="text">
          <string>读取PID</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="2" column="1">
        <widget class="QPushButton" name="writePidButton">
         <property name="text">
          <string>写入PID</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QDial" name="dial">
+        <property name="wrapping">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
