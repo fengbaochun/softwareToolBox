@@ -32,7 +32,6 @@ typedef enum{
 typedef enum{
     FUNSION_BASE = FUN_BASE_ADDR,
 
-    MODE,
     SPEED,			//速度
     POS,			//位置
     CURRENT,		//力矩
@@ -63,7 +62,9 @@ public:
     float encVal;                                                         //旋钮的值（多圈）
     int trunNum;                                                          //圈数
 private slots:
-    void on_dial_valueChanged(int value);   
+    void on_currentHorizontalSlider_valueChanged(int value);
+
+    void on_dial_valueChanged(int value);
 
     void on_speedHorizontalSlider_valueChanged(int value);
 

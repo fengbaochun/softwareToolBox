@@ -403,3 +403,8 @@ void serial_tool::on_goZeroPushButton_clicked(){
     ui->dial->setValue(0);
     ui->posLineEdit->setText(QString::number(0));
 }
+
+void serial_tool::on_currentHorizontalSlider_valueChanged(int value){
+    sendDataToBus(WRITE_CMD,CURRENT,value);
+    qDebug()<<value;
+}
