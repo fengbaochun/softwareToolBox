@@ -181,25 +181,16 @@
               <item>
                <layout class="QVBoxLayout" name="verticalLayout">
                 <item>
-                 <widget class="QLabel" name="label">
+                 <widget class="QLineEdit" name="zeroLineEdit">
                   <property name="text">
-                   <string>砝码值</string>
+                   <string>0</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTextEdit" name="calValtextEdit">
-                  <property name="minimumSize">
-                   <size>
-                    <width>80</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>80</width>
-                    <height>20</height>
-                   </size>
+                 <widget class="QLineEdit" name="calLineEdit">
+                  <property name="text">
+                   <string>1000</string>
                   </property>
                  </widget>
                 </item>
@@ -349,7 +340,7 @@
      <x>0</x>
      <y>0</y>
      <width>946</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
