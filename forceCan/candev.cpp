@@ -6,7 +6,7 @@ canDev::canDev()
     qRegisterMetaType<DWORD>("DWORD");
     nCANInd = 1;    //通道选择
     connect(this, SIGNAL(reveiced(VCI_CAN_OBJ)), this, SLOT(revDataSlot(VCI_CAN_OBJ)));
-
+    force.val = 0;
 }
 
 canDev::~canDev(){
