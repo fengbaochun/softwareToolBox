@@ -2,4 +2,7 @@
     <qresource prefix="/new/prefix1">
         <file>img/check.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>img/favicon.ico</file>
+    </qresource>
 </RCC>

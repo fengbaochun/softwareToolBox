@@ -13,6 +13,17 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>img/favicon.ico</normaloff>
+    <normalon>:/img/favicon.ico</normalon>
+    <disabledoff>:/img/favicon.ico</disabledoff>
+    <disabledon>:/img/favicon.ico</disabledon>
+    <activeoff>:/img/favicon.ico</activeoff>
+    <activeon>:/img/favicon.ico</activeon>
+    <selectedoff>:/img/favicon.ico</selectedoff>
+    <selectedon>:/img/favicon.ico</selectedon>img/favicon.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
