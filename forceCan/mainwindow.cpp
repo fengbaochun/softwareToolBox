@@ -7,8 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);
-    setFixedSize(this->width(), this->height());
+//    setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);
+//    setFixedSize(this->width(), this->height());
 
     can = new canDev();
     can->start();
@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->devId = 0xA8;
 
     wave = new MWaveView(ui->widget);
-    wave->resize(ui->widget->size());
+
 
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateData()));
@@ -30,6 +30,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::updateData(){
+    wave->resize(ui->widget->size());
     int val = can->force.val;
     ui->weightLineEdit->setText(QString::number(val,10));
 
