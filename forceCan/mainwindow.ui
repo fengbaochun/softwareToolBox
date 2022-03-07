@@ -7,57 +7,99 @@
     <x>0</x>
     <y>0</y>
     <width>946</width>
-    <height>545</height>
+    <height>564</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>img/favicon.ico</normaloff>
+    <normalon>:/img/favicon.ico</normalon>
+    <disabledoff>:/img/favicon.ico</disabledoff>
+    <disabledon>:/img/favicon.ico</disabledon>
+    <activeoff>:/img/favicon.ico</activeoff>
+    <activeon>:/img/favicon.ico</activeon>
+    <selectedoff>:/img/favicon.ico</selectedoff>
+    <selectedon>:/img/favicon.ico</selectedon>img/favicon.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_5">
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_8">
+     <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QLabel" name="label_3">
+       <widget class="QWidget" name="widget_2" native="true">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>45</height>
+         </size>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="minimumSize">
+            <size>
+             <width>40</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>设备ID</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="devComboBox">
+           <property name="minimumSize">
+            <size>
+             <width>38</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>38</width>
+             <height>20</height>
+            </size>
+           </property>
+           <item>
             <property name="text">
-             <string>设备ID</string>
+             <string>A8</string>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="devComboBox">
-            <item>
-             <property name="text">
-              <string>A8</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>B8</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>588</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
+           </item>
+           <item>
+            <property name="text">
+             <string>B8</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
       </item>
       <item>
        <widget class="QWidget" name="widget" native="true">
@@ -70,7 +112,7 @@
         <property name="maximumSize">
          <size>
           <width>1500</width>
-          <height>500</height>
+          <height>16777215</height>
          </size>
         </property>
        </widget>
@@ -92,7 +134,7 @@
        </size>
       </property>
       <property name="title">
-       <string>设置</string>
+       <string/>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_9">
        <item>
@@ -181,25 +223,16 @@
               <item>
                <layout class="QVBoxLayout" name="verticalLayout">
                 <item>
-                 <widget class="QLabel" name="label">
+                 <widget class="QLineEdit" name="zeroLineEdit">
                   <property name="text">
-                   <string>砝码值</string>
+                   <string>0</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTextEdit" name="calValtextEdit">
-                  <property name="minimumSize">
-                   <size>
-                    <width>80</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>80</width>
-                    <height>20</height>
-                   </size>
+                 <widget class="QLineEdit" name="calLineEdit">
+                  <property name="text">
+                   <string>1000</string>
                   </property>
                  </widget>
                 </item>
@@ -349,7 +382,7 @@
      <x>0</x>
      <y>0</y>
      <width>946</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>

@@ -7,8 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);
-    setFixedSize(this->width(), this->height());
+//    setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);
+//    setFixedSize(this->width(), this->height());
 
     can = new canDev();
     can->start();
@@ -17,11 +17,11 @@ MainWindow::MainWindow(QWidget *parent)
     this->devId = 0xA8;
 
     wave = new MWaveView(ui->widget);
-    wave->resize(ui->widget->size());
+
 
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateData()));
-    timer->start(50);
+    timer->start(5);
 }
 
 MainWindow::~MainWindow()
@@ -30,6 +30,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::updateData(){
+    wave->resize(ui->widget->size());
     int val = can->force.val;
     ui->weightLineEdit->setText(QString::number(val,10));
 
@@ -63,7 +64,7 @@ void MainWindow::on_peelButton_clicked(){
 }
 
 void MainWindow::on_calButton_clicked(){
-    int16_t val = ui->calValtextEdit->toPlainText().toInt();
+    int16_t val = ui->calLineEdit->text().toInt();
     if(val){
         uint8_t h = val>>8;
         uint8_t l = val&0x00FF;
@@ -77,7 +78,12 @@ void MainWindow::on_calButton_clicked(){
 }
 
 void MainWindow::on_zeroButton_clicked(){
-    uint8_t data[8]={0x42,0x52,0x00,0x00,0x00,0x00,0x00,0x00};
+    int16_t val = ui->zeroLineEdit->text().toInt();
+
+    uint8_t h = val>>8;
+    uint8_t l = val&0x00FF;
+
+    uint8_t data[8]={0x42,0x52,h,l,0x00,0x00,0x00,0x00};
     can->sendData(devId,8,data);
     appindLog("标零");
 }

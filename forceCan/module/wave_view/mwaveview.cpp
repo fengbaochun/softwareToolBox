@@ -180,16 +180,16 @@ void MWaveView::setRangeY(int rangeY)
 void MWaveView::updateRange()
 {
     double maxX,minX;
-    double maxY,minY;
+//    double maxY,minY;
 
     maxX = m_wave.last_point_x > m_wave.rangeX? m_wave.last_point_x:m_wave.rangeX;
     minX = maxX - m_wave.rangeX >0 ? maxX - m_wave.rangeX: 0;
 
-    maxY = m_event.moveY + m_wave.rangeY*0.5;
-    minY = m_event.moveY - m_wave.rangeY*0.5;
+//    maxY = m_event.moveY + m_wave.rangeY*0.5;
+//    minY = m_event.moveY - m_wave.rangeY*0.5;
 
     this->m_wave.axisX->setRange(minX, maxX);
-    this->m_wave.axisY->setRange(minY, maxY);
+//    this->m_wave.axisY->setRange(minY, maxY);
 }
 // 设置放大倍数
 void MWaveView::setZoomX(double multiple)

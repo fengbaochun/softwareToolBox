@@ -37,3 +37,10 @@ win32: LIBS += -L$$PWD/./ -lControlCAN
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    pic.qrc
+
+OTHER_FILES += myapp.rc
+
+RC_FILE += myapp.rc
