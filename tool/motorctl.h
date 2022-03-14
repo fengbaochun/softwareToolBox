@@ -5,6 +5,7 @@
 #include <QThread>
 #include <qdatetime.h>
 #include <QObject>
+#include <QTimer>
 
 #define CMD_BASE_ADDR    	0x20	        //命令基地址
 typedef enum{
