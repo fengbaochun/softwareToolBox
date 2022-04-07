@@ -1,0 +1,31 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>img/debug.png</file>
+        <file>img/menu.png</file>
+        <file>img/serial.png</file>
+        <file>img/update.png</file>
+        <file>img/logo.ico</file>
+        <file>img/msg.png</file>
+        <file>img/config.png</file>
+        <file>img/logo.png</file>
+        <file>img/blue.png</file>
+        <file>img/red.png</file>
+        <file>img/green.png</file>
+        <file>img/com_close.png</file>
+        <file>img/gprs.png</file>
+        <file>img/log.png</file>
+        <file>img/net.png</file>
+        <file>img/open.png</file>
+        <file>img/save.png</file>
+        <file>img/serialport.png</file>
+        <file>img/start.png</file>
+        <file>img/MQTT.png</file>
+        <file>img/check.png</file>
+        <file>img/calc.png</file>
+        <file>img/ascii.png</file>
+        <file>img/ascii-table.jpg</file>
+        <file>img/about.png</file>
+        <file>img/help.png</file>
+        <file>img/updatess.png</file>
+    </qresource>
+</RCC>
