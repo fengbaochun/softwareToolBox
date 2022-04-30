@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>946</width>
-    <height>564</height>
+    <width>1033</width>
+    <height>625</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1033</width>
+    <height>625</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -111,7 +117,7 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>1500</width>
+          <width>16777215</width>
           <height>16777215</height>
          </size>
         </property>
@@ -173,7 +179,7 @@
               </property>
               <property name="font">
                <font>
-                <pointsize>50</pointsize>
+                <pointsize>35</pointsize>
                </font>
               </property>
               <property name="text">
@@ -185,7 +191,7 @@
              <widget class="QLabel" name="label_4">
               <property name="font">
                <font>
-                <pointsize>45</pointsize>
+                <pointsize>35</pointsize>
                </font>
               </property>
               <property name="text">
@@ -381,8 +387,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>946</width>
-     <height>23</height>
+     <width>1033</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
