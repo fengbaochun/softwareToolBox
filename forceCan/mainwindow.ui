@@ -63,32 +63,6 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="devComboBox">
-           <property name="minimumSize">
-            <size>
-             <width>38</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>38</width>
-             <height>20</height>
-            </size>
-           </property>
-           <item>
-            <property name="text">
-             <string>A8</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>B8</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item>
           <widget class="QLineEdit" name="idlineEdit">
            <property name="maximumSize">
             <size>
@@ -414,7 +388,7 @@
      <x>0</x>
      <y>0</y>
      <width>1033</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
