@@ -16,6 +16,7 @@ typedef enum{
 }cmdType;
 
 typedef struct{
+    uint8_t id;
     uint16_t idVal;         //获取ID应答
     bool isCalZero;         //标零应答
     bool isCalVal;          //标值应答
@@ -42,6 +43,7 @@ public:
 
     void rest();
     void close();
+    void setId(uint8_t val);
 
     VCI_INIT_CONFIG paramConfig();
     void sendData(uint8_t id,int len,uint8_t *data);

@@ -34,12 +34,16 @@ private slots:
 
     void on_devComboBox_currentIndexChanged(int index);
 
+    void on_pushButton_clicked(bool checked);
+
+    void on_idlineEdit_editingFinished();
+
 private:
     Ui::MainWindow *ui;
     MWaveView *wave;
     QList<QPointF> wave_data[16];
     canDev *can;
-    QList<uint8_t> devList;
+//    QList<uint8_t> devList;
     uint8_t devId;
 //    QTimer*  mvGetTimer;
 };

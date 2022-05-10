@@ -47,7 +47,7 @@
           <widget class="QLabel" name="label_3">
            <property name="minimumSize">
             <size>
-             <width>40</width>
+             <width>60</width>
              <height>25</height>
             </size>
            </property>
@@ -86,6 +86,32 @@
              <string>B8</string>
             </property>
            </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="idlineEdit">
+           <property name="maximumSize">
+            <size>
+             <width>60</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>打开</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -388,7 +414,7 @@
      <x>0</x>
      <y>0</y>
      <width>1033</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

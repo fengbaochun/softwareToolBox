@@ -94,7 +94,7 @@ void canDev::revDataSlot(VCI_CAN_OBJ buf)
 //    qDebug()<<"len   :"<<buf.DataLen;
 //    qDebug()<<"data  :"<<tempBuf;
 //    qDebug()<<"------------------------------------------";
-
+    if(buf.ID != force.id)  return;     //软件滤波器（暂时逻辑控制）
     memcpy(force.buf[buf.Data[0]],buf.Data,8);                                      //copy到对应属性的buf中
     force.val = force.buf[AUTO_REPORT_CMD][2]<<8 | force.buf[AUTO_REPORT_CMD][3];   //合成压力
 //    qDebug()<< force.val;
@@ -104,7 +104,7 @@ void canDev::run()
 {
     int frameNum = 0;
     VCI_CAN_OBJ buf;
-    open();
+//    open();
     while (true)
     {
         frameNum = VCI_GetReceiveNum(VCI_USBCAN2,0,nCANInd);
@@ -125,6 +125,10 @@ void canDev::rest(){
 
 void canDev::close(){
     VCI_CloseDevice(VCI_USBCAN2, 0);
+}
+
+void canDev::setId(uint8_t val){
+    force.id = val;
 }
 
 

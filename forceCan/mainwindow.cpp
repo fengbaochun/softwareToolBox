@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     can = new canDev();
     can->start();
 
-    devList << 0xA8<<0xB8;
+//    devList << 0xA8<<0xB8;
     this->devId = 0xA8;
 
     wave = new MWaveView(ui->widget);
@@ -59,6 +59,7 @@ void MainWindow::appindLog(QString temp){
 
 void MainWindow::on_peelButton_clicked(){
     uint8_t data[8]={0x42,0x54,0x00,0x00,0x00,0x00,0x00,0x00};
+
     can->sendData(devId,8,data);
     appindLog("去皮");
 }
@@ -102,6 +103,35 @@ void MainWindow::on_savePushButton_clicked(){
 
 void MainWindow::on_devComboBox_currentIndexChanged(int index)
 {
-    this->devId = devList[index];
-    qDebug()<< devList[index]<<" \r\n";
+//    this->devId = devList[index];
+//    qDebug()<< devList[index]<<" \r\n";
 }
+
+void MainWindow::on_pushButton_clicked(bool checked)
+{
+    qDebug()<< checked <<" \r\n";
+
+    if(checked){
+        ui->pushButton->setText("关闭");
+        appindLog("打开连接");
+        can->open();
+    }else{
+        ui->pushButton->setText("打开");
+        appindLog("关闭连接");
+        can->close();
+    }
+    ui->pushButton->setCheckable(!checked);
+}
+
+
+void MainWindow::on_idlineEdit_editingFinished()
+{
+    uint8_t val = 0x00;
+    bool ok;
+    val = ui->idlineEdit->text().toInt(&ok,16);
+    can->setId(val);        //设置ID
+    devId = val;
+    QString str = "设置 id = " + ui->idlineEdit->text().toUpper();
+    appindLog(str);
+}
+
