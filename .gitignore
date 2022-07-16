@@ -1,0 +1,18 @@
+
+*.pyc
+*.toc
+*.pkg
+*.zip
+*.user
+*.spec
+*.o
+serial com/build-serialTool-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/Makefile
+*.cugrlf
+*.pyz
+*.mp4
+*.manifest
+*.Release
+*.Debug
+*.stash
+*.html
+*.txt
