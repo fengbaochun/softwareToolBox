@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     cam->saveImg();
 
     cam->start();
+    qDebug()<< "main" << QThread::currentThreadId();
 }
 
 MainWindow::~MainWindow()

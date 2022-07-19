@@ -14,12 +14,14 @@ SOURCES += \
     camera/usbcam.cpp \
     main.cpp \
     mainwindow.cpp \
+    visualAlg/stereoMatch.cpp
 
 HEADERS += \
     camera/camera.h \
     camera/flircam.h \
     camera/usbcam.h \
     mainwindow.h \
+    visualAlg/stereoMatch.h
 
 FORMS += \
     mainwindow.ui
