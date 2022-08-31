@@ -2,6 +2,7 @@
 #define STEREOMATCH_H
 
 #include <QObject>
+#include <QDebug>
 
 class stereoMatch : public QObject
 {
@@ -9,12 +10,8 @@ class stereoMatch : public QObject
 public:
     explicit stereoMatch(QObject *parent = nullptr);
 
-signals:
-
 public slots:
-    void loadImg(QString);              //加载参数
-//    void
-
+    void loadImg(QString s);              //加载参数
 
 };
 
