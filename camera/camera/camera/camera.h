@@ -6,6 +6,9 @@
 #include <QThread>
 #include <QTimer>
 
+#include <opencv2/opencv.hpp>
+using namespace cv;
+
 class camera : public QThread
 {
     Q_OBJECT
@@ -21,10 +24,12 @@ public:
 
     virtual bool open(int id) = 0;                      //打开摄像头
     virtual void close(int id) = 0;                     //关闭摄像头
-    virtual bool getImg() = 0;                           //获取图像
+    virtual bool getImg(Mat &img) = 0;                           //获取图像
     virtual void saveImg() = 0;                         //保存图像
 
     void setFps(float fps = 20);                        //设置帧率
+
+    Mat getImgData();
 
 private:
     QTimer *tim;                                        //定时器

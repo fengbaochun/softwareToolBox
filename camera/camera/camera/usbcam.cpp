@@ -35,13 +35,19 @@ void usbcam::close(int id)
     qDebug()<<"usb cam close"<<id;
 }
 
-bool usbcam::getImg()
+bool usbcam::getImg(Mat &img)
 {
     qDebug()<<"usb cam getImg";
 }
 
+
 void usbcam::saveImg()
 {
     qDebug()<<"usb cam saveImg";
+}
+
+Mat usbcam::getImgData()
+{
+
 }
 

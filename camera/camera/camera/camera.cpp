@@ -35,7 +35,7 @@ bool camera::open(int id){
 }
 
 //获取图像
-bool camera::getImg(){
+bool camera::getImg(Mat &img){
 
 }
 
@@ -50,7 +50,9 @@ void camera::setFps(float fps){
 //定时器图像更新
 void camera::imgUpdateCallBack()
 {
-    getImg();
+    Mat img;
+    bool ret = getImg(img);
+    qDebug()<<"camera "<<" get img"<< ((ret)? " succeed!!!": " failed!!!");
 }
 
 

@@ -34,7 +34,7 @@ void flircam::close(int id)
     qDebug()<<"flircam close"<<id;
 }
 
-bool flircam::getImg()
+bool flircam::getImg(Mat &img)
 {
     qDebug()<<"flircam getImg";
 }

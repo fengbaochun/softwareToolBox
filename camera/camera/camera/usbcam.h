@@ -12,8 +12,6 @@
 #include <QSemaphore>
 #include <QImage>
 
-using namespace cv;
-
 class usbcam : public camera
 {
 public:
@@ -24,9 +22,10 @@ public:
 
     bool open(int id);                      //打开摄像头
     void close(int id);                     //关闭摄像头
-    bool getImg();                           //获取图像
+    bool getImg(Mat &img);                  //获取图像
     void saveImg();                         //保存图像
 
+    Mat getImgData();
 private:
     static usbcam* INSTANCE;
     VideoCapture cam;
