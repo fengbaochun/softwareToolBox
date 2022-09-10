@@ -13,7 +13,7 @@ public:
 
     bool open(int id);                      //打开摄像头
     void close(int id);                     //关闭摄像头
-    void getImg(int id);                    //获取图像
+    bool getImg();                           //获取图像
     void saveImg();                         //保存图像
 
 private:

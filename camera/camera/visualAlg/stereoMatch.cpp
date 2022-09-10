@@ -13,3 +13,8 @@ void stereoMatch::loadImg(QString s)
 {
     qDebug()<<QThread::currentThreadId()<<s ;
 }
+
+void stereoMatch::camClicked()
+{
+    qDebug()<<QThread::currentThreadId()<<" + -- - - !!! 123456789";
+}

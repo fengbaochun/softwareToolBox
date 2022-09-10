@@ -5,7 +5,6 @@ usbcam* usbcam::INSTANCE = nullptr;         //实例指针
 usbcam::usbcam(QObject *parent)
     : camera{parent}
 {
-
 }
 
 usbcam::~usbcam()
@@ -22,12 +21,12 @@ usbcam *usbcam::instance()
     return INSTANCE;
 }
 
+//打开摄像头
 bool usbcam::open(int id)
 {
-    Q_UNUSED(id);
-    qDebug()<<"usb cam open"<<id;
-
-    return true;
+    cam = VideoCapture(id);
+    qDebug()<<"camera "<< id << " open"<< ((cam.isOpened())? " succeed!!!": " failed!!!");
+    return cam.isOpened();
 }
 
 void usbcam::close(int id)
@@ -36,13 +35,13 @@ void usbcam::close(int id)
     qDebug()<<"usb cam close"<<id;
 }
 
-void usbcam::getImg(int id)
+bool usbcam::getImg()
 {
-    Q_UNUSED(id);
-    qDebug()<<"usb cam getImg"<<id;
+    qDebug()<<"usb cam getImg";
 }
 
 void usbcam::saveImg()
 {
     qDebug()<<"usb cam saveImg";
 }
+

@@ -26,6 +26,11 @@ HEADERS += \
 FORMS += \
     mainwindow.ui
 
+# opencv 中的include文件夹
+INCLUDEPATH+=   D:\opencv4.5.3\qt_new_build\install\include
+##opencv 编译后的文件夹中的lib文件夹
+LIBS += D:\opencv4.5.3\qt_new_build\install\x64\mingw\lib\libopencv_*.dll.a
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

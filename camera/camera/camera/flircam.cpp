@@ -34,10 +34,9 @@ void flircam::close(int id)
     qDebug()<<"flircam close"<<id;
 }
 
-void flircam::getImg(int id)
+bool flircam::getImg()
 {
-    Q_UNUSED(id);
-    qDebug()<<"flircam getImg"<<id;
+    qDebug()<<"flircam getImg";
 }
 
 void flircam::saveImg()

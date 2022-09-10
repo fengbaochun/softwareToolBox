@@ -12,18 +12,19 @@ MainWindow::MainWindow(QWidget *parent)
 
     qDebug()<<QThread::currentThreadId()<<"this is test demo!!!";
 
-    stereoMatch* stere = new stereoMatch();                                     //创建一个对象
-    QThread *alg = new QThread();                                               //创建一个线程
-    stere->moveToThread(alg);                                                   //把这个对象移到线程里面 使用
-    connect(this, SIGNAL(sendString(QString)), stere, SLOT(loadImg(QString)));
-    alg->start();                                                               //开启线程
+//    stereoMatch* stere = new stereoMatch();                                     //创建一个对象
+//    QThread *alg = new QThread();                                               //创建一个线程
+//    stere->moveToThread(alg);                                                   //把这个对象移到线程里面 使用
+//    connect(this, SIGNAL(sendString(QString)), stere, SLOT(loadImg(QString)));
+////    connect(ui->pushButton, SIGNAL(clicked()), stere, SLOT(camClicked()));
+//    alg->start();                                                               //开启线程
 
 
-////    camera::camType type = camera::USB_CAM;     //USB摄像头
+    camera::camType type = camera::USB_CAM;     //USB摄像头
 //    camera::camType type = camera::FLIR_CAM;     //USB摄像头
-//    camera* cam = camera::create(type);
+    camera* cam = camera::create(type);
 
-//    cam->open(1);
+    cam->open(0);
 //    cam->close(2);
 //    cam->getImg(3);
 //    cam->saveImg();

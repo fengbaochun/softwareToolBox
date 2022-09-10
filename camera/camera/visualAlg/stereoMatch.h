@@ -12,6 +12,7 @@ public:
 
 public slots:
     void loadImg(QString s);              //加载参数
+    void camClicked();
 
 };
 

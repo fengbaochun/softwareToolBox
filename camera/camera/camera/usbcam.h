@@ -2,6 +2,17 @@
 #define USBCAM_H
 
 #include "camera.h"
+#include <QObject>
+#include <QThread>
+#include <opencv2/opencv.hpp>
+#include <QString>
+#include <QDateTime>
+#include <QQueue>
+#include <QMap>
+#include <QSemaphore>
+#include <QImage>
+
+using namespace cv;
 
 class usbcam : public camera
 {
@@ -13,12 +24,12 @@ public:
 
     bool open(int id);                      //打开摄像头
     void close(int id);                     //关闭摄像头
-    void getImg(int id);                    //获取图像
+    bool getImg();                           //获取图像
     void saveImg();                         //保存图像
 
 private:
     static usbcam* INSTANCE;
-
+    VideoCapture cam;
 
 };
 
