@@ -28,15 +28,16 @@ bool flircam::open(int id)
     return true;
 }
 
-void flircam::close(int id)
+void flircam::close()
 {
-    Q_UNUSED(id);
-    qDebug()<<"flircam close"<<id;
+    qDebug()<<"flircam close";
 }
 
 bool flircam::getImg(Mat &img)
 {
+    Q_UNUSED(img);
     qDebug()<<"flircam getImg";
+    return false;
 }
 
 void flircam::saveImg()

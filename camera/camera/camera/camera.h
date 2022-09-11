@@ -5,6 +5,11 @@
 #include <QDebug>
 #include <QThread>
 #include <QTimer>
+#include <QString>
+#include <QDateTime>
+#include <QQueue>
+#include <QMap>
+#include <QImage>
 
 #include <opencv2/opencv.hpp>
 using namespace cv;
@@ -23,21 +28,26 @@ public:
     virtual ~camera();                                  //析构函数（有啥好处？）
 
     virtual bool open(int id) = 0;                      //打开摄像头
-    virtual void close(int id) = 0;                     //关闭摄像头
-    virtual bool getImg(Mat &img) = 0;                           //获取图像
+    virtual void close() = 0;                           //关闭摄像头
+    virtual bool getImg(Mat &img) = 0;                  //获取图像
     virtual void saveImg() = 0;                         //保存图像
 
-    void setFps(float fps = 20);                        //设置帧率
+    void setFps(float fps);                             //设置帧率
+    void start(int id, float fps = 20.0f);              //启动
+    void stop();                                        //停止
 
-    Mat getImgData();
+    QQueue <cv::Mat> imgQue;                            //图像队列
 
 private:
     QTimer *tim;                                        //定时器
+    QImage mat2QImage(Mat cvImg, int format);           //图像格式化
+
+signals:
+    void sendImg(QImage);                               //发送图片
 
 private slots:
     void imgUpdateCallBack();                           //图像更新回调
 
-signals:
 
 };
 

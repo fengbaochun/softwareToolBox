@@ -29,15 +29,18 @@ bool usbcam::open(int id)
     return cam.isOpened();
 }
 
-void usbcam::close(int id)
+//关闭相机
+void usbcam::close()
 {
-    Q_UNUSED(id);
-    qDebug()<<"usb cam close"<<id;
+    cam.release();
+    qDebug()<<"usb cam close";
 }
 
+//获取图像
 bool usbcam::getImg(Mat &img)
 {
-    qDebug()<<"usb cam getImg";
+    if(cam.isOpened())cam >> img;
+    return (!img.empty())? true:false;
 }
 
 

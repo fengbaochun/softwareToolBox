@@ -20,25 +20,13 @@ camera::camera(QObject *parent)
     Q_UNUSED(parent);
     tim = new QTimer();
     connect(tim,SIGNAL(timeout()),this,SLOT(imgUpdateCallBack()));
-    setFps(1.0f);
-    tim->start();
 }
 
 //析构函数
 camera::~camera()
 {
-    tim->stop();
+    stop();
 }
-
-//打开摄像头
-bool camera::open(int id){
-}
-
-//获取图像
-bool camera::getImg(Mat &img){
-
-}
-
 
 //设置图像采集帧率
 void camera::setFps(float fps){
@@ -46,13 +34,57 @@ void camera::setFps(float fps){
     tim->setInterval(time);
 }
 
+//启动相机
+void camera::start(int id, float fps)
+{
+    open(id);
+    setFps(fps);
+    tim->start();
+}
+
+//停止相机
+void camera::stop()
+{
+    tim->stop();
+    this->close();
+    imgQue.clear();
+}
+
+QImage camera::mat2QImage(Mat cvImg, int format)
+{
+    Mat cvRgbImg;
+    if (format == 1)//RGB
+    {
+        cvtColor(cvImg, cvRgbImg, COLOR_BGRA2RGB);
+        QImage dstImage((const uchar *)cvRgbImg.data, cvRgbImg.cols, cvRgbImg.rows, cvRgbImg.step, QImage::Format_RGB888);
+        dstImage.bits();
+        return dstImage;
+    }
+    else//二值化
+    {
+        cvRgbImg=cvImg;
+        QImage dstImage((const uchar *)cvRgbImg.data, cvRgbImg.cols, cvRgbImg.rows, cvRgbImg.step, QImage::Format_Grayscale8);
+        dstImage.bits();
+        return dstImage;
+    }
+}
+
 
 //定时器图像更新
 void camera::imgUpdateCallBack()
 {
+    if(imgQue.size() > 0){
+        emit sendImg(mat2QImage(imgQue.dequeue(), 1));              //图像输出
+    }
+
     Mat img;
-    bool ret = getImg(img);
-    qDebug()<<"camera "<<" get img"<< ((ret)? " succeed!!!": " failed!!!");
+    bool ret = getImg(img);                                         //图像采集
+    if(ret){
+        imgQue.append(img);
+        qDebug()<<"img size info : "<< img.size <<imgQue.size()<<QThread::currentThreadId();
+    }else{
+        qDebug()<<"camera "<<"get img "<< ((ret)? "succeed!!!": " failed!!!");
+    }
 }
 
 

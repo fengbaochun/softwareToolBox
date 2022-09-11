@@ -14,6 +14,7 @@ SOURCES += \
     camera/usbcam.cpp \
     main.cpp \
     mainwindow.cpp \
+    page/camPage.cpp \
     visualAlg/stereoMatch.cpp
 
 HEADERS += \
@@ -21,10 +22,12 @@ HEADERS += \
     camera/flircam.h \
     camera/usbcam.h \
     mainwindow.h \
+    page/camPage.h \
     visualAlg/stereoMatch.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    page/camPage.ui
 
 # opencv 中的include文件夹
 INCLUDEPATH+=   D:\opencv4.5.3\qt_new_build\install\include

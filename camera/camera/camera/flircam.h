@@ -12,7 +12,7 @@ public:
     static flircam* instance();
 
     bool open(int id);                      //打开摄像头
-    void close(int id);                     //关闭摄像头
+    void close();                           //关闭摄像头
     bool getImg(Mat &img);                  //获取图像
     void saveImg();                         //保存图像
 

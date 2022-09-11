@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "camera/camera.h"
+#include "page/camPage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,11 +17,13 @@ public:
     ~MainWindow();
 private:
     Ui::MainWindow *ui;
+    camPage *camUi;
 
 signals:
     void sendString(QString s);
 
 private slots:
+
     void on_pushButton_clicked();
 };
 #endif // MAINWINDOW_H
