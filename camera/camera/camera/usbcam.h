@@ -24,8 +24,6 @@ public:
     void close();                           //关闭摄像头
     bool getImg(Mat &img);                  //获取图像
     void saveImg();                         //保存图像
-
-    Mat getImgData();
 private:
     static usbcam* INSTANCE;
     VideoCapture cam;

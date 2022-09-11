@@ -20,9 +20,4 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
-//    emit sendString("123456789\r\n");                   //发射信号响应 线程中对应的槽函数
-}
-
 

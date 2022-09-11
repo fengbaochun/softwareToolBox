@@ -39,7 +39,7 @@ public:
     QQueue <cv::Mat> imgQue;                            //图像队列
 
 private:
-    QTimer *tim;                                        //定时器
+    QTimer *tim = nullptr;                              //定时器
     QImage mat2QImage(Mat cvImg, int format);           //图像格式化
 
 signals:

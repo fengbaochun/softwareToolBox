@@ -49,8 +49,5 @@ void usbcam::saveImg()
     qDebug()<<"usb cam saveImg";
 }
 
-Mat usbcam::getImgData()
-{
 
-}
 

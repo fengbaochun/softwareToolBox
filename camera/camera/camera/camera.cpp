@@ -18,8 +18,7 @@ camera::camera(QObject *parent)
     : QThread()
 {
     Q_UNUSED(parent);
-    tim = new QTimer();
-    connect(tim,SIGNAL(timeout()),this,SLOT(imgUpdateCallBack()));
+
 }
 
 //析构函数
@@ -31,15 +30,23 @@ camera::~camera()
 //设置图像采集帧率
 void camera::setFps(float fps){
     uint32_t time = 1000.0/fps;
-    tim->setInterval(time);
+    if(tim != nullptr){
+        tim->setInterval(time);
+    }
 }
 
 //启动相机
 void camera::start(int id, float fps)
 {
+    if(tim == nullptr){
+        tim = new QTimer();
+        connect(tim,SIGNAL(timeout()),this,SLOT(imgUpdateCallBack()));
+    }
+
     open(id);
     setFps(fps);
     tim->start();
+    qDebug()<<"start thread id : "<<QThread::currentThreadId();
 }
 
 //停止相机
@@ -48,6 +55,7 @@ void camera::stop()
     tim->stop();
     this->close();
     imgQue.clear();
+    qDebug()<<"stop thread id : "<<QThread::currentThreadId();
 }
 
 QImage camera::mat2QImage(Mat cvImg, int format)
