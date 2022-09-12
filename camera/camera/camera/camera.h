@@ -9,12 +9,14 @@
 #include <QDateTime>
 #include <QQueue>
 #include <QMap>
+#include <QList>
 #include <QImage>
 
 #include <opencv2/opencv.hpp>
 #include <QMutex>
 
 using namespace cv;
+typedef QList<QString> camIdList;
 
 class camera : public QThread
 {
@@ -33,6 +35,7 @@ public:
     virtual bool open(int id) = 0;                      //打开摄像头
     virtual void close() = 0;                           //关闭摄像头
     virtual bool getImg(Mat &img) = 0;                  //获取图像
+    virtual camIdList scanPort() = 0;                   //扫描端口
 
     void start(int id, float fps = 20.0f);              //启动
     void stop();                                        //停止

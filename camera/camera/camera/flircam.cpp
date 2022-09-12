@@ -41,3 +41,7 @@ bool flircam::getImg(Mat &img)
     return false;
 }
 
+camIdList flircam::scanPort()
+{
+}
+

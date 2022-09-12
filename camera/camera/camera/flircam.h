@@ -14,6 +14,7 @@ public:
     bool open(int id);                      //打开摄像头
     void close();                           //关闭摄像头
     bool getImg(Mat &img);                  //获取图像
+    camIdList scanPort();                   //扫描端口
 
 private:
     static flircam* INSTANCE;

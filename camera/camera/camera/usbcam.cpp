@@ -45,4 +45,18 @@ bool usbcam::getImg(Mat &img)
     return (!img.empty())? true:false;
 }
 
+//扫描端口
+camIdList usbcam::scanPort()
+{
+    camIdList list;
+    for(int i = 0;i < 10; i++){
+        if(this->open(i)){                          //尝试打开
+            list.append(QString::number(i,10));     //添加可以打开的相机到list
+            this->close();                          //关闭相机
+            msleep(1);
+        }
+    }
+    return list;
+}
+
 

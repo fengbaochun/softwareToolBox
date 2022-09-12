@@ -55,12 +55,12 @@ void camPage::on_openBut_toggled(bool checked)
     ui->openBut->setText(name);
     if(checked){
         QMetaObject::invokeMethod(cam[0], [this]{
-            cam[0]->start(0);                   //打开摄像头
+            cam[0]->start(this->port[0]);                   //打开摄像头
             qDebug()<<"cam->start(0) thread id : "<<QThread::currentThreadId();
         });
 
         QMetaObject::invokeMethod(cam[1], [this]{
-            cam[1]->start(1);                   //打开摄像头
+            cam[1]->start(this->port[1]);                   //打开摄像头
             qDebug()<<"cam->start(1) thread id : "<<QThread::currentThreadId();
         });
 
@@ -100,5 +100,35 @@ void camPage::on_getBut_clicked()
     QMetaObject::invokeMethod(cam[1], [=]{ cam[1]->saveImg(".\\", curImg[1], "-R");        //保存图像
         qDebug()<<"cam 1 ->saveImg: "<<QThread::currentThreadId();
     });
+}
+
+//端口扫描
+void camPage::on_scanBut_clicked()
+{
+    QMetaObject::invokeMethod(cam[0], [=]{ camIdList list = cam[0]->scanPort();                  //扫描端口
+        ui->camComboBox->clear();
+        qDebug()<<"cam Port list : "<<list;
+        if(!list.isEmpty()) {
+            ui->camComboBox->addItems(list);
+            ui->camLComboBox->addItems(list);
+            ui->camRComboBox->addItems(list);       //list 同步
+        }
+        qDebug()<<"cam 0 ->scanPort: "<<QThread::currentThreadId();
+    });
+}
+
+
+//相机端口选择
+void camPage::on_camLComboBox_activated(int index)
+{
+    this->port[0] = index;
+    qDebug()<<"camLComboBox_ "<<index;
+}
+
+
+void camPage::on_camRComboBox_activated(int index)
+{
+    this->port[1] = index;
+    qDebug()<<"camRComboBox_ "<<index;
 }
 
