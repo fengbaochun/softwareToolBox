@@ -12,6 +12,8 @@
 #include <QImage>
 
 #include <opencv2/opencv.hpp>
+#include <QMutex>
+
 using namespace cv;
 
 class camera : public QThread

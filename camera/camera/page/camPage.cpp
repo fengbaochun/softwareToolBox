@@ -37,7 +37,7 @@ void camPage::imgShowCallback(int id, QImage img)
     Q_UNUSED(id);
     ui->imgLabel->setScaledContents(true);              //图片自适应空间大小
     ui->imgLabel->setPixmap(QPixmap::fromImage(img));
-    this->curImg[id] = img;
+    this->curImg[0] = img;
 }
 
 void camPage::imgShowCallback2(int id, QImage img)
@@ -45,7 +45,7 @@ void camPage::imgShowCallback2(int id, QImage img)
     Q_UNUSED(id);
     ui->imgLabel_2->setScaledContents(true);              //图片自适应空间大小
     ui->imgLabel_2->setPixmap(QPixmap::fromImage(img));
-    this->curImg[id] = img;
+    this->curImg[1] = img;
 }
 
 //打开相机
@@ -55,24 +55,24 @@ void camPage::on_openBut_toggled(bool checked)
     ui->openBut->setText(name);
     if(checked){
         QMetaObject::invokeMethod(cam[0], [this]{
-                                            cam[0]->start(0);                   //打开摄像头
-                                            qDebug()<<"cam->start(0) thread id : "<<QThread::currentThreadId();
+            cam[0]->start(0);                   //打开摄像头
+            qDebug()<<"cam->start(0) thread id : "<<QThread::currentThreadId();
         });
 
         QMetaObject::invokeMethod(cam[1], [this]{
-                                            cam[1]->start(1);                   //打开摄像头
-                                            qDebug()<<"cam->start(1) thread id : "<<QThread::currentThreadId();
+            cam[1]->start(1);                   //打开摄像头
+            qDebug()<<"cam->start(1) thread id : "<<QThread::currentThreadId();
         });
 
     }else{
         QMetaObject::invokeMethod(cam[0], [this]{
-                                            cam[0]->stop();                     //关闭摄像头
-                                            qDebug()<<"cam->stop(0) thread id : "<<QThread::currentThreadId();
+            cam[0]->stop();                     //关闭摄像头
+            qDebug()<<"cam->stop(0) thread id : "<<QThread::currentThreadId();
         });
 
         QMetaObject::invokeMethod(cam[1], [this]{
-                                            cam[1]->stop();                     //关闭摄像头
-                                            qDebug()<<"cam->stop(1) thread id : "<<QThread::currentThreadId();
+            cam[1]->stop();                     //关闭摄像头
+            qDebug()<<"cam->stop(1) thread id : "<<QThread::currentThreadId();
         });
 
         ui->imgLabel->clear();

@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     qDebug()<<"MainWindow thread id : "<<QThread::currentThreadId();
     this->camUi = new camPage();
     ui->tabWidget->insertTab(0, camUi, "相机调试");
+    ui->tabWidget->setCurrentIndex(0);
 }
 
 
