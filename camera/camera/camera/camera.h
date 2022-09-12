@@ -21,6 +21,7 @@ public:
     enum camType{               //摄像头类型
         USB_CAM,                //USB摄像头
         FLIR_CAM,               //FLIR摄像头
+        HK_CAM,                 //海康摄像头
     };
 
     static camera* create(camType type);
@@ -39,11 +40,12 @@ public:
     QQueue <cv::Mat> imgQue;                            //图像队列
 
 private:
+    int id;                                             //相机ID
     QTimer *tim = nullptr;                              //定时器
     QImage mat2QImage(Mat cvImg, int format);           //图像格式化
 
 signals:
-    void sendImg(QImage);                               //发送图片
+    void sendImg(int, QImage);                          //发送图片
 
 private slots:
     void imgUpdateCallBack();                           //图像更新回调

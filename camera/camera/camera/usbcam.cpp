@@ -15,11 +15,21 @@ usbcam::~usbcam()
 //创建USB摄像头实例
 usbcam *usbcam::instance()
 {
-    if(INSTANCE == nullptr){
-        INSTANCE = new usbcam();
-    }
-    return INSTANCE;
+//    if(INSTANCE == nullptr){          //单例模式
+//        INSTANCE = new usbcam();
+//    }
+//    return INSTANCE;
+
+    return new usbcam();
 }
+
+//usbcam *usbcam::instance()
+//{
+//    if(INSTANCE == nullptr){
+//        INSTANCE = new usbcam();
+//    }
+//    return INSTANCE;
+//}
 
 //打开摄像头
 bool usbcam::open(int id)

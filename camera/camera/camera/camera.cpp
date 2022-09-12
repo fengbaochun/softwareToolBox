@@ -41,8 +41,9 @@ void camera::start(int id, float fps)
     if(tim == nullptr){
         tim = new QTimer();
         connect(tim,SIGNAL(timeout()),this,SLOT(imgUpdateCallBack()));
+        qDebug()<<id<<"time start--------";
     }
-
+    this->id = id;
     open(id);
     setFps(fps);
     tim->start();
@@ -82,7 +83,7 @@ QImage camera::mat2QImage(Mat cvImg, int format)
 void camera::imgUpdateCallBack()
 {
     if(imgQue.size() > 0){
-        emit sendImg(mat2QImage(imgQue.dequeue(), 1));              //图像输出
+        emit sendImg(this->id, mat2QImage(imgQue.dequeue(), 1));    //图像输出
     }
 
     Mat img;
@@ -91,7 +92,7 @@ void camera::imgUpdateCallBack()
         imgQue.append(img);
         qDebug()<<"img size info : "<< img.size <<imgQue.size()<<QThread::currentThreadId();
     }else{
-        qDebug()<<"camera "<<"get img "<< ((ret)? "succeed!!!": " failed!!!");
+//        qDebug()<<"camera "<<"get img "<< ((ret)? "succeed!!!": " failed!!!");
     }
 }
 

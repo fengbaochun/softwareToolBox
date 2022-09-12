@@ -15,10 +15,11 @@ flircam::~flircam()
 
 flircam *flircam::instance()
 {
-    if(INSTANCE == nullptr){
-        INSTANCE = new flircam();
-    }
-    return INSTANCE;
+//    if(INSTANCE == nullptr){                  //单例
+//        INSTANCE = new flircam();
+//    }
+//    return INSTANCE;
+    return new flircam();
 }
 
 bool flircam::open(int id)
