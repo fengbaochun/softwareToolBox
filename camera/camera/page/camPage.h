@@ -18,12 +18,15 @@ public:
     ~camPage();
     #define CAM_NUM 2
     camera* cam[CAM_NUM];
+    QImage curImg[CAM_NUM];
 
 private slots:
     void imgShowCallback(int id, QImage img);
     void imgShowCallback2(int id, QImage img);
     void on_openBut_toggled(bool checked);
     void on_spinBox_valueChanged(int arg1);
+    void on_getBut_clicked();
+
 private:
     Ui::camPage *ui;
 };

@@ -41,7 +41,3 @@ bool flircam::getImg(Mat &img)
     return false;
 }
 
-void flircam::saveImg()
-{
-    qDebug()<<"flircam saveImg";
-}

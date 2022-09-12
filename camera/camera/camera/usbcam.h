@@ -23,11 +23,9 @@ public:
     bool open(int id);                      //打开摄像头
     void close();                           //关闭摄像头
     bool getImg(Mat &img);                  //获取图像
-    void saveImg();                         //保存图像
 private:
     static usbcam* INSTANCE;
     VideoCapture cam;
-
 };
 
 #endif // USBCAM_H

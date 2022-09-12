@@ -31,11 +31,11 @@ public:
     virtual bool open(int id) = 0;                      //打开摄像头
     virtual void close() = 0;                           //关闭摄像头
     virtual bool getImg(Mat &img) = 0;                  //获取图像
-    virtual void saveImg() = 0;                         //保存图像
 
-    void setFps(float fps);                             //设置帧率
     void start(int id, float fps = 20.0f);              //启动
     void stop();                                        //停止
+    void setFps(float fps);                             //设置帧率
+    void saveImg(QString path, QImage img, QString mark = "-");                           //保存图像
 
     QQueue <cv::Mat> imgQue;                            //图像队列
 

@@ -37,6 +37,7 @@ void camPage::imgShowCallback(int id, QImage img)
     Q_UNUSED(id);
     ui->imgLabel->setScaledContents(true);              //图片自适应空间大小
     ui->imgLabel->setPixmap(QPixmap::fromImage(img));
+    this->curImg[id] = img;
 }
 
 void camPage::imgShowCallback2(int id, QImage img)
@@ -44,6 +45,7 @@ void camPage::imgShowCallback2(int id, QImage img)
     Q_UNUSED(id);
     ui->imgLabel_2->setScaledContents(true);              //图片自适应空间大小
     ui->imgLabel_2->setPixmap(QPixmap::fromImage(img));
+    this->curImg[id] = img;
 }
 
 //打开相机
@@ -86,6 +88,17 @@ void camPage::on_spinBox_valueChanged(int arg1)
     });
     QMetaObject::invokeMethod(cam[1], [=]{ cam[1]->setFps(arg1);                   //打开摄像头
         qDebug()<<"cam 1 ->setFps(arg1): "<<QThread::currentThreadId();
+    });
+}
+
+//图像采集
+void camPage::on_getBut_clicked()
+{
+    QMetaObject::invokeMethod(cam[0], [=]{ cam[0]->saveImg(".\\", curImg[0], "-L");        //保存图像
+        qDebug()<<"cam 0 ->saveImg: "<<QThread::currentThreadId();
+    });
+    QMetaObject::invokeMethod(cam[1], [=]{ cam[1]->saveImg(".\\", curImg[1], "-R");        //保存图像
+        qDebug()<<"cam 1 ->saveImg: "<<QThread::currentThreadId();
     });
 }
 

@@ -35,6 +35,21 @@ void camera::setFps(float fps){
     }
 }
 
+//保存图像
+void camera::saveImg(QString path, QImage img, QString mark)
+{
+    if(!img.isNull()){
+        QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss.zzz");
+//        QString name = ".\\"+ time + ".jpg";
+        QString name = path+ time + mark +".jpg";
+        bool ret = img.save(name);
+        qDebug()<<"img : "<<name<<"写入"<<(ret == true ? "成功" : "失败");
+    }else{
+        qDebug()<<"请打开摄像头！！！";
+    }
+}
+
+
 //启动相机
 void camera::start(int id, float fps)
 {

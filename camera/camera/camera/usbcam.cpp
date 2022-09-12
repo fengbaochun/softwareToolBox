@@ -23,14 +23,6 @@ usbcam *usbcam::instance()
     return new usbcam();
 }
 
-//usbcam *usbcam::instance()
-//{
-//    if(INSTANCE == nullptr){
-//        INSTANCE = new usbcam();
-//    }
-//    return INSTANCE;
-//}
-
 //打开摄像头
 bool usbcam::open(int id)
 {
@@ -52,12 +44,5 @@ bool usbcam::getImg(Mat &img)
     if(cam.isOpened())cam >> img;
     return (!img.empty())? true:false;
 }
-
-
-void usbcam::saveImg()
-{
-    qDebug()<<"usb cam saveImg";
-}
-
 
 
