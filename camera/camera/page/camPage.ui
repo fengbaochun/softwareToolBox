@@ -186,8 +186,8 @@
             <string notr="true">QLabel {
     font-family: &quot;Microsoft YaHei&quot;;
     font-size: 14px;
-    color: #BDC8E2;
-    background-color: #2E3648;
+    color: #000000;
+    background-color: #000000;
 }</string>
            </property>
            <property name="text">
@@ -275,8 +275,8 @@
             <string notr="true">QLabel {
     font-family: &quot;Microsoft YaHei&quot;;
     font-size: 14px;
-    color: #BDC8E2;
-    background-color: #2E3648;
+    color: #000000;
+    background-color: #000000;
 }</string>
            </property>
            <property name="text">
