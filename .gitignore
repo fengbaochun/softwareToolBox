@@ -16,3 +16,8 @@ serial com/build-serialTool-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/Makefile
 *.stash
 *.html
 *.txt
+/PyQt-send-mail/send gmail/.vscode
+/PyQt-send-mail/send gmail/__pycache__
+/PyQt-send-mail/send gmail/build
+/PyQt-send-mail/send gmail/dist
+/binMerge/.qt_for_python
