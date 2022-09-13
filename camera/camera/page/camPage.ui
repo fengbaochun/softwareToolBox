@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>861</width>
+    <width>825</width>
     <height>337</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>861</width>
+    <width>825</width>
     <height>337</height>
    </size>
   </property>
@@ -24,13 +24,13 @@
     <widget class="QWidget" name="widget_2" native="true">
      <property name="minimumSize">
       <size>
-       <width>170</width>
+       <width>130</width>
        <height>0</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>151</width>
+       <width>150</width>
        <height>16777215</height>
       </size>
      </property>
@@ -43,7 +43,7 @@
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>147</height>
+          <height>156</height>
          </size>
         </property>
        </spacer>
@@ -52,13 +52,13 @@
        <widget class="QGroupBox" name="groupBox">
         <property name="minimumSize">
          <size>
-          <width>160</width>
+          <width>120</width>
           <height>150</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>160</width>
+          <width>120</width>
           <height>16777215</height>
          </size>
         </property>
@@ -77,7 +77,7 @@
               </size>
              </property>
              <property name="text">
-              <string>ALL - ID</string>
+              <string>ID    :</string>
              </property>
             </widget>
            </item>
@@ -140,7 +140,7 @@
              <property name="minimumSize">
               <size>
                <width>51</width>
-               <height>31</height>
+               <height>21</height>
               </size>
              </property>
              <property name="value">
