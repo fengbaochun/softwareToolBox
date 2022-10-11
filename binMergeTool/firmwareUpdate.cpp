@@ -58,7 +58,7 @@ bool firmwareUpdate::startUpdate()
 }
 
 //报文回调
-void firmwareUpdate::messageCallBack()
+void firmwareUpdate::messageCallBack(QByteArray buf)
 {
 
 }

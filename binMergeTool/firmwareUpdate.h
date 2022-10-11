@@ -37,7 +37,7 @@ public:
 signals:
 
 private slots:
-    void messageCallBack();                                 //报文回调
+    void messageCallBack(QByteArray buf);                   //报文回调
 
 };
 

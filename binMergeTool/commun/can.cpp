@@ -115,18 +115,20 @@ void can::sendData(uint8_t id, int len, uint8_t *data)
     }
 }
 
-//void can::run()
-//{
-//    int frameNum = 0;
-//    VCI_CAN_OBJ buf;
-//    while(true){
-//        frameNum = VCI_GetReceiveNum(VCI_USBCAN2,0,nCANInd);
-//        if(frameNum){
-//            VCI_Receive(VCI_USBCAN2, 0, nCANInd, &buf,1,0);
-//            emit reveiced(buf);
-//        }
-//    }
-//}
+#if 0
+void can::run()
+{
+    int frameNum = 0;
+    VCI_CAN_OBJ buf;
+    while(true){
+        frameNum = VCI_GetReceiveNum(VCI_USBCAN2,0,nCANInd);
+        if(frameNum){
+            VCI_Receive(VCI_USBCAN2, 0, nCANInd, &buf,1,0);
+            emit reveiced(buf);
+        }
+    }
+}
+#endif
 
 void can::revDataSlot(VCI_CAN_OBJ buf)
 {

@@ -12,6 +12,7 @@
 #include <QList>
 
 typedef QList<QString> comIdList;
+typedef void (*pFun)(QByteArray);
 
 class commun : public QObject
 {
@@ -33,12 +34,13 @@ public:
 
     void start();                                       //通信开始
     void stop();                                        //通信停止
-
+    void registerRevFun(pFun fun);                      //注册接收函数
     QQueue <QByteArray> datQue;                         //数据队列
 private:
     QTimer *tim = nullptr;                              //定时器
 
 signals:
+    void reveiced(QByteArray);
 
 private slots:
     void dataUpdateCallBack();                           //图像更新回调

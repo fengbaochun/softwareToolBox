@@ -37,12 +37,22 @@ void commun::stop()
     tim->stop();
 }
 
+//注册接收槽函数
+void commun::registerRevFun(pFun fun)
+{
+    if(fun != nullptr){
+        connect(this, SIGNAL(reveiced), this, SLOT(fun));
+    }
+}
+
+//数据更新接收
 void commun::dataUpdateCallBack()
 {
     QByteArray buf = getData();
     if(!buf.isEmpty()){
         QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss.zzz");
-        qDebug() << time << buf.length() << buf;
+        qDebug() << time << buf.length() << buf.toHex().toUpper();
+        emit reveiced(buf);                             //将数据发送出来
     }
 }
 
