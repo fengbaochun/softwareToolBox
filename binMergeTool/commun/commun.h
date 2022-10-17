@@ -32,19 +32,20 @@ public:
     };
 
     static commun* create(communType type);
-//    virtual comIdList scanPort() = 0;                   //扫描
-    virtual bool open(int id) = 0;                      //打开
-    virtual void close() = 0;                           //关闭
-    virtual QByteArray getData() = 0;                   //获取数据
+//    virtual comIdList scanPort() = 0;                             //扫描
+    virtual bool open(int id) = 0;                                  //打开
+    virtual void close() = 0;                                       //关闭
+    virtual bool send(int len, quint32 id, uint8_t *data) = 0;      //发送
+    virtual QByteArray getData() = 0;                               //获取数据
 
-    void start();                                       //通信开始
-    void stop();                                        //通信停止
-    void registerRevFun(QString tag, pFun fun);         //注册接收函数
-    QQueue <QByteArray> datQue;                         //数据队列
+    void start();                                                   //通信开始
+    void stop();                                                    //通信停止
+    void registerRevFun(QString tag, pFun fun);                     //注册接收函数
+    QQueue <QByteArray> datQue;                                     //数据队列
 private:
-    QTimer *tim = nullptr;                              //定时器
-    QMap <QString,pFun> revFun;                         //接收函数映射
-    revFunType revFunTab[FUN_TAB_LEN];                  //接收函数映射
+    QTimer *tim = nullptr;                                          //定时器
+    QMap <QString,pFun> revFun;                                     //接收函数映射
+    revFunType revFunTab[FUN_TAB_LEN];                              //接收函数映射
 
 signals:
     void reveiced(QByteArray);

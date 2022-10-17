@@ -13,10 +13,11 @@ public:
     explicit can(QObject *parent = nullptr);
     static can* instance();
 
-    bool open(int id);                      //打开
-    void close();                           //关闭
-    comIdList scanPort();                   //扫描
+    bool open(int id);                              //打开
+    void close();                                   //关闭
+    comIdList scanPort();                           //扫描
     QByteArray getData();
+    bool send(int len, quint32 id, uint8_t *data);  //发送
 
     void rest();
     void setId(uint8_t val);

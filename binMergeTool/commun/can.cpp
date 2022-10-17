@@ -63,6 +63,14 @@ QByteArray can::getData()
     return data;
 }
 
+bool can::send(int len, quint32 id, uint8_t *data)
+{
+    uint8_t bufLen = len - 2;
+    if(len > 10)    return false;
+    sendData(id, bufLen, data+2);
+    return true;
+}
+
 void can::rest()
 {
     if(VCI_ResetCAN(VCI_USBCAN2, 0, nCANInd) == STATUS_OK){
