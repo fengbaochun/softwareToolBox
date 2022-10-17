@@ -9,19 +9,19 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     com = commun::create(commun::CAN_COMMUN);
-//    com = new can();
     com->open(0);
     com->start();
 
     firware = new firmwareUpdate();
+    connect(com, &commun::reveiced, firware, &firmwareUpdate::messageCallBack);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
 
 void MainWindow::on_pushButton_clicked()
 {

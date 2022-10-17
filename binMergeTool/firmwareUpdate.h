@@ -34,9 +34,11 @@ public:
     bool sendBinInfo();                                     //发送固件信息
     bool startUpdate();                                     //开始更新
 
+//    static void messageCallBack(QByteArray buf);            //报文回调
+
 signals:
 
-private slots:
+public slots:
     void messageCallBack(QByteArray buf);                   //报文回调
 
 };

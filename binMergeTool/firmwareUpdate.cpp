@@ -60,5 +60,5 @@ bool firmwareUpdate::startUpdate()
 //报文回调
 void firmwareUpdate::messageCallBack(QByteArray buf)
 {
-
+    qDebug() << buf.length() << buf.toHex().toUpper();
 }

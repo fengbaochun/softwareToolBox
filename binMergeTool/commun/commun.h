@@ -13,7 +13,12 @@
 
 typedef QList<QString> comIdList;
 typedef void (*pFun)(QByteArray);
+typedef struct{
+    QString tag;
+    pFun fun;
+}revFunType;
 
+#define FUN_TAB_LEN     10
 class commun : public QObject
 {
     Q_OBJECT
@@ -34,10 +39,12 @@ public:
 
     void start();                                       //通信开始
     void stop();                                        //通信停止
-    void registerRevFun(pFun fun);                      //注册接收函数
+    void registerRevFun(QString tag, pFun fun);         //注册接收函数
     QQueue <QByteArray> datQue;                         //数据队列
 private:
     QTimer *tim = nullptr;                              //定时器
+    QMap <QString,pFun> revFun;                         //接收函数映射
+    revFunType revFunTab[FUN_TAB_LEN];                  //接收函数映射
 
 signals:
     void reveiced(QByteArray);

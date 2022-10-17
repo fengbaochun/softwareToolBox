@@ -38,10 +38,12 @@ void commun::stop()
 }
 
 //注册接收槽函数
-void commun::registerRevFun(pFun fun)
+void commun::registerRevFun(QString tag, pFun fun)
 {
-    if(fun != nullptr){
-        connect(this, SIGNAL(reveiced), this, SLOT(fun));
+    if(!revFun.contains(tag)){
+        revFun["1"] = fun;
+    }else{
+        qDebug()<<tag<<" rev fun 已存在";
     }
 }
 
@@ -52,6 +54,15 @@ void commun::dataUpdateCallBack()
     if(!buf.isEmpty()){
         QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss.zzz");
         qDebug() << time << buf.length() << buf.toHex().toUpper();
+
+        // 第一种是STL类型的迭代
+        QMap<QString,pFun>::const_iterator iterator_1 = revFun.constBegin();
+        while (iterator_1 != revFun.constEnd()) {
+            qDebug() << iterator_1.key() << ":";
+            iterator_1.value()(buf);
+            ++iterator_1;
+        }
+
         emit reveiced(buf);                             //将数据发送出来
     }
 }
