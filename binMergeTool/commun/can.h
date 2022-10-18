@@ -13,7 +13,7 @@ public:
     explicit can(QObject *parent = nullptr);
     static can* instance();
 
-    bool open(int id);                              //打开
+    bool open(QString name, int bps);                              //打开
     void close();                                   //关闭
     comIdList scanPort();                           //扫描
     QByteArray getData();

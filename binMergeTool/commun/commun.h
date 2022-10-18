@@ -33,7 +33,7 @@ public:
 
     static commun* create(communType type);
 //    virtual comIdList scanPort() = 0;                             //扫描
-    virtual bool open(int id) = 0;                                  //打开
+    virtual bool open(QString name, int bps) = 0;                   //打开
     virtual void close() = 0;                                       //关闭
     virtual bool send(quint32 id, int len, uint8_t *data) = 0;      //发送
     virtual bool send(QByteArray data) = 0;

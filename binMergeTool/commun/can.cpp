@@ -15,7 +15,7 @@ can *can::instance()
     return new can();
 }
 
-bool can::open(int id)
+bool can::open(QString name, int bps)
 {
     if(VCI_OpenDevice(VCI_USBCAN2, 0, nCANInd) == STATUS_OK)    {
         qDebug()<<"open succeed";

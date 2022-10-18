@@ -21,7 +21,7 @@ void firmwareUpdate::init(int type)
     this->id = 0xA8;
     if(com == nullptr){
         com = commun::create((commun::communType)type);
-        com->open(0);
+        com->open("CAN2",1000000);
         com->start();
 
         connect(com, &commun::reveiced, this, &firmwareUpdate::messageCallBack);
