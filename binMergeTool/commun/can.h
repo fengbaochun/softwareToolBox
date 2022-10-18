@@ -17,7 +17,8 @@ public:
     void close();                                   //关闭
     comIdList scanPort();                           //扫描
     QByteArray getData();
-    bool send(int len, quint32 id, uint8_t *data);  //发送
+    bool send(quint32 id, int len, uint8_t *data);  //发送
+    bool send(QByteArray data);
 
     void rest();
     void setId(uint8_t val);

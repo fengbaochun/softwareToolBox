@@ -63,12 +63,18 @@ QByteArray can::getData()
     return data;
 }
 
-bool can::send(int len, quint32 id, uint8_t *data)
+bool can::send(quint32 id, int len, uint8_t *data)
 {
     uint8_t bufLen = len - 2;
     if(len > 10)    return false;
     sendData(id, bufLen, data+2);
     return true;
+}
+
+bool can::send(QByteArray data)
+{
+    Q_UNUSED(data);
+    return false;
 }
 
 void can::rest()

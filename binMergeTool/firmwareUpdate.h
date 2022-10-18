@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <commun/commun.h>
 
 typedef struct{
     uint16_t size;				//固件大小
@@ -57,17 +58,23 @@ class firmwareUpdate : public QObject
     Q_OBJECT
 public:
     explicit firmwareUpdate(QObject *parent = nullptr);
-    binInfo data;
+    binInfo bin;
     iapStatus iap;
+    qint64 id;
     void init(int type);                                    //初始化（通信方式？）
     void getBinInfo(QString path);                          //获取bin信息
     bool enterBootloader();                                 //进入boot
-    bool sendBinInfo();                                     //发送固件信息
+    bool sendBinInfo(uint16_t size);                        //发送固件信息
     bool startUpdate();                                     //开始更新
 
 //    static void messageCallBack(QByteArray buf);            //报文回调
 
+private:
+    commun *com = nullptr;
+
 signals:
+
+    void binChanged();
 
 public slots:
     void messageCallBack(QByteArray buf);                   //报文回调
