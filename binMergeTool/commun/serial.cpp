@@ -6,6 +6,7 @@ Serial::Serial(QObject *parent)
 
 }
 
+//打开串口
 bool Serial::open(QString name, int bps)
 {
     port.setPortName(name);                                 //设置串口名字
@@ -22,37 +23,37 @@ bool Serial::open(QString name, int bps)
     }
 }
 
+//关闭串口
 void Serial::close()
 {
     port.close();
 }
 
-bool Serial::send(quint32 id, int len, uint8_t *data)
+//串口写
+bool Serial::write(quint32 id, int len, uint8_t *data)
 {
-
+    Q_UNUSED(id);
+    if(!port.isOpen()) return false;
+    port.write((char*)data,len);
+    return true;
 }
 
-bool Serial::send(QByteArray data)
+//串口写
+bool Serial::write(QByteArray data)
 {
-
+    if(!port.isOpen()) return false;
+    port.write(data);
+    return true;
 }
 
 QByteArray Serial::getData()
 {
-
 }
 
 /*
-
-//写入数据
-void serial::write(char buf[],int len){
-    port.write(buf,len);
-}
-
 //读取数据
 QByteArray serial::read(){
     QByteArray buf = port.readAll();
     return buf;
 }
-
 */

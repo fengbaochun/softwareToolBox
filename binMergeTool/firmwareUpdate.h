@@ -67,14 +67,12 @@ public:
     bool sendBinInfo(uint16_t size);                        //发送固件信息
     bool startUpdate();                                     //开始更新
 
-//    static void messageCallBack(QByteArray buf);            //报文回调
+//    static void messageCallBack(QByteArray buf);          //报文回调
 
 private:
     commun *com = nullptr;
-
 signals:
-
-    void binChanged();
+    void progress(int, int);                                //进度信号
 
 public slots:
     void messageCallBack(QByteArray buf);                   //报文回调

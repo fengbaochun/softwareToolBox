@@ -21,6 +21,7 @@ commun *commun::create(communType type)
     }
 }
 
+//通信开始
 void commun::start()
 {
     if(tim == nullptr){
@@ -32,6 +33,7 @@ void commun::start()
     tim->start();
 }
 
+//通信停止
 void commun::stop()
 {
     tim->stop();
@@ -54,15 +56,14 @@ void commun::dataUpdateCallBack()
     if(!buf.isEmpty()){
         QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss.zzz");
         qDebug() << time << buf.length() << buf.toHex().toUpper();
-
-        // 第一种是STL类型的迭代
+#if 0
         QMap<QString,pFun>::const_iterator iterator_1 = revFun.constBegin();
         while (iterator_1 != revFun.constEnd()) {
             qDebug() << iterator_1.key() << ":";
             iterator_1.value()(buf);
             ++iterator_1;
         }
-
+#endif
         emit reveiced(buf);                             //将数据发送出来
     }
 }

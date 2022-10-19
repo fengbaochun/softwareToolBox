@@ -35,8 +35,8 @@ public:
 //    virtual comIdList scanPort() = 0;                             //扫描
     virtual bool open(QString name, int bps) = 0;                   //打开
     virtual void close() = 0;                                       //关闭
-    virtual bool send(quint32 id, int len, uint8_t *data) = 0;      //发送
-    virtual bool send(QByteArray data) = 0;
+    virtual bool write(quint32 id, int len, uint8_t *data) = 0;     //发送
+    virtual bool write(QByteArray data) = 0;
     virtual QByteArray getData() = 0;                               //获取数据
 
     void start();                                                   //通信开始
