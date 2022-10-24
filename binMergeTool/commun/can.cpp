@@ -65,9 +65,9 @@ QByteArray can::getData()
 
 bool can::write(quint32 id, int len, uint8_t *data)
 {
-    uint8_t bufLen = len - 2;
+    uint8_t bufLen = len - 0;
     if(len > 10)    return false;
-    sendData(id, bufLen, data+2);
+    sendData(id, bufLen, data+0);
     return true;
 }
 
@@ -123,7 +123,7 @@ void can::sendData(uint8_t id, int len, uint8_t *data)
     buf.DataLen = len;
     memcpy(buf.Data,data,len);
     if(VCI_Transmit(VCI_USBCAN2, 0, nCANInd, &buf,1) == STATUS_OK){
-        qDebug()<<"send succeed!!!";
+//        qDebug()<<"send succeed!!!";
     }else{
         qDebug()<<"send failed!!!";
     }

@@ -55,7 +55,7 @@ void commun::dataUpdateCallBack()
     QByteArray buf = getData();
     if(!buf.isEmpty()){
         QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss.zzz");
-        qDebug() << time << buf.length() << buf.toHex().toUpper();
+//        qDebug() << time << buf.length() << buf.toHex().toUpper();
 #if 0
         QMap<QString,pFun>::const_iterator iterator_1 = revFun.constBegin();
         while (iterator_1 != revFun.constEnd()) {

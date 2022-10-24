@@ -24,16 +24,20 @@ typedef struct{
 }iapStatus;                     //升级状态
 
 
+#define CMD_BASE_ADDR    0x40	        //命令基地址
+
 typedef enum{
-    CMD_BASE = 0x40,
+    CMD_BASE = CMD_BASE_ADDR,
     READ_CMD,                           //读
     WRITE_CMD,                          //写
     ANSWER_CMD,                         //应答
     AUTO_REPORT_CMD,                    //主动上报
 }cmdType;
 
+#define FUNSION_BASE_ADDR   0x50
+
 typedef enum{
-    FUNSION_BASE = 0x50,   //功能码基地址
+    FUNSION_BASE = FUNSION_BASE_ADDR,   //功能码基地址
     ID_ADDR,                            //ID
     CAL_ZERO_ADDR,                      //标零
     CAL_VAL_ADDR,                       //标重
@@ -52,6 +56,7 @@ typedef enum{
 
     ALL_ADDR,                           //读所有（重量、帧率）
 }funsionType;
+
 
 class firmwareUpdate : public QObject
 {
