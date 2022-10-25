@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <QDateTime>
 #include <QThread>
+#include <QCoreApplication>
 
 firmwareUpdate::firmwareUpdate(QObject *parent)
     : QObject{parent}
@@ -20,11 +21,18 @@ void firmwareUpdate::init(int type)
     this->iap.enterBootStatus = false;
     this->id = 0xA8;
     if(com == nullptr){
+        qDebug() << "init " << QThread::currentThreadId();
         com = commun::create((commun::communType)type);
+
+        QThread *comThd = new QThread();                //创建线程
+        com->moveToThread(comThd);                      //把通信移动到单独线程
+
         com->open("CAN2",1000000);
         com->start();
 
-        connect(com, &commun::reveiced, this, &firmwareUpdate::messageCallBack);
+        connect(com, &commun::reveiced, this, &firmwareUpdate::messageCallBack, Qt::AutoConnection);
+
+        comThd->start();                                //开启线程
     }
 }
 
@@ -48,6 +56,7 @@ void firmwareUpdate::getBinInfo(QString path)
     qDebug()<<"packNum          : "<<bin.pkgNum;
     qDebug()<<"lastPackSize     : "<<bin.lastPkgSize;
 
+#if 0
     QByteArray ary;
     for(int i = 0; i < bin.pkgNum ; i++){
         ary = firmware.read(bin.perPkgSize);
@@ -55,26 +64,47 @@ void firmwareUpdate::getBinInfo(QString path)
     }
     ary = firmware.read(bin.lastPkgSize);
     qDebug()<< bin.pkgNum << " : " <<ary.toHex();
+#endif
 
     firmware.seek(0);
     firmware.close();
 }
+
+/*
+
+
+*/
+
 
 //进入boot
 bool firmwareUpdate::enterBootloader()
 {
     uint8_t data[8]={WRITE_CMD,UPDATE_BIN_ADDR,0xFF,0xFF, 0x00,0x00,0x00,0x00};
     com->write(this->id, 8, data);
-    QThread::msleep(1);
-    qint64 tick = QDateTime::currentDateTime().toMSecsSinceEpoch();     //毫秒时间戳
+
+//    qint64 tick = QDateTime::currentDateTime().toMSecsSinceEpoch();     //毫秒时间戳
+//    do{
+//        if(abs(QDateTime::currentDateTime().toMSecsSinceEpoch() - tick) > 2*1000){
+//            qDebug()<<"wait answer time out !";
+//            iap.enterBootStatus = false;
+//            return false;
+//        }else{
+//            QThread::msleep(1);
+//        }
+//    }while(!iap.enterBootStatus);
+
+
+    QElapsedTimer t;
+    t.start();
     do{
-        if(abs(QDateTime::currentDateTime().toMSecsSinceEpoch() - tick) > 2*1000){
+        if(t.elapsed() > 2*1000){
             qDebug()<<"wait answer time out !";
             return false;
         }else{
-            QThread::msleep(1);
+            QCoreApplication::processEvents();
         }
     }while(!iap.enterBootStatus);
+
     return true;
 }
 
@@ -83,15 +113,27 @@ bool firmwareUpdate::sendBinInfo(uint16_t size)
 {
     uint8_t data[8]={WRITE_CMD,BIN_SIZE_ADDR,(uint8_t)((size>>8)&0xff), (uint8_t)(size&0xff),0x00,0x00,0x00,0x00};
     com->write(this->id, 8, data);
-    qint64 tick = QDateTime::currentDateTime().toMSecsSinceEpoch();     //毫秒时间戳
+//    qint64 tick = QDateTime::currentDateTime().toMSecsSinceEpoch();     //毫秒时间戳
+//    do{
+//        if(abs(QDateTime::currentDateTime().toMSecsSinceEpoch() - tick) > 5*1000){
+//            qDebug()<<"wait answer time out !";
+//            return false;
+//        }else{
+//            QThread::msleep(1);
+//        }
+//    }while(!iap.binSizeStatus);
+
+    QElapsedTimer t;
+    t.start();
     do{
-        if(abs(QDateTime::currentDateTime().toMSecsSinceEpoch() - tick) > 5*1000){
+        if(t.elapsed() > 2*1000){
             qDebug()<<"wait answer time out !";
             return false;
         }else{
-            QThread::msleep(1);
+            QCoreApplication::processEvents();
         }
     }while(!iap.binSizeStatus);
+
     return true;
 }
 
@@ -104,7 +146,6 @@ bool firmwareUpdate::startUpdate()
         qDebug()<<"open failed!!!";
         return false;
     }
-
     int packNum = bin.size / 8;
     int lastPackSize = bin.size % 8;
     uint32_t addr = 0x00;
@@ -114,48 +155,71 @@ bool firmwareUpdate::startUpdate()
     qDebug()<<"PackNum      : "<<	packNum;
     qDebug()<<"LastPackSize : "<<	lastPackSize;
 
-//    uint32_t tempData[2] = {0};
     uint8_t driveData[8] = {0};
 
     uint8_t index = 0;			//每KB完成索引
     QThread::msleep(100);
     for(int i=0;i<packNum;i++){
-//        STMFLASH_Read (addr, tempData , 2);       //固件读取 更换为 读取文件;
         memcpy(driveData, firmware.read(bin.perPkgSize).data(), 8);
         com->write(this->id, 8, driveData);
-        QThread::msleep(5);
+//        QThread::msleep(1);
         addr = addr + 8;
         if( ((i+1)*8) % 1024 == 0){
             index++;
             qDebug()<<"Index : %d KB\r\n"<<index;
-            qint64 tick = QDateTime::currentDateTime().toMSecsSinceEpoch();     //毫秒时间戳
+//            qint64 tick = QDateTime::currentDateTime().toMSecsSinceEpoch();     //毫秒时间戳
+//            do{
+//                if(abs(QDateTime::currentDateTime().toMSecsSinceEpoch() - tick) > 5*1000){
+//                    qDebug()<<"wait answer time out !\r\n";
+//                    return false;
+//                }
+//            }while(index != iap.answerPkgNum);  //等待回包
+
+            QElapsedTimer t;
+            t.start();
             do{
-                if(abs(QDateTime::currentDateTime().toMSecsSinceEpoch() - tick) > 5*1000){
-                    qDebug()<<"wait answer time out !\r\n";
+                if(t.elapsed() > 5*1000){
+                    qDebug()<<"wait answer time out !";
                     return false;
+                }else{
+                    QCoreApplication::processEvents();
                 }
-            }while(index != iap.answerPkgNum);  //等待回包
+            }while(index != iap.answerPkgNum);
+
         }
         emit progress(packNum, i);              //进度信号
     }
 
     if(lastPackSize>0){
-//        STMFLASH_Read (addr, tempData , 1);       //固件读取 更换为 读取文件
         memcpy(driveData, firmware.read(bin.perPkgSize).data(), 4);         //固件读取
         com->write(this->id, 8, driveData);
         index++;
 
         qDebug()<<"Index : %d KB "<<index;
         qint64 tick = QDateTime::currentDateTime().toMSecsSinceEpoch();     //毫秒时间戳
+//        do{
+//            if(abs(QDateTime::currentDateTime().toMSecsSinceEpoch() - tick) > 5*1000){
+//                qDebug()<<"wait answer time out !\r\n";
+//                return false;
+//            }
+//        }while(index != iap.answerPkgNum);          //等待回包
+        QElapsedTimer t;
+        t.start();
         do{
-            if(abs(QDateTime::currentDateTime().toMSecsSinceEpoch() - tick) > 5*1000){
-                qDebug()<<"wait answer time out !\r\n";
+            if(t.elapsed() > 5*1000){
+                qDebug()<<"wait answer time out !";
                 return false;
+            }else{
+                QCoreApplication::processEvents();
             }
-        }while(index != iap.answerPkgNum);          //等待回包
+        }while(index != iap.answerPkgNum);
+
         emit progress(packNum, packNum);            //进度信号
     }
     qDebug()<<"update bin finash";
+    iap.enterBootStatus = false;
+    iap.binSizeStatus = false;
+    iap.answerPkgNum = 0;
 #endif
     return true;
 }
@@ -177,7 +241,8 @@ void firmwareUpdate::messageCallBack(QByteArray buf)
         qDebug()<<"iap.binSizeStatus ok ";
     }else if((data[0+diff] == ANSWER_CMD) && (data[1+diff] == BIN_DATA_ADDR)){		//发送1KB数据 应答成功
         iap.binDataStatus = true;
-        iap.answerPkgNum = data[3];                                 //应答包 号
+        iap.answerPkgNum = data[3+diff];                                 //应答包 号
+        qDebug()<<"iap.answerPkgNum "<<iap.answerPkgNum;
     }else{
     }
 }
