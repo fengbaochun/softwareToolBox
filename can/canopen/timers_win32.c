@@ -1,4 +1,4 @@
-/*
+﻿/*
 This file is part of CanFestival, a library implementing CanOpen Stack.
 
 Copyright (C): Edouard TISSERANT and Francis DUPIN
@@ -166,7 +166,7 @@ void StartTimerLoop(TimerCallback_t _init_callback)
 	init_callback = _init_callback;
 	EnterMutex();
 		// At first, TimeDispatch will call init_callback.
-	SetAlarm(NULL, 0, init_callback, 0, 0);
+    SetAlarm(NULL, 0, init_callback, 0, 0);
 	LeaveMutex();
     if(!timer_thread)
         timer_thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)TimerThreadLoop, NULL, 0, &timer_thread_id);

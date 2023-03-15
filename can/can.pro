@@ -31,6 +31,11 @@ FORMS += \
 win32: LIBS += -L$$PWD/./ -lControlCAN
 
 INCLUDEPATH += $$PWD/canopen/
+INCLUDEPATH += $$PWD/canopen/inc/
+INCLUDEPATH += $$PWD/canopen/src/
+INCLUDEPATH += $$PWD/canopen/dict/
+
+INCLUDEPATH += $$PWD/canopen/canopen/
 include($$PWD/canopen/canopen.pri)
 
 # Default rules for deployment.

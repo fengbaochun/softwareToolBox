@@ -1,8 +1,9 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
 #include "candev.h"
+#include "canopen.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,5 +29,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     canDev *can;
+    canopen *canfestival;
 };
 #endif // MAINWINDOW_H

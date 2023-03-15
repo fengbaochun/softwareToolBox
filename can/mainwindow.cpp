@@ -1,18 +1,18 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "canfestival.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
 //    can = new canDev();
 //    can->start();
 
-    if(usbCanOpen((s_BOARD *)11) !=NULL){
-        qDebug()<<"open success!!!";
-    }
+    canfestival = new canopen();
+    canfestival->init();
+    canfestival->start();
 }
 
 MainWindow::~MainWindow()

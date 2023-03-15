@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 pkzju
 **
@@ -88,6 +88,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #define TO_BE_SAVE  0x04
 #define DCF_TO_SEND 0x08
+#ifdef __AVR__
+
+#define CONSTSTORE __flash
+#else
+#define CONSTSTORE
+#endif
+
+#if defined ( __CC_ARM   )
+#pragma anon_unions
+#endif
 
 /************************ STRUCTURES ****************************/
 /** This are some structs which are neccessary for creating the entries

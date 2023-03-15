@@ -1,9 +1,11 @@
 
 HEADERS += \
+    $$PWD/TestMaser.h \
     $$PWD/applicfg.h \
     $$PWD/can.h \
     $$PWD/can_driver.h \
     $$PWD/canfestival.h \
+    $$PWD/canopen/canopen.h \
     $$PWD/data.h \
     $$PWD/dcf.h \
     $$PWD/def.h \
@@ -27,7 +29,9 @@ HEADERS += \
     $$PWD/master.h
 
 SOURCES += \
+    $$PWD/TestMaser.c \
     $$PWD/canfestival.c \
+    $$PWD/canopen/canopen.cpp \
     $$PWD/dcf.c \
     $$PWD/emcy.c \
     $$PWD/lifegrd.c \

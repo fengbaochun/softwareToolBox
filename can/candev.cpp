@@ -124,6 +124,7 @@ void canDev::run()
         if(frameNum)
         {
             VCI_Receive(VCI_USBCAN2, 0, nCANInd, &buf,1,0);
+            qDebug()<<buf.Data[0]<<buf.Data[1];
 //            emit reveiced(buf);
 //            sendData(0x01,8,data);
         }
