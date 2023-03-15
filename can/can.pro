@@ -30,6 +30,9 @@ FORMS += \
 
 win32: LIBS += -L$$PWD/./ -lControlCAN
 
+INCLUDEPATH += $$PWD/canopen/
+include($$PWD/canopen/canopen.pri)
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

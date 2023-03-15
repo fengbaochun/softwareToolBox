@@ -1,4 +1,4 @@
-#include "candev.h"
+﻿#include "candev.h"
 
 canDev::canDev()
 {
