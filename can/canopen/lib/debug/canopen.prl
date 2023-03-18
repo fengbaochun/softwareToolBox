@@ -1,7 +1,0 @@
-QMAKE_PRL_BUILD_DIR = "G:/BaiduNetdiskWorkspace/01 - fengbaochun-master/softwareToolBox/build-can-Desktop_Qt_5_15_2_MinGW_32_bit-Debug"
-QMAKE_PRO_INPUT = can.pro
-QMAKE_PRL_TARGET = libcanopen.a
-QMAKE_PRL_CONFIG = lex yacc debug exceptions depend_includepath testcase_targets import_qpa_plugin windows file_copies qmake_use qt warn_on link_prl debug_and_release debug_and_release_target precompile_header no_plugin_manifest win32 mingw gcc debug DebugBuild Debug build_pass debug qml_debug debug DebugBuild Debug build_pass c++11 staticlib create_prl debug DebugBuild Debug build_pass have_target static staticlib no_plist exclusive_builds debug_info no_autoqmake thread uic opengl moc resources
-QMAKE_PRL_VERSION = 1
-QMAKE_PRL_LIBS = "-LG:/BaiduNetdiskWorkspace/01 - fengbaochun-master/softwareToolBox/can/./" -L/depend_libs -lControlCAN D:/Qt/5.15.2/mingw81_32/lib/libQt5Widgets.a D:/Qt/5.15.2/mingw81_32/lib/libQt5Gui.a D:/Qt/5.15.2/mingw81_32/lib/libQt5Core.a
-QMAKE_PRL_LIBS_FOR_CMAKE = -LG:/BaiduNetdiskWorkspace/01 - fengbaochun-master/softwareToolBox/can/./;-L/depend_libs;-lControlCAN;D:/Qt/5.15.2/mingw81_32/lib/libQt5Widgets.a;D:/Qt/5.15.2/mingw81_32/lib/libQt5Gui.a;D:/Qt/5.15.2/mingw81_32/lib/libQt5Core.a;;;

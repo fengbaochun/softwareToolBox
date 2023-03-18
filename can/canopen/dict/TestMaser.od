@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE PyObject SYSTEM "PyObjects.dtd">
+<PyObject module="node" class="Node" id="111296776">
+<attr name="Profile" type="dict" id="111322248" >
+</attr>
+<attr name="Description" type="string" value="" />
+<attr name="Dictionary" type="dict" id="111322520" >
+  <entry>
+    <key type="numeric" value="4096" />
+    <val type="numeric" value="0" />
+  </entry>
+  <entry>
+    <key type="numeric" value="4120" />
+    <val type="list" id="111392328" >
+      <item type="numeric" value="0" />
+      <item type="numeric" value="0" />
+      <item type="numeric" value="0" />
+      <item type="numeric" value="0" />
+    </val>
+  </entry>
+  <entry>
+    <key type="numeric" value="4097" />
+    <val type="numeric" value="0" />
+  </entry>
+  <entry>
+    <key type="numeric" value="4119" />
+    <val type="numeric" value="500" />
+  </entry>
+</attr>
+<attr name="SpecificMenu" type="list" id="111392712" >
+</attr>
+<attr name="ParamsDictionary" type="dict" id="111331256" >
+</attr>
+<attr name="UserMapping" type="dict" id="111323880" >
+</attr>
+<attr name="DS302" type="dict" id="111323064" >
+</attr>
+<attr name="ProfileName" type="string" value="None" />
+<attr name="Type" type="string" value="master" />
+<attr name="ID" type="numeric" value="0" />
+<attr name="Name" type="string">TestMaser</attr>
+</PyObject>

@@ -16,27 +16,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    candev.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
-    ControlCAN.h \
-    candev.h \
     mainwindow.h
 
 FORMS += \
     mainwindow.ui
 
-win32: LIBS += -L$$PWD/./ -lControlCAN
+include($$PWD/canopen/canopen.pri)
 
 INCLUDEPATH += $$PWD/canopen/
 INCLUDEPATH += $$PWD/canopen/inc/
 INCLUDEPATH += $$PWD/canopen/src/
 INCLUDEPATH += $$PWD/canopen/dict/
+INCLUDEPATH += $$PWD/canopen/drive/win_qt/
 
 INCLUDEPATH += $$PWD/canopen/canopen/
-include($$PWD/canopen/canopen.pri)
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

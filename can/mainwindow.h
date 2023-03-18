@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "candev.h"
+//#include "candev.h"
 #include "canopen.h"
 
 QT_BEGIN_NAMESPACE
@@ -28,7 +28,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    canDev *can;
+//    canDev *can;
     canopen *canfestival;
 };
 #endif // MAINWINDOW_H

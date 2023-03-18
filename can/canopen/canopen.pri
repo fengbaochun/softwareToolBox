@@ -1,54 +1,55 @@
 
 HEADERS += \
-    $$PWD/TestMaser.h \
-    $$PWD/applicfg.h \
-    $$PWD/can.h \
-    $$PWD/can_driver.h \
-    $$PWD/canfestival.h \
     $$PWD/canopen/canopen.h \
-    $$PWD/data.h \
-    $$PWD/dcf.h \
-    $$PWD/def.h \
-    $$PWD/emcy.h \
-    $$PWD/lifegrd.h \
-    $$PWD/lss.h \
-    $$PWD/nmtMaster.h \
-    $$PWD/nmtSlave.h \
-    $$PWD/objacces.h \
-    $$PWD/objdictdef.h \
-    $$PWD/pdo.h \
-    $$PWD/sdo.h \
-    $$PWD/states.h \
-    $$PWD/sync.h \
-    $$PWD/sysdep.h \
-    $$PWD/timer.h \
-    $$PWD/timers_driver.h \
-    $$PWD/timerscfg.h \
-    $$PWD/ControlCAN.H \
-    $$PWD/config.h \
-    $$PWD/master.h
+    $$PWD/dict/TestMaser.h \
+    $$PWD/dict/TestSlave.h \
+    $$PWD/dict/master.h \
+    $$PWD/drive/win_qt/ControlCAN.H \
+    $$PWD/drive/win_qt/applicfg.h \
+    $$PWD/drive/win_qt/can.h \
+    $$PWD/drive/win_qt/can_driver.h \
+    $$PWD/drive/win_qt/canfestival.h \
+    $$PWD/drive/win_qt/config.h \
+    $$PWD/drive/win_qt/timers_driver.h \
+    $$PWD/drive/win_qt/timerscfg.h \
+    $$PWD/inc/data.h \
+    $$PWD/inc/dcf.h \
+    $$PWD/inc/def.h \
+    $$PWD/inc/emcy.h \
+    $$PWD/inc/lifegrd.h \
+    $$PWD/inc/lss.h \
+    $$PWD/inc/nmtMaster.h \
+    $$PWD/inc/nmtSlave.h \
+    $$PWD/inc/objacces.h \
+    $$PWD/inc/objdictdef.h \
+    $$PWD/inc/pdo.h \
+    $$PWD/inc/sdo.h \
+    $$PWD/inc/states.h \
+    $$PWD/inc/sync.h \
+    $$PWD/inc/sysdep.h \
+    $$PWD/inc/timer.h
 
 SOURCES += \
-    $$PWD/TestMaser.c \
-    $$PWD/canfestival.c \
     $$PWD/canopen/canopen.cpp \
-    $$PWD/dcf.c \
-    $$PWD/emcy.c \
-    $$PWD/lifegrd.c \
-    $$PWD/lss.c \
-    $$PWD/nmtMaster.c \
-    $$PWD/nmtSlave.c \
-    $$PWD/objacces.c \
-    $$PWD/pdo.c \
-    $$PWD/sdo.c \
-    $$PWD/states.c \
-    $$PWD/sync.c \
-    $$PWD/timer.c \
-    $$PWD/timers_win32.c \
-    $$PWD/master.c \
-    $$PWD/symbols.c
+    $$PWD/dict/TestMaser.c \
+    $$PWD/dict/TestSlave.c \
+    $$PWD/dict/master.c \
+    $$PWD/drive/win_qt/canfestival.c \
+    $$PWD/drive/win_qt/timers_win32.c \
+    $$PWD/src/dcf.c \
+    $$PWD/src/emcy.c \
+    $$PWD/src/lifegrd.c \
+    $$PWD/src/lss.c \
+    $$PWD/src/nmtMaster.c \
+    $$PWD/src/nmtSlave.c \
+    $$PWD/src/objacces.c \
+    $$PWD/src/pdo.c \
+    $$PWD/src/sdo.c \
+    $$PWD/src/states.c \
+    $$PWD/src/symbols.c \
+    $$PWD/src/sync.c \
+    $$PWD/src/timer.c
 
 
-DISTFILES +=
 
-
+LIBS += -L$$PWD/drive/win_qt/ -lControlCAN
