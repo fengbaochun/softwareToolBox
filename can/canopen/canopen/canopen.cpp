@@ -2,22 +2,30 @@
 #include <stdio.h>
 #include "TestMaser.h"
 
+CO_Data *masterData = NULL;
 canopen::canopen(QObject *parent)
 {
-
+    (void)parent;
+    //主站字典切换
+//    masterData = &master_Data;
+    masterData = &TestMaser_Data;
 }
 
 void InitNodes(CO_Data* d, UNS32 id)
 {
-    setNodeId(&master_Data,0x00);
-    setState(&master_Data, Initialisation);
-    setState(&master_Data, Operational);
+    (void)d;
+    (void)id;
+    setNodeId(masterData,0x00);
+    setState(masterData, Initialisation);
+    setState(masterData, Operational);
 }
 
 void Exit(CO_Data* d, UNS32 id)
 {
+    (void)d;
+    (void)id;
 //    masterSendNMTstateChange (&master_Data, 0x01, NMT_Stop_Node);
-    setState(&master_Data, Stopped);
+    setState(masterData, Stopped);
 }
 
 void canopen::init()
@@ -42,14 +50,14 @@ void canopen::init()
 
 void canopen::run()
 {
-    if(canOpen((s_BOARD * )1, &master_Data) != NULL){
+    if(canOpen((s_BOARD * )1, masterData) != NULL){
         qDebug()<<"open success !!!";
     }
     while(true){
         Message m{0};
         int ret = usbCanReceive(0, &m);
         if(ret>0){
-            canDispatch(&master_Data, &m);
+            canDispatch(masterData, &m);
             QString str = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss.zzz");
             qDebug()<<str<<" id:"<<m.cob_id<<" rtr:"<<m.rtr<<" len:"<<m.len<<" data:"<<m.data[0]<<m.data[1]<<m.data[2]<<m.data[3]<<m.data[4]<<m.data[5]<<m.data[6]<<m.data[7];
         }

@@ -37,8 +37,19 @@
 /* #define DEBUG_WAR_CONSOLE_ON */
 /* #define DEBUG_ERR_CONSOLE_ON */
 
-
+#include "objacces.h"
 #include "data.h"
+
+
+void *memcpy_flash(void * dest, const CONSTSTORE void * source, size_t length) {
+    char* dstPointer = dest;
+    const CONSTSTORE char* srcPointer = source;
+    size_t i;
+    for(i = 0; i < length; i++) {
+        dstPointer[i] = srcPointer[i];
+    }
+    return dstPointer;
+}
 
 //We need the function implementation for linking
 //Only a placeholder with a define isnt enough!
@@ -89,11 +100,13 @@ UNS32 _getODentry( CO_Data* d,
                    UNS8 endianize)
 { /* DO NOT USE MSG_ERR because the macro may send a PDO -> infinite
     loop if it fails. */
+  (void)endianize;
   UNS32 errorCode;
   UNS32 szData;
-  const indextable *ptrTable;
+  const CONSTSTORE indextable *ptrTable;
+  ODCallback_t *Callback;
 
-  ptrTable = (*d->scanIndexOD)(d, wIndex, &errorCode);
+  ptrTable = (*d->scanIndexOD)(wIndex, &errorCode, &Callback);
 
   if (errorCode != OD_SUCCESSFUL)
     return errorCode;
@@ -103,7 +116,7 @@ UNS32 _getODentry( CO_Data* d,
     return OD_NO_SUCH_SUBINDEX;
   }
 
-  if (checkAccess && (ptrTable->pSubindex[bSubindex].bAccessType & WO)) {
+  if (checkAccess && (ptrTable->pSubindex[bSubindex].bAccessType == WO)) {
     MSG_WAR(0x2B30, "Access Type : ", ptrTable->pSubindex[bSubindex].bAccessType);
     accessDictionaryError(wIndex, bSubindex, 0, 0, OD_READ_NOT_ALLOWED);
     return OD_READ_NOT_ALLOWED;
@@ -133,14 +146,24 @@ UNS32 _getODentry( CO_Data* d,
     MSG_WAR(visible_string, "data type ", *pDataType);
     for ( i = szData ; i > 0 ; i--) {
       MSG_WAR(i," ", j);
-      ((UNS8*)pDestData)[j++] =
-        ((UNS8*)ptrTable->pSubindex[bSubindex].pObject)[i-1];
+      ((UNS8*)pDestData)[j++] = ((UNS8*)ptrTable->pSubindex[bSubindex].bAccessType == CONST ? ptrTable->pSubindex[bSubindex].pObjectConst)[i-1] :
+        ptrTable->pSubindex[bSubindex].pObject)[i-1];
     }
     *pExpectedSize = szData;
   }
   else /* no endianisation change */
 #  endif
-  memcpy(pDestData, ptrTable->pSubindex[bSubindex].pObject,szData);
+  if(ptrTable->pSubindex[bSubindex].bAccessType == CONST) {
+      
+      if(ptrTable->pSubindex[bSubindex].bDataType == visible_string && bSubindex != 0) {
+          const CONSTSTORE char* dp = *(const CONSTSTORE char* const CONSTSTORE *)ptrTable->pSubindex[bSubindex].pObjectConst;
+          memcpy_flash(pDestData, dp,szData);
+      } else {
+          memcpy_flash(pDestData, ptrTable->pSubindex[bSubindex].pObjectConst,szData);
+      }
+  } else {
+      memcpy(pDestData, ptrTable->pSubindex[bSubindex].pObject,szData);
+  }
 
   if(*pDataType != visible_string)
       *pExpectedSize = szData;
@@ -168,13 +191,14 @@ UNS32 _setODentry( CO_Data* d,
                    UNS8 checkAccess,
                    UNS8 endianize)
 {
+  (void)endianize;
   UNS32 szData;
   UNS8 dataType;
   UNS32 errorCode;
-  const indextable *ptrTable;
-  ODCallback_t Callback;
+  const CONSTSTORE indextable *ptrTable;
+  ODCallback_t *Callback;
 
-  ptrTable =(*d->scanIndexOD)(d, wIndex, &errorCode);
+  ptrTable =(*d->scanIndexOD)(wIndex, &errorCode, &Callback);
   if (errorCode != OD_SUCCESSFUL)
     return errorCode;
 
@@ -183,7 +207,7 @@ UNS32 _setODentry( CO_Data* d,
     accessDictionaryError(wIndex, bSubindex, 0, *pExpectedSize, OD_NO_SUCH_SUBINDEX);
     return OD_NO_SUCH_SUBINDEX;
   }
-  if (checkAccess && (ptrTable->pSubindex[bSubindex].bAccessType == RO)) {
+  if (checkAccess && (ptrTable->pSubindex[bSubindex].bAccessType == RO || ptrTable->pSubindex[bSubindex].bAccessType == CONST)) {
     MSG_WAR(0x2B25, "Access Type : ", ptrTable->pSubindex[bSubindex].bAccessType);
     accessDictionaryError(wIndex, bSubindex, 0, *pExpectedSize, OD_WRITE_NOT_ALLOWED);
     return OD_WRITE_NOT_ALLOWED;
@@ -192,7 +216,6 @@ UNS32 _setODentry( CO_Data* d,
 
   dataType = ptrTable->pSubindex[bSubindex].bDataType;
   szData = ptrTable->pSubindex[bSubindex].size;
-  Callback = ptrTable->pSubindex[bSubindex].callback;
 
   /* check the size, we must allow to store less bytes than data size, even for intergers
 	 (e.g. UNS40 : objdictedit will store it in a uint64_t, setting the size to 8 but PDO comes
@@ -228,19 +251,20 @@ UNS32 _setODentry( CO_Data* d,
       *  - store string size in td_subindex 
       * */
       /* terminate visible_string with '\0' */
-      if(dataType == visible_string && *pExpectedSize < szData)
-        ((UNS8*)ptrTable->pSubindex[bSubindex].pObject)[*pExpectedSize] = 0;
-      
+      if(dataType == visible_string && *pExpectedSize < szData) {
+          ((UNS8*)ptrTable->pSubindex[bSubindex].pObject)[*pExpectedSize] = 0;
+      }
+
       *pExpectedSize = szData;
 
       /* Callbacks */
-      if(Callback){
-        errorCode = (Callback)(d, ptrTable, bSubindex);
+      if(Callback && Callback[bSubindex]){
+        errorCode = (Callback[bSubindex])(d, wIndex, bSubindex);
         if(errorCode != OD_SUCCESSFUL)
         {
             return errorCode;
         }
-      }
+       }
 
       /* Store value if requested with user defined function
 	     Function should return OD_ACCES_FAILED in case of store error */
@@ -255,19 +279,27 @@ UNS32 _setODentry( CO_Data* d,
     }
 }
 
+const CONSTSTORE indextable * scanIndexOD (CO_Data* d, UNS16 wIndex, UNS32 *errorCode, ODCallback_t **Callback)
+{
+  return (*d->scanIndexOD)(wIndex, errorCode, Callback);
+}
+
 UNS32 RegisterSetODentryCallBack(CO_Data* d, UNS16 wIndex, UNS8 bSubindex, ODCallback_t Callback)
 {
-  UNS32 errorCode;
-//  ODCallback_t *CallbackList;
-  const indextable *odentry;
+UNS32 errorCode;
+ODCallback_t *CallbackList;
+const CONSTSTORE indextable *odentry;
 
-  odentry = d->scanIndexOD (d, wIndex, &errorCode);
-  if(errorCode == OD_SUCCESSFUL &&  bSubindex < odentry->bSubCount) 
-    odentry->pSubindex[bSubindex].callback = Callback;
+  odentry = scanIndexOD (d, wIndex, &errorCode, &CallbackList);
+  if(errorCode == OD_SUCCESSFUL  &&  CallbackList  &&  bSubindex < odentry->bSubCount) 
+    CallbackList[bSubindex] = Callback;
   return errorCode;
 }
 
 UNS32 _storeODSubIndex (CO_Data* d, UNS16 wIndex, UNS8 bSubindex)
 {
+  (void)d;
+  (void)wIndex;
+  (void)bSubindex;
   return OD_SUCCESSFUL;
 }

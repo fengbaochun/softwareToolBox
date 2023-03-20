@@ -121,6 +121,7 @@ CAN_HANDLE usbCanOpen(s_BOARD *board)
                 return NULL;
         }
     }
+    VCI_ClearBuffer(VCI_USBCAN2,0,nCANInd);
     printf("open succeed");
 #endif
 

@@ -85,11 +85,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define RW     0x00  
 #define WO     0x01
 #define RO     0x02
+#define CONST  0x03
 
 #define TO_BE_SAVE  0x04
 #define DCF_TO_SEND 0x08
-#ifdef __AVR__
 
+#ifdef __AVR__
 #define CONSTSTORE __flash
 #else
 #define CONSTSTORE
@@ -103,30 +104,28 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 /** This are some structs which are neccessary for creating the entries
  *  of the object dictionary.
  */
-typedef struct td_indextable indextable;
-
-typedef UNS32 (*ODCallback_t)(CO_Data* d, const indextable *, UNS8 bSubindex);
-
 typedef struct td_subindex
 {
-    UNS8                    bAccessType;
-    UNS8                    bDataType; /* Defines of what datatype the entry is */
-    UNS32                   size;      /* The size (in Byte) of the variable */
-    void*                   pObject;   /* This is the pointer of the Variable */
-	ODCallback_t            callback;  /* Callback function on write event */
+    const UNS8              bAccessType;
+    const UNS8              bDataType; /* Defines of what datatype the entry is */
+    UNS32             size;      /* The size (in Byte) of the variable */
+    union {
+        void*          pObject;   /* This is the pointer of the Variable */
+        const CONSTSTORE void* const pObjectConst;
+    };
 } subindex;
 
 /** Struct for creating entries in the communictaion profile
  */
-struct td_indextable
+typedef struct td_indextable
 {
-    subindex*   pSubindex;   /* Pointer to the subindex */
-    UNS8   bSubCount;   /* the count of valid entries for this subindex
+    const CONSTSTORE subindex* const  pSubindex;   /* Pointer to the subindex */
+    const UNS8   bSubCount;   /* the count of valid entries for this subindex
                          * This count here defines how many memory has been
                          * allocated. this memory does not have to be used.
                          */
-    UNS16   index;
-};
+    const UNS16   index;
+} indextable;
 
 typedef struct s_quick_index{
 	UNS16 SDO_SVR;
@@ -137,10 +136,11 @@ typedef struct s_quick_index{
 	UNS16 PDO_TRS_MAP;
 }quick_index;
 
-
-typedef const indextable * (*scanIndexOD_t)(CO_Data* d, UNS16 wIndex, UNS32 * errorCode);
-
 /************************** MACROS *********************************/
+
+typedef struct struct_CO_Data CO_Data;
+typedef UNS32 (*ODCallback_t)(CO_Data* d, UNS16 wIndex, UNS8 bSubindex);
+typedef const CONSTSTORE indextable * (*scanIndexOD_t)(UNS16 wIndex, UNS32 * errorCode, ODCallback_t **Callback);
 
 /* CANopen usefull helpers */
 #define GET_NODE_ID(m)         (UNS16_LE(m.cob_id) & 0x7f)

@@ -51,5 +51,4 @@ SOURCES += \
     $$PWD/src/timer.c
 
 
-
 LIBS += -L$$PWD/drive/win_qt/ -lControlCAN
