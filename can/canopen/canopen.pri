@@ -3,7 +3,6 @@ HEADERS += \
     $$PWD/canopen/canopen.h \
     $$PWD/dict/TestMaser.h \
     $$PWD/dict/TestSlave.h \
-    $$PWD/dict/master.h \
     $$PWD/drive/win_qt/ControlCAN.H \
     $$PWD/drive/win_qt/applicfg.h \
     $$PWD/drive/win_qt/can.h \
@@ -33,7 +32,6 @@ SOURCES += \
     $$PWD/canopen/canopen.cpp \
     $$PWD/dict/TestMaser.c \
     $$PWD/dict/TestSlave.c \
-    $$PWD/dict/master.c \
     $$PWD/drive/win_qt/canfestival.c \
     $$PWD/drive/win_qt/timers_win32.c \
     $$PWD/src/dcf.c \

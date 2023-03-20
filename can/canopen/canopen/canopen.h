@@ -18,6 +18,10 @@ public:
     void init();
 //    void start();
 //    void stop();
+    void readDevType();             //读取设备类型
+    void readDevVision();           //读取设备版本号
+    void restNode();                //复位节点
+
 signals:
 
 };

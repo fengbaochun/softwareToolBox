@@ -1,4 +1,4 @@
-/*
+﻿/*
    This file is part of CanFestival, a library implementing CanOpen Stack.
 
    Copyright (C): Edouard TISSERANT and Francis DUPIN
@@ -543,6 +543,8 @@ UNS8 getSDOlineOnUse (CO_Data* d, UNS8 CliServNbr, UNS8 whoami, UNS8 *line)
 	UNS8 i;
 
 	for (i = 0 ; i < SDO_MAX_SIMULTANEOUS_TRANSFERS ; i++){
+        printf("d->transfers[i].state %d, d->transfers[i].state %d, d->transfers[i].CliServNbr %d\r\n",
+               d->transfers[i].state , d->transfers[i].state , d->transfers[i].CliServNbr );
 		if ( (d->transfers[i].state != SDO_RESET) &&
 				(d->transfers[i].state != SDO_ABORTED_INTERNAL) &&
 				(d->transfers[i].CliServNbr == CliServNbr) &&
@@ -1931,13 +1933,13 @@ INLINE UNS8 _writeNetworkDict (CO_Data* d, UNS8 nodeId, UNS16 index,
 	CliNbr = GetSDOClientFromNodeId( d, nodeId);
 	if(CliNbr >= 0xFE)
 		return CliNbr;
-	/* Verify that there is no SDO communication yet. */
+    /* 确认还没有 SDO 通信。. */
 	err = getSDOlineOnUse(d, CliNbr, SDO_CLIENT, &line);
 	if (!err) {
 		MSG_ERR(0x1AC4, "SDO error : Communication yet established. with node : ", nodeId);
 		return 0xFF;
 	}
-	/* Taking the line ... */
+    /* Taking the line ... */
 	err = getSDOfreeLine( d, SDO_CLIENT, &line );
 	if (err) {
 		MSG_ERR(0x1AC5, "SDO error : No line free, too many SDO in progress. Aborted for node : ", nodeId);

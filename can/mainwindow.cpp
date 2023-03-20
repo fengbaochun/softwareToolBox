@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
 //    can->start();
 
     canfestival = new canopen();
-    canfestival->init();
     canfestival->start();
 }
 
@@ -22,12 +21,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_peelButton_clicked()
 {
-    qDebug()<<"------------------------------------------";
+    qDebug()<<"获取设备类型";
+    canfestival->readDevType();
 }
 
 void MainWindow::on_calButton_clicked()
 {
-
+    qDebug()<<"复位节点";
+    canfestival->restNode();
 }
 
 void MainWindow::on_zeroButton_clicked()

@@ -12,5 +12,6 @@ const CONSTSTORE indextable * TestSlave_scanIndexOD (UNS16 wIndex, UNS32 * error
 
 /* Master node data struct */
 extern CO_Data TestSlave_Data;
+extern INTEGER16 test;		/* Mapped at index 0x2000, subindex 0x00*/
 
 #endif // TESTSLAVE_H

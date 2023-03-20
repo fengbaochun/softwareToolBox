@@ -20,7 +20,6 @@ extern "C" {
 #include "timers_driver.h"
 #include "timerscfg.h"
 #include "data.h"
-#include "master.h"
 
 
 /* CAN port structure */

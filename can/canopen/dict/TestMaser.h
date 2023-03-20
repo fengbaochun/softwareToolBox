@@ -7,10 +7,10 @@
 #include "data.h"
 
 /* Prototypes of function provided by object dictionnary */
-UNS32 TestMaser_valueRangeTest (UNS8 typeValue, void * value);
-const CONSTSTORE indextable * TestMaser_scanIndexOD (UNS16 wIndex, UNS32 * errorCode, ODCallback_t **callbacks);
+UNS32 _valueRangeTest (UNS8 typeValue, void * value);
+const CONSTSTORE indextable * _scanIndexOD (UNS16 wIndex, UNS32 * errorCode, ODCallback_t **callbacks);
 
 /* Master node data struct */
-extern CO_Data TestMaser_Data;
+extern CO_Data _Data;
 
 #endif // TESTMASER_H

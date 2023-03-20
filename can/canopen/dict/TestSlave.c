@@ -6,6 +6,7 @@
 /**************************************************************************/
 /* Declaration of mapped variables                                        */
 /**************************************************************************/
+INTEGER16 test = 0x63;		/* Mapped at index 0x2000, subindex 0x00 */
 
 /**************************************************************************/
 /* Declaration of value range types                                       */
@@ -44,7 +45,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 */
 
 /* index 0x1000 :   Device Type. */
-                    UNS32 TestSlave_obj1000 = 0x0;	/* 0 */
+                    UNS32 TestSlave_obj1000 = 0x1234;	/* 4660 */
                     const CONSTSTORE subindex TestSlave_Index1000[] = 
                      {
                        { RO, uint32, sizeof (UNS32), .pObject=&TestSlave_obj1000 }
@@ -94,7 +95,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                     UNS32 TestSlave_obj1016[]={0};
 
 /* index 0x1017 :   Producer Heartbeat Time. */
-                    UNS16 TestSlave_obj1017 = 500;	/* 500 */
+                    UNS16 TestSlave_obj1017 = 0x1F4;	/* 500 */
                     ODCallback_t TestSlave_Index1017_callbacks[] = 
                      {
                        NULL,
@@ -128,6 +129,32 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                        { RO, uint8, sizeof (UNS8), .pObject=&TestSlave_highestSubIndex_obj1200 },
                        { RO, uint32, sizeof (UNS32), .pObject=&TestSlave_obj1200_COB_ID_Client_to_Server_Receive_SDO },
                        { RO, uint32, sizeof (UNS32), .pObject=&TestSlave_obj1200_COB_ID_Server_to_Client_Transmit_SDO }
+                     };
+
+/* index 0x1201 :   Additional Server SDO 1 Parameter. */
+                    UNS8 TestSlave_highestSubIndex_obj1201 = 3; /* number of subindex - 1*/
+                    UNS32 TestSlave_obj1201_COB_ID_Client_to_Server_Receive_SDO = 0x602;	/* 1538 */
+                    UNS32 TestSlave_obj1201_COB_ID_Server_to_Client_Transmit_SDO = 0x582;	/* 1410 */
+                    UNS8 TestSlave_obj1201_Node_ID_of_the_SDO_Client = 0x2;	/* 2 */
+                    const CONSTSTORE subindex TestSlave_Index1201[] = 
+                     {
+                       { RO, uint8, sizeof (UNS8), .pObject=&TestSlave_highestSubIndex_obj1201 },
+                       { RO, uint32, sizeof (UNS32), .pObject=&TestSlave_obj1201_COB_ID_Client_to_Server_Receive_SDO },
+                       { RO, uint32, sizeof (UNS32), .pObject=&TestSlave_obj1201_COB_ID_Server_to_Client_Transmit_SDO },
+                       { RO, uint8, sizeof (UNS8), .pObject=&TestSlave_obj1201_Node_ID_of_the_SDO_Client }
+                     };
+
+/* index 0x1280 :   Client SDO 1 Parameter. */
+                    UNS8 TestSlave_highestSubIndex_obj1280 = 3; /* number of subindex - 1*/
+                    UNS32 TestSlave_obj1280_COB_ID_Client_to_Server_Transmit_SDO = 0x0;	/* 0 */
+                    UNS32 TestSlave_obj1280_COB_ID_Server_to_Client_Receive_SDO = 0x0;	/* 0 */
+                    UNS8 TestSlave_obj1280_Node_ID_of_the_SDO_Server = 0x0;	/* 0 */
+                    const CONSTSTORE subindex TestSlave_Index1280[] = 
+                     {
+                       { RO, uint8, sizeof (UNS8), .pObject=&TestSlave_highestSubIndex_obj1280 },
+                       { RW, uint32, sizeof (UNS32), .pObject=&TestSlave_obj1280_COB_ID_Client_to_Server_Transmit_SDO },
+                       { RW, uint32, sizeof (UNS32), .pObject=&TestSlave_obj1280_COB_ID_Server_to_Client_Receive_SDO },
+                       { RW, uint8, sizeof (UNS8), .pObject=&TestSlave_obj1280_Node_ID_of_the_SDO_Server }
                      };
 
 /* index 0x1400 :   Receive PDO 1 Parameter. */
@@ -530,6 +557,12 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                        { RW, uint32, sizeof (UNS32), .pObject=&TestSlave_obj1A03[7] }
                      };
 
+/* index 0x2000 :   Mapped variable test */
+                    const CONSTSTORE subindex TestSlave_Index2000[] = 
+                     {
+                       { RW, int16, sizeof (INTEGER16), .pObject=&test }
+                     };
+
 /**************************************************************************/
 /* Declaration of pointed variables                                       */
 /**************************************************************************/
@@ -541,6 +574,8 @@ const CONSTSTORE indextable TestSlave_objdict[] =
   { (const CONSTSTORE subindex* const)TestSlave_Index1017,sizeof(TestSlave_Index1017)/sizeof(TestSlave_Index1017[0]), 0x1017},
   { (const CONSTSTORE subindex* const)TestSlave_Index1018,sizeof(TestSlave_Index1018)/sizeof(TestSlave_Index1018[0]), 0x1018},
   { (const CONSTSTORE subindex* const)TestSlave_Index1200,sizeof(TestSlave_Index1200)/sizeof(TestSlave_Index1200[0]), 0x1200},
+  { (const CONSTSTORE subindex* const)TestSlave_Index1201,sizeof(TestSlave_Index1201)/sizeof(TestSlave_Index1201[0]), 0x1201},
+  { (const CONSTSTORE subindex* const)TestSlave_Index1280,sizeof(TestSlave_Index1280)/sizeof(TestSlave_Index1280[0]), 0x1280},
   { (const CONSTSTORE subindex* const)TestSlave_Index1400,sizeof(TestSlave_Index1400)/sizeof(TestSlave_Index1400[0]), 0x1400},
   { (const CONSTSTORE subindex* const)TestSlave_Index1401,sizeof(TestSlave_Index1401)/sizeof(TestSlave_Index1401[0]), 0x1401},
   { (const CONSTSTORE subindex* const)TestSlave_Index1402,sizeof(TestSlave_Index1402)/sizeof(TestSlave_Index1402[0]), 0x1402},
@@ -557,6 +592,7 @@ const CONSTSTORE indextable TestSlave_objdict[] =
   { (const CONSTSTORE subindex* const)TestSlave_Index1A01,sizeof(TestSlave_Index1A01)/sizeof(TestSlave_Index1A01[0]), 0x1A01},
   { (const CONSTSTORE subindex* const)TestSlave_Index1A02,sizeof(TestSlave_Index1A02)/sizeof(TestSlave_Index1A02[0]), 0x1A02},
   { (const CONSTSTORE subindex* const)TestSlave_Index1A03,sizeof(TestSlave_Index1A03)/sizeof(TestSlave_Index1A03[0]), 0x1A03},
+  { (const CONSTSTORE subindex* const)TestSlave_Index2000,sizeof(TestSlave_Index2000)/sizeof(TestSlave_Index2000[0]), 0x2000},
 };
 
 const CONSTSTORE indextable * TestSlave_scanIndexOD (UNS16 wIndex, UNS32 * errorCode, ODCallback_t **callbacks)
@@ -569,22 +605,25 @@ const CONSTSTORE indextable * TestSlave_scanIndexOD (UNS16 wIndex, UNS32 * error
 		case 0x1017: i = 2;*callbacks = TestSlave_Index1017_callbacks; break;
 		case 0x1018: i = 3;break;
 		case 0x1200: i = 4;break;
-		case 0x1400: i = 5;break;
-		case 0x1401: i = 6;break;
-		case 0x1402: i = 7;break;
-		case 0x1403: i = 8;break;
-		case 0x1600: i = 9;break;
-		case 0x1601: i = 10;break;
-		case 0x1602: i = 11;break;
-		case 0x1603: i = 12;break;
-		case 0x1800: i = 13;*callbacks = TestSlave_Index1800_callbacks; break;
-		case 0x1801: i = 14;*callbacks = TestSlave_Index1801_callbacks; break;
-		case 0x1802: i = 15;*callbacks = TestSlave_Index1802_callbacks; break;
-		case 0x1803: i = 16;*callbacks = TestSlave_Index1803_callbacks; break;
-		case 0x1A00: i = 17;break;
-		case 0x1A01: i = 18;break;
-		case 0x1A02: i = 19;break;
-		case 0x1A03: i = 20;break;
+		case 0x1201: i = 5;break;
+		case 0x1280: i = 6;break;
+		case 0x1400: i = 7;break;
+		case 0x1401: i = 8;break;
+		case 0x1402: i = 9;break;
+		case 0x1403: i = 10;break;
+		case 0x1600: i = 11;break;
+		case 0x1601: i = 12;break;
+		case 0x1602: i = 13;break;
+		case 0x1603: i = 14;break;
+		case 0x1800: i = 15;*callbacks = TestSlave_Index1800_callbacks; break;
+		case 0x1801: i = 16;*callbacks = TestSlave_Index1801_callbacks; break;
+		case 0x1802: i = 17;*callbacks = TestSlave_Index1802_callbacks; break;
+		case 0x1803: i = 18;*callbacks = TestSlave_Index1803_callbacks; break;
+		case 0x1A00: i = 19;break;
+		case 0x1A01: i = 20;break;
+		case 0x1A02: i = 21;break;
+		case 0x1A03: i = 22;break;
+		case 0x2000: i = 23;break;
 		default:
 			*errorCode = OD_NO_SUCH_OBJECT;
 			return NULL;
@@ -602,20 +641,20 @@ s_PDO_status TestSlave_PDO_status[4] = {s_PDO_status_Initializer,s_PDO_status_In
 
 const CONSTSTORE quick_index TestSlave_firstIndex = {
   4, /* SDO_SVR */
-  0, /* SDO_CLT */
-  5, /* PDO_RCV */
-  9, /* PDO_RCV_MAP */
-  13, /* PDO_TRS */
-  17 /* PDO_TRS_MAP */
+  6, /* SDO_CLT */
+  7, /* PDO_RCV */
+  11, /* PDO_RCV_MAP */
+  15, /* PDO_TRS */
+  19 /* PDO_TRS_MAP */
 };
 
 const CONSTSTORE quick_index TestSlave_lastIndex = {
-  4, /* SDO_SVR */
-  0, /* SDO_CLT */
-  8, /* PDO_RCV */
-  12, /* PDO_RCV_MAP */
-  16, /* PDO_TRS */
-  20 /* PDO_TRS_MAP */
+  5, /* SDO_SVR */
+  6, /* SDO_CLT */
+  10, /* PDO_RCV */
+  14, /* PDO_RCV_MAP */
+  18, /* PDO_TRS */
+  22 /* PDO_TRS_MAP */
 };
 
 const CONSTSTORE UNS16 TestSlave_ObjdictSize = sizeof(TestSlave_objdict)/sizeof(TestSlave_objdict[0]); 
