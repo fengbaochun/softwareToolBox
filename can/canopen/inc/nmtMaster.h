@@ -1,15 +1,3 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 pkzju
-**
-**
-** Version	: 0.1.1.0
-** Author	: pkzju
-** Website	: https://github.com/pkzju
-** Project	: https://github.com/pkzju/QSuperConsole
-** 
-****************************************************************************/
-
 /*
 This file is part of CanFestival, a library implementing CanOpen Stack. 
 
@@ -43,7 +31,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __nmtMaster_h__
 #define __nmtMaster_h__
 
-#include "data.h"
+#include <applicfg.h>
+
+typedef struct struct_CO_Data CO_Data;
 
 /** 
  * @ingroup nmtmaster
