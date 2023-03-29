@@ -32,8 +32,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 /* #define DEBUG_WAR_CONSOLE_ON */
 /* #define DEBUG_ERR_CONSOLE_ON */
 
-#include <applicfg.h>
 #include "timer.h"
+#include "applicfg.h"
 #include "config.h"
 
 /*  ---------  The timer table --------- */

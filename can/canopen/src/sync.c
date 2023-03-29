@@ -36,10 +36,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
 */
 
-#include "data.h"
 #include "sync.h"
+#include "data.h"
 #include "canfestival.h"
 #include "sysdep.h"
+#include "objaccessinternal.h"
 
 /* Prototypes for internals functions */
 
@@ -50,7 +51,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ** @param id                                                                                       
 **/  
 void SyncAlarm(CO_Data* d, UNS32 id);
-UNS32 OnCOB_ID_SyncUpdate(CO_Data* d, const indextable * unsused_indextable, 
+UNS32 OnCOB_ID_SyncUpdate(CO_Data* d, UNS16 unsused_indextable,
 	UNS8 unsused_bSubindex);
 
 /*!                                                                                                
@@ -61,6 +62,7 @@ UNS32 OnCOB_ID_SyncUpdate(CO_Data* d, const indextable * unsused_indextable,
 **/   
 void SyncAlarm(CO_Data* d, UNS32 id)
 {
+	(void)id;
 	sendSYNC(d) ;
 }
 
@@ -73,8 +75,10 @@ void SyncAlarm(CO_Data* d, UNS32 id)
 **                                                                                                 
 ** @return                                                                                         
 **/  
-UNS32 OnCOB_ID_SyncUpdate(CO_Data* d, const indextable * unsused_indextable, UNS8 unsused_bSubindex)
+UNS32 OnCOB_ID_SyncUpdate(CO_Data* d, UNS16 unsused_indextable, UNS8 unsused_bSubindex)
 {
+	(void)unsused_indextable;
+	(void)unsused_bSubindex;
 	startSYNC(d);
 	return 0;
 }
@@ -93,7 +97,7 @@ void startSYNC(CO_Data* d)
 	RegisterSetODentryCallBack(d, 0x1005, 0, &OnCOB_ID_SyncUpdate);
 	RegisterSetODentryCallBack(d, 0x1006, 0, &OnCOB_ID_SyncUpdate);
 
-	if(*d->COB_ID_Sync & 0x40000000ul && *d->Sync_Cycle_Period)
+	if((*d->COB_ID_Sync & 0x40000000ul) && *d->Sync_Cycle_Period)
 	{
 		d->syncTimer = SetAlarm(
 				d,
@@ -101,7 +105,6 @@ void startSYNC(CO_Data* d)
 				&SyncAlarm,
 				US_TO_TIMEVAL(*d->Sync_Cycle_Period), 
 				US_TO_TIMEVAL(*d->Sync_Cycle_Period));
-
 	}
 }
 
@@ -121,8 +124,7 @@ void stopSYNC(CO_Data* d)
 /*!                                                                                                
 **                                                                                                 
 **                                                                                                 
-** @param d                                                                                        
-** @param cob_id                                                                                   
+** @param d                                                                                
 **                                                                                                 
 ** @return                                                                                         
 **/  
@@ -143,8 +145,7 @@ UNS8 sendSYNCMessage(CO_Data* d)
 /*!                                                                                                
 **                                                                                                 
 **                                                                                                 
-** @param d                                                                                        
-** @param cob_id                                                                                   
+** @param d                                                                                  
 **                                                                                                 
 ** @return                                                                                         
 **/  
@@ -159,8 +160,7 @@ UNS8 sendSYNC(CO_Data* d)
 /*!                                                                                                
 **                                                                                                 
 **                                                                                                 
-** @param d                                                                                        
-** @param m                                                                                        
+** @param d                                                                                    
 **                                                                                                 
 ** @return                                                                                         
 **/ 
@@ -187,5 +187,5 @@ UNS8 proceedSYNC(CO_Data* d)
 }
 
 
-void _post_sync(CO_Data* d){}
-void _post_TPDO(CO_Data* d){}
+void _post_sync(CO_Data* d){(void)d;}
+void _post_TPDO(CO_Data* d){(void)d;}
