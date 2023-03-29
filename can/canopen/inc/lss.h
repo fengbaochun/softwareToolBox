@@ -1,16 +1,4 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 pkzju
-**
-**
-** Version	: 0.1.1.0
-** Author	: pkzju
-** Website	: https://github.com/pkzju
-** Project	: https://github.com/pkzju/QSuperConsole
-** 
-****************************************************************************/
-
-/*
+﻿/*
 This file is part of CanFestival, a library implementing CanOpen Stack. 
 
 Copyright (C): Jorge Berzosa
@@ -91,6 +79,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define LSS_FS_PROCESSING 1
 #define LSS_FS_CONFIRMATION 2
 
+#include "applicfg.h"
+#include "timer.h"
+
+typedef struct struct_CO_Data CO_Data;
 
 typedef void (*LSSCallback_t)(CO_Data* d, UNS8 command); 
 
@@ -100,6 +92,7 @@ typedef void (*lss_StoreConfiguration_t)(CO_Data* d,UNS8*,UNS8*);
 //typedef void (*lss_ChangeBaudRate_t)(CO_Data* d,char*);
 //void _lss_ChangeBaudRate(char *BaudRate);
 
+//typedef struct Message Message;
 
 struct struct_lss_transfer;
 
@@ -202,6 +195,7 @@ UNS8 sendLSSMessage(CO_Data* d, UNS8 command,  void *dat1, void *dat2);
  *  - Stops the timer so the alarm wont raise an error.
  *  - return 0 if OK
  */
+
 UNS8 proceedLSS_Master (CO_Data* d, Message* m );
 
 /** This function is called when the node is receiving a Slave LSS message (cob-id = 0x7E4).
