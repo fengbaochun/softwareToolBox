@@ -1,15 +1,3 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 pkzju
-**
-**
-** Version	: 0.1.1.0
-** Author	: pkzju
-** Website	: https://github.com/pkzju
-** Project	: https://github.com/pkzju/QSuperConsole
-** 
-****************************************************************************/
-
 /*
 This file is part of CanFestival, a library implementing CanOpen Stack.
 
@@ -35,12 +23,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __timer_h__
 #define __timer_h__
 
-#include "timerscfg.h"
-#include "applicfg.h"
+#include <timerscfg.h>
+#include <applicfg.h>
 
+typedef struct struct_CO_Data CO_Data;
 #define TIMER_HANDLE INTEGER16
-
-#include "data.h"
 
 /* --------- types and constants definitions --------- */
 #define TIMER_FREE 0

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 pkzju
 **
@@ -45,6 +45,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define NMT_MAX_NODE_ID 128
 #define SDO_TIMEOUT_MS 3000
 #define MAX_NB_TIMER 32
+
 /* CANOPEN_BIG_ENDIAN is not defined */
 /* US_TO_TIMEVAL_FACTOR is not defined */
 /* TIMEVAL is not defined */
