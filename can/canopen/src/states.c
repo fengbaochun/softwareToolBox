@@ -29,8 +29,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
 */
 
+#include "states.h"
 #include "data.h"
 #include "sysdep.h"
+#include "objaccessinternal.h"
 
 /** Prototypes for internals functions */
 /*!                                                                                                
@@ -74,7 +76,7 @@ void canDispatch(CO_Data* d, Message *m)
 				if(d->CurrentCommunicationState.csEmergency)
 					proceedEMCY(d,m);
 			break;
-		/* case TIME_STAMP: */
+		case TIME_STAMP:
 		case PDO1tx:
 		case PDO1rx:
 		case PDO2tx:
@@ -254,14 +256,14 @@ void setNodeId(CO_Data* d, UNS8 nodeId)
 
   if(offset){
     /* Adjust COB-ID Client->Server (rx) only id already set to default value or id not valid (id==0xFF)*/
-    if((*(UNS32*)d->objdict[offset].pSubindex[1].pObject == 0x600 + *d->bDeviceNodeId)||(*d->bDeviceNodeId==0xFF)){
+    if((READ_UNS32(d->objdict, offset, 1) == ((UNS32)0x600) + *d->bDeviceNodeId)||(*d->bDeviceNodeId==0xFF)){
       /* cob_id_client = 0x600 + nodeId; */
-      *(UNS32*)d->objdict[offset].pSubindex[1].pObject = 0x600 + nodeId;
+      WRITE_UNS32(d->objdict, offset, 1, 0x600 + nodeId);
     }
     /* Adjust COB-ID Server -> Client (tx) only id already set to default value or id not valid (id==0xFF)*/
-    if((*(UNS32*)d->objdict[offset].pSubindex[2].pObject == 0x580 + *d->bDeviceNodeId)||(*d->bDeviceNodeId==0xFF)){
+    if((READ_UNS32(d->objdict, offset, 2) == ((UNS32)0x580) + *d->bDeviceNodeId)||(*d->bDeviceNodeId==0xFF)){
       /* cob_id_server = 0x580 + nodeId; */
-      *(UNS32*)d->objdict[offset].pSubindex[2].pObject = 0x580 + nodeId;
+      WRITE_UNS32(d->objdict, offset, 2, 0x580 + nodeId);
     }
   }
 
@@ -275,12 +277,16 @@ void setNodeId(CO_Data* d, UNS8 nodeId)
   */
   {
     UNS8 i = 0;
-    UNS16 offset = d->firstIndex->PDO_RCV;
+    offset = d->firstIndex->PDO_RCV;
     UNS16 lastIndex = d->lastIndex->PDO_RCV;
     UNS32 cobID[] = {0x200, 0x300, 0x400, 0x500};
+    UNS32 canID;
+    UNS32 otherBits;
     if( offset ) while( (offset <= lastIndex) && (i < 4)) {
-      if((*(UNS32*)d->objdict[offset].pSubindex[1].pObject == cobID[i] + *d->bDeviceNodeId)||(*d->bDeviceNodeId==0xFF))
-	      *(UNS32*)d->objdict[offset].pSubindex[1].pObject = cobID[i] + nodeId;
+      canID = READ_UNS32(d->objdict, offset, 1) & 0x1fffffff;
+      otherBits = READ_UNS32(d->objdict, offset, 1) & ~0x1fffffff;
+      if((canID == cobID[i] + *d->bDeviceNodeId)||(*d->bDeviceNodeId==0xFF))
+	      WRITE_UNS32(d->objdict, offset, 1, (cobID[i] + nodeId) | otherBits);
       i ++;
       offset ++;
     }
@@ -288,32 +294,36 @@ void setNodeId(CO_Data* d, UNS8 nodeId)
   /* ** Initialize the transmit PDO communication parameters. Only for 0x1800 to 0x1803 */
   {
     UNS8 i = 0;
-    UNS16 offset = d->firstIndex->PDO_TRS;
+    offset = d->firstIndex->PDO_TRS;
     UNS16 lastIndex = d->lastIndex->PDO_TRS;
     UNS32 cobID[] = {0x180, 0x280, 0x380, 0x480};
+    UNS32 canID;
+    UNS32 otherBits;
     i = 0;
     if( offset ) while ((offset <= lastIndex) && (i < 4)) {
-      if((*(UNS32*)d->objdict[offset].pSubindex[1].pObject == cobID[i] + *d->bDeviceNodeId)||(*d->bDeviceNodeId==0xFF))
-	      *(UNS32*)d->objdict[offset].pSubindex[1].pObject = cobID[i] + nodeId;
+      canID = READ_UNS32(d->objdict, offset, 1) & 0x1fffffff;
+      otherBits = READ_UNS32(d->objdict, offset, 1) & ~0x1fffffff;
+      if((canID == cobID[i] + *d->bDeviceNodeId)||(*d->bDeviceNodeId==0xFF))
+	      WRITE_UNS32(d->objdict, offset, 1, (cobID[i] + nodeId) | otherBits);
       i ++;
       offset ++;
     }
   }
 
   /* Update EMCY COB-ID if already set to default*/
-  if((*d->error_cobid == *d->bDeviceNodeId + 0x80)||(*d->bDeviceNodeId==0xFF))
+  if((*d->error_cobid == *d->bDeviceNodeId + (UNS32)0x80)||(*d->bDeviceNodeId==0xFF))
     *d->error_cobid = nodeId + 0x80;
 
   /* bDeviceNodeId is defined in the object dictionary. */
   *d->bDeviceNodeId = nodeId;
 }
 
-void _initialisation(CO_Data* d){}
+void _initialisation(CO_Data* d){(void)d;}
 void _preOperational(CO_Data* d){
     if (!(*(d->iam_a_slave)))
     {
         masterSendNMTstateChange (d, 0, NMT_Reset_Node);
     }
 }
-void _operational(CO_Data* d){}
-void _stopped(CO_Data* d){}
+void _operational(CO_Data* d){(void)d;}
+void _stopped(CO_Data* d){(void)d;}

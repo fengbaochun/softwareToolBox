@@ -25,6 +25,7 @@
 #include "objacces.h"
 #include "canfestival.h"
 #include "sysdep.h"
+#include "objaccessinternal.h"
 
 /*!
 ** @file   pdo.c

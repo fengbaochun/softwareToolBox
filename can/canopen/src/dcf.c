@@ -33,10 +33,10 @@
 **
 */
 
-
+#include "dcf.h"
 #include "data.h"
 #include "sysdep.h"
-#include "dcf.h"
+#include "objaccessinternal.h"
 
 typedef struct {
     UNS16 Index;
@@ -74,7 +74,7 @@ UNS8 check_and_start_node(CO_Data* d, UNS8 nodeId)
         return 0;
     /* Set the first SDO client as available */
     if(d->firstIndex->SDO_CLT)
-        *(UNS8*) d->objdict[d->firstIndex->SDO_CLT].pSubindex[3].pObject = 0;
+        WRITE_UNS8(d->objdict, d->firstIndex->SDO_CLT, 3, 0);
     else
         return 3;
     if((init_consise_dcf(d, nodeId) == 0) || (read_consise_dcf_next_entry(d, nodeId) == 0)){
@@ -113,7 +113,7 @@ static inline void start_and_seek_node(CO_Data* d, UNS8 nodeId){
 static void CheckSDOAndContinue(CO_Data* d, UNS8 nodeId)
 {
     UNS32 abortCode = 0;
-    UNS8 buf[4], match = 0, node;
+    UNS8 buf[4], match = 0;
     UNS32 size=4;
     if(d->dcf_status == DCF_STATUS_READ_CHECK){
         if(getReadResultNetworkDict (d, nodeId, buf, &size, &abortCode) != SDO_FINISHED)
@@ -178,17 +178,15 @@ UNS8 init_consise_dcf(CO_Data* d,UNS8 nodeId)
 {
     /* Fetch DCF OD entry */
     UNS32 errorCode;
-    UNS8* dcf;
-    d->dcf_odentry = (*d->scanIndexOD)(d, 0x1F22, &errorCode);
+    ODCallback_t *Callback;
+    d->dcf_odentry = (*d->scanIndexOD)(0x1F22, &errorCode, &Callback);
     /* If DCF entry do not exist... Nothing to do.*/
     if (errorCode != OD_SUCCESSFUL) goto DCF_finish;
     /* Fix DCF table overflow */
     if(nodeId > d->dcf_odentry->bSubCount) goto DCF_finish;
     /* If DCF empty... Nothing to do */
     if(! d->dcf_odentry->pSubindex[nodeId].size) goto DCF_finish;
-    //dcf = *(UNS8**)d->dcf_odentry->pSubindex[nodeId].pObject;
-    dcf = (UNS8*)d->dcf_odentry->pSubindex[nodeId].pObject;
-    d->dcf_cursor = dcf + 4;
+    d->dcf_cursor = ((UNS8*)d->dcf_odentry->pSubindex[nodeId].pObject) + 4;
     d->dcf_entries_count = 0;
     d->dcf_status = DCF_STATUS_INIT;
     return 1;
@@ -207,7 +205,6 @@ UNS8 get_next_DCF_data(CO_Data* d, dcf_entry_t *dcf_entry, UNS8 nodeId)
   if(nodeId > d->dcf_odentry->bSubCount)
      return 0;
   szData = d->dcf_odentry->pSubindex[nodeId].size;
-  //dcf = *(UNS8**)d->dcf_odentry->pSubindex[nodeId].pObject;
   dcf = (UNS8*)d->dcf_odentry->pSubindex[nodeId].pObject;
   nb_entries = UNS32_LE(*((UNS32*)dcf));
   dcfend = dcf + szData;
@@ -258,8 +255,9 @@ static UNS8 write_consise_dcf_next_entry(CO_Data* d, UNS8 nodeId)
                     CheckSDOAndContinue,/* Callback*/
                     0,   /* no endianize*/
                     0); /* no block mode */
-    if(Ret)
-        MSG_ERR(0x1A02,"Erreur writeNetworkDictCallBackAI",Ret);
+    if(Ret) {
+        MSG_ERR(0x1A02,"Error writeNetworkDictCallBackAI",Ret);
+    }
     return 1;
 }
 
@@ -276,8 +274,9 @@ static UNS8 read_consise_dcf_next_entry(CO_Data* d, UNS8 nodeId)
                    0, /* UNS8 dataType*/
                    CheckSDOAndContinue,/* Callback*/
                    0); /* no block mode */
-    if(Ret)
-        MSG_ERR(0x1A03,"Erreur readNetworkDictCallbackAI",Ret);
+    if(Ret) {
+        MSG_ERR(0x1A03,"Error readNetworkDictCallbackAI",Ret);
+    }
     return 1;
 }
 
@@ -295,6 +294,7 @@ void SaveNode(CO_Data* d, UNS8 nodeId)
                     CheckSDOAndContinue,/* Callback*/
                     0,   /* no endianize*/
                     0); /* no block mode */
-    if(Ret)
-        MSG_ERR(0x1A04,"Erreur writeNetworkDictCallBackAI",Ret);
+    if(Ret) {
+        MSG_ERR(0x1A04,"Error writeNetworkDictCallBackAI",Ret);
+    }
 }

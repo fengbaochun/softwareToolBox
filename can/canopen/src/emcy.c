@@ -33,14 +33,13 @@
 **
 */
 
-#include <data.h>
 #include "emcy.h"
+#include "data.h"
 #include "canfestival.h"
 #include "sysdep.h"
+#include "config.h"
 
-
-
-UNS32 OnNumberOfErrorsUpdate(CO_Data* d, const indextable * unsused_indextable, UNS8 unsused_bSubindex);
+UNS32 OnNumberOfErrorsUpdate(CO_Data* d, UNS16 unsused_indextable, UNS8 unsused_bSubindex);
 
 #define Data data  /* temporary fix */
 
@@ -54,16 +53,20 @@ UNS32 OnNumberOfErrorsUpdate(CO_Data* d, const indextable * unsused_indextable, 
 **
 ** @return
 **/
-UNS32 OnNumberOfErrorsUpdate(CO_Data* d, const indextable * unsused_indextable, UNS8 unsused_bSubindex)
+UNS32 OnNumberOfErrorsUpdate(CO_Data* d, UNS16 unsused_indextable, UNS8 unsused_bSubindex)
 {
 	UNS8 index;
+	(void)unsused_indextable;
+	(void)unsused_bSubindex;
   // if 0, reset Pre-defined Error Field
   // else, don't change and give an abort message (eeror code: 0609 0030h)
 	if (*d->error_number == 0)
 		for (index = 0; index < d->error_history_size; ++index)
 			*(d->error_first_element + index) = 0;		/* clear all the fields in Pre-defined Error Field (1003h) */
 	else
+	{
 		;// abort message
+	}
   return 0;
 }
 
@@ -86,7 +89,7 @@ void emergencyInit(CO_Data* d)
 **/
 void emergencyStop(CO_Data* d)
 {
-  
+  (void)d;
 }
 
 
@@ -125,7 +128,8 @@ UNS8 sendEMCY(CO_Data* d, UNS16 errCode, UNS8 errRegister, const UNS8 errSpecifi
  **  
  ** @param d
  ** @param errCode Code of the error                                                                                        
- ** @param errRegister Bits of Error register (1001h) to be set.
+ ** @param errRegMask
+ ** @param addInfo
  ** @return 1 if error, 0 if successful
  */
 UNS8 EMCY_setError(CO_Data* d, UNS16 errCode, UNS8 errRegMask, UNS16 addInfo)
@@ -183,8 +187,7 @@ UNS8 EMCY_setError(CO_Data* d, UNS16 errCode, UNS8 errRegMask, UNS16 addInfo)
  **                                                                                                 
  **  
  ** @param d
- ** @param errCode Code of the error                                                                                        
- ** @param errRegister Bits of Error register (1001h) to be set.
+ ** @param errCode Code of the error
  ** @return 1 if error, 0 if successful
  */
 void EMCY_errorRecovered(CO_Data* d, UNS16 errCode)
@@ -218,7 +221,10 @@ void EMCY_errorRecovered(CO_Data* d, UNS16 errCode)
 		*d->error_register = errRegister_tmp;
 	}
 	else
+	{
 		MSG_WAR(0x3054, "recovered error was not active", 0);
+	}
+	
 }
 
 /*! This function is responsible to process an EMCY canopen-message.
@@ -249,4 +255,4 @@ void proceedEMCY(CO_Data* d, Message* m)
 	(*d->post_emcy)(d, nodeID, errCode, errReg, (const UNS8*)&m->Data[3]);
 }
 
-void _post_emcy(CO_Data* d, UNS8 nodeID, UNS16 errCode, UNS8 errReg, const UNS8 errSpec[5]){}
+void _post_emcy(CO_Data* d, UNS8 nodeID, UNS16 errCode, UNS8 errReg, const UNS8 errSpec[5]){(void)d;(void)nodeID;(void)errCode;(void)errReg;(void)errSpec;}
