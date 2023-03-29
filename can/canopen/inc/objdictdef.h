@@ -60,7 +60,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define pdo_communication_parameter 0x20
 #define pdo_mapping                 0x21
 #define sdo_parameter               0x22
-#define IDENTITY                    0x23  //fuck there! if use identity ,compile error!
+#define identity                    0x23
 
 /* CanFestival is using 0x24 to 0xFF to define some types containing a 
  value range (See how it works in objdict.c)
