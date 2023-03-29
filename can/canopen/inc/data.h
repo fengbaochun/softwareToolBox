@@ -1,15 +1,3 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 pkzju
-**
-**
-** Version	: 0.1.1.0
-** Author	: pkzju
-** Website	: https://github.com/pkzju
-** Project	: https://github.com/pkzju/QSuperConsole
-** 
-****************************************************************************/
-
 /*
 This file is part of CanFestival, a library implementing CanOpen Stack. 
 
@@ -68,13 +56,13 @@ typedef struct struct_CO_Data CO_Data;
 struct struct_CO_Data {
 	/* Object dictionary */
 	UNS8 *bDeviceNodeId;
-	const indextable *objdict;
+	const CONSTSTORE indextable *objdict;
 	s_PDO_status *PDO_status;
 	TIMER_HANDLE *RxPDO_EventTimers;
 	void (*RxPDO_EventTimers_Handler)(CO_Data*, UNS32);
-	const quick_index *firstIndex;
-	const quick_index *lastIndex;
-	const UNS16 *ObjdictSize;
+	const CONSTSTORE quick_index *firstIndex;
+	const CONSTSTORE quick_index *lastIndex;
+	const CONSTSTORE UNS16 *ObjdictSize;
 	const UNS8 *iam_a_slave;
 	valueRangeTest_t valueRangeTest;
 	
@@ -126,8 +114,11 @@ struct struct_CO_Data {
 	storeODSubIndex_t storeODSubIndex; 
 	
 	/* DCF concise */
-    const indextable* dcf_odentry;
-	UNS8* dcf_cursor;
+    const CONSTSTORE indextable* dcf_odentry;
+    //union {
+        UNS8* dcf_cursor;
+        //const CONSTSTORE UNS8* dcf_cursor_const;
+    //};
 	UNS32 dcf_entries_count;
 	UNS8 dcf_status;
     UNS32 dcf_size;

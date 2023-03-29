@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 pkzju
 **
@@ -50,8 +50,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __emcy_h__
 #define __emcy_h__
 
+//#include "data.h"
+#include "applicfg.h"
+#include "can.h"
 
-#include <applicfg.h>
+typedef struct struct_CO_Data CO_Data;
+//typedef struct Message Message;
 
 /* The error states 
  * ----------------- */
@@ -65,9 +69,6 @@ typedef struct {
 	UNS8 errRegMask;
 	UNS8 active;
 } s_errors;
-
-#include "data.h"
-
 
 typedef void (*post_emcy_t)(CO_Data* d, UNS8 nodeID, UNS16 errCode, UNS8 errReg, const UNS8 errSpec[5]);
 void _post_emcy(CO_Data* d, UNS8 nodeID, UNS16 errCode, UNS8 errReg, const UNS8 errSpec[5]);

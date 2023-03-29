@@ -26,6 +26,7 @@ HEADERS += \
     $$PWD/inc/states.h \
     $$PWD/inc/sync.h \
     $$PWD/inc/sysdep.h \
+    $$PWD/inc/objaccessinternal.h\
     $$PWD/inc/timer.h
 
 SOURCES += \

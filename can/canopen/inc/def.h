@@ -1,15 +1,3 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 pkzju
-**
-**
-** Version	: 0.1.1.0
-** Author	: pkzju
-** Website	: https://github.com/pkzju
-** Project	: https://github.com/pkzju/QSuperConsole
-** 
-****************************************************************************/
-
 /*
 This file is part of CanFestival, a library implementing CanOpen Stack. 
 
@@ -36,7 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __def_h__
 #define __def_h__
 
-#include "config.h"
+#include <config.h>
 
 /** definitions used for object dictionary access. ie SDO Abort codes . (See DS 301 v.4.02 p.48)
  */
