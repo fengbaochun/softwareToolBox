@@ -437,7 +437,7 @@ UNS8 sendMasterLSSMessage(CO_Data* d, UNS8 command,void *dat1,void *dat2)
   case LSS_CONF_ACT_BIT_TIMING: /* Activate Bit Timing Parameters */
 	m.data[1]=(UNS8)(*(UNS32*)dat1 & 0xFF);
 	m.data[2]=(UNS8)(*(UNS32*)dat1>>8 & 0xFF);
-	if(d->lss_transfer.baudRate!="none"){
+	if(strcmp(d->lss_transfer.baudRate,"none")){
 		d->lss_transfer.switchDelay=(UNS16)(*(UNS32*)dat1 & 0xFFFF);
 		d->lss_transfer.switchDelayState=SDELAY_FIRST;
 		d->lss_transfer.canHandle_t=d->canHandle;
@@ -751,7 +751,7 @@ UNS8 proceedLSS_Slave(CO_Data* d, Message* m )
 			break;
 		}
 		
-		if(d->lss_transfer.baudRate!="none"){
+		if(strcmp(d->lss_transfer.baudRate,"none")){
 			d->lss_transfer.switchDelay=getLSSDelay(m);
 			MSG_WAR(0x3D2C, "Slave Switch Delay set to: ",d->lss_transfer.switchDelay);
 			d->lss_transfer.switchDelayState=SDELAY_FIRST;
@@ -831,7 +831,8 @@ UNS8 proceedLSS_Slave(CO_Data* d, Message* m )
 	case LSS_IDENT_REMOTE_SERIAL_HIGH:
 	{
 		UNS32 errorCode;
-  		const indextable *ptrTable;
+  		const CONSTSTORE indextable *ptrTable;
+  		ODCallback_t *Callback;
   		UNS32 _SpecificNodeInfo;
   		
 		_SpecificNodeInfo=getLSSIdent(m);
@@ -877,7 +878,8 @@ UNS8 proceedLSS_Slave(CO_Data* d, Message* m )
 	{
 	
 		UNS32 errorCode;
-  		const indextable *ptrTable;
+  		const CONSTSTORE indextable *ptrTable;
+  		ODCallback_t *Callback;
   		UNS32 _SpecificNodeInfo;
   
   		ptrTable = (*d->scanIndexOD)(d, 0x1018, &errorCode);
@@ -911,7 +913,7 @@ UNS8 proceedLSS_Slave(CO_Data* d, Message* m )
    		case LSS_FS_RESET:
    		{
    			UNS32 errorCode;
-  			const indextable *ptrTable;
+  			const CONSTSTORE indextable *ptrTable;
   			ODCallback_t *Callback;
   				
 			MSG_WAR(0x3D3A, "SlaveLSS Reseting LSSPos", 0);
@@ -964,7 +966,8 @@ UNS8 proceedLSS_Slave(CO_Data* d, Message* m )
 					{
 						/* Switch to the next LSS-ID[sub] */
 						UNS32 errorCode;
-  						const indextable *ptrTable;
+  						const CONSTSTORE indextable *ptrTable;
+  						ODCallback_t *Callback;
 		
 						d->lss_transfer.LSSPos=getLSSNext(m);
 						ptrTable = (*d->scanIndexOD)(d, 0x1018, &errorCode);
