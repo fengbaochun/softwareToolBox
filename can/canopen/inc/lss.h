@@ -34,6 +34,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __LSS_h__
 #define __LSS_h__
 
+#include "can.h"
+
 #define SLSS_ADRESS	0x7E4
 #define MLSS_ADRESS	0x7E5
 
@@ -92,7 +94,7 @@ typedef void (*lss_StoreConfiguration_t)(CO_Data* d,UNS8*,UNS8*);
 //typedef void (*lss_ChangeBaudRate_t)(CO_Data* d,char*);
 //void _lss_ChangeBaudRate(char *BaudRate);
 
-//typedef struct Message Message;
+// typedef struct Message Message;
 
 struct struct_lss_transfer;
 
