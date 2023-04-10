@@ -1,0 +1,14 @@
+
+*.crf
+*.d
+*.o
+*.iex
+*.axf
+*.htm
+*.sct
+*.map
+*.lnp
+*.hex
+*.Administrator
+*.scvd
+*.dep
