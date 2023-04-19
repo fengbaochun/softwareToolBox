@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "mainctl_pri/mainctl.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,17 +18,17 @@ public:
 
 private slots:
     void on_pushButton_clicked(bool checked);
-
-    void on_pushButton_2_clicked();
-
-    void on_pushButton_3_clicked();
-
     void on_pushButton_4_clicked();
-
-    void reportCallBack(funsionType fun, uint32_t data);
     void on_pushButton_5_clicked();
+
+    void on_pushButton_6_clicked();
+
+    void on_pushButton_7_clicked();
+
+    void on_pushButton_8_clicked();
 
 private:
     Ui::MainWindow *ui;
+//    powerCtl *pctl;
 };
 #endif // MAINWINDOW_H

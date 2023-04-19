@@ -1,7 +1,13 @@
 QT       += serialport
 
 HEADERS += \
-    $$PWD/mainctl.h
+    $$PWD/uProtocol.h\
+    $$PWD/powerCtl.h \
+    $$PWD/rfti.h
+
 
 SOURCES += \
-    $$PWD/mainctl.cpp
+    $$PWD/uProtocol.cpp\
+    $$PWD/powerCtl.cpp \
+    $$PWD/rfti.cpp
+
