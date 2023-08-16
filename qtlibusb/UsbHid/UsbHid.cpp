@@ -139,10 +139,18 @@ void UsbHid::init()
 void UsbHid::run()
 {
     qDebug()<<"start listen rev:";
+    static int num = 222;
     while(1)
     {
-        revice(0x02, 1);
-        revice(0x01, 1);
+        QString numStr = QString::number(num++);
+        QByteArray qbStr = numStr.toLocal8Bit();
+        QByteArray a = qbStr + "qsx" +qbStr + "fgh" +qbStr+ "fgh" +qbStr+ "fgh" +qbStr ;
+        send(0x01, a);
+        revice(0x01, 100);
+
+        send(0x02, a);
+        revice(0x02, 100);
+        usleep(1);
     }
 
 }

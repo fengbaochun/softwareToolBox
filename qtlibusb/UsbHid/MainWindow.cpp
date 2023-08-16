@@ -16,16 +16,15 @@ MainWindow::MainWindow(QWidget *parent)
         QString numStr = QString::number(num++);
         QByteArray qbStr = numStr.toLocal8Bit();
         QByteArray a = qbStr + "qsx" +qbStr + "fgh" +qbStr+ "fgh" +qbStr+ "fgh" +qbStr ;
-//        u->send(0x01, a);
-//        u->send(0x02, a);
-//        u->revice(0x01, 100);
-//        u->revice(0x02, 100);
+        u->send(0x01, a);
+        u->revice(0x01, 100);
 
-//        u->revice(0x01, 100);
+        u->send(0x02, a);
+        u->revice(0x02, 100);
 
     });
     u->start();
-    tim->start(1000);
+//    tim->start(1);
 }
 
 MainWindow::~MainWindow()
