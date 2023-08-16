@@ -94,16 +94,12 @@ void UsbHid::asyncWrite(uint8_t epNum, QByteArray d)
 
 void callbackRevc(struct libusb_transfer *t)
 {
-    //数据传输完成
-    if (t->status == LIBUSB_TRANSFER_COMPLETED) {
-        if(t->actual_length > 0)
-        {
-            //有数据接受，这里我用的是Qt的语法，将接收到的数据通过对象传出去
+    if (t->status == LIBUSB_TRANSFER_COMPLETED) {       //数据传输完成
+        if(t->actual_length > 0){                       //有数据，打包 qbytearrary
             QByteArray s(reinterpret_cast<char*>(t->buffer),t->actual_length);
             qDebug()<<"ep "<<QString::number(t->endpoint,16)<<"rev  len: "<<t->actual_length<<" data:"<<s.toHex(' ').toUpper();
         }
-        //再次提交传输用于接受
-        int rv = libusb_submit_transfer(t);
+        int rv = libusb_submit_transfer(t);             //再次提交传输用于接受
         if (rv < 0){
             qDebug()<<"error libusb_submit_transfer : "<< libusb_strerror(libusb_error(rv));
             libusb_cancel_transfer(t);                   //异步取消之前提交传输
@@ -111,16 +107,12 @@ void callbackRevc(struct libusb_transfer *t)
     }else if (t->status == LIBUSB_TRANSFER_CANCELLED) {  //取消传输
         libusb_free_transfer(t);                         //释放传输结构
     }else{
-
     }
-
 }
 
 void UsbHid::asyncRead(uint8_t epNum)
 {
-    int rc = 0;
-    //循环100次 提交100次传输结构，类似于提交了100个缓存等待接受，这样不会丢包
-    for(int i = 0;i<100;i++)
+    for(int i = 0;i<20;i++)     //循环100次 提交100次传输结构，类似于提交了100个缓存等待接受，这样不会丢包
     {
         libusb_transfer* transfer = libusb_alloc_transfer(0);               //创建异步传输结构
         unsigned char *buf = new unsigned char[64];                         //开辟接受内存地址
@@ -137,11 +129,9 @@ void UsbHid::asyncRead(uint8_t epNum)
                                   0);                                       //0超时时间此处写的是0代表是无限等待超时直到有数据触发。
 
         //提交传输
-        rc = libusb_submit_transfer(transfer);
+        int rc = libusb_submit_transfer(transfer);
 //        qDebug()<<"ep "<<2<<"rev  len: "<<transfer->actual_length<<" data:"<<buf;
-
-        if(rc < 0)
-        {
+        if(rc < 0){
             //取消传输
             libusb_cancel_transfer(transfer);
             //释放传输结构
@@ -149,7 +139,6 @@ void UsbHid::asyncRead(uint8_t epNum)
             transfer = nullptr;
             return;
         }
-
 //        qTransferList.append(transfer);
     }
 }
