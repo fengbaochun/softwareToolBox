@@ -8,27 +8,25 @@
 #include <QString>
 #include <QDateTime>
 #include <QTimer>
-#include "libusb.h"
+#include "lusb0_usb.h"
 
 class UsbHid : public QThread
 {
     Q_OBJECT
 public:
     UsbHid(QObject *parent = nullptr);
-    ~UsbHid();
     bool open(struct usb_device *dev);
     void close();
-    bool send(unsigned char ep, QByteArray data);
-    QByteArray revice(unsigned char ep, int timeOut);
+    bool send(QByteArray &data);
     void run();
 
-    void test();
-
 private:
-    void init();
-    struct libusb_device_handle *handle = NULL;
+    struct usb_device * findUSBDev(const unsigned short idVendor,
+                                                const unsigned short idProduct);
 
-    libusb_device **devs, *dev;
+    void init();
+    usb_dev_handle *devHandle;
+    bool devOpenFlg;
     QTimer *tim;
 signals:
 
