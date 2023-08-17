@@ -42,16 +42,15 @@ QByteArray UsbHid::revice(unsigned char ep, int timeOut)
     char data[64];
     int actual_len = 0;
     memset(data,0,64);
-    int ret = libusb_bulk_transfer(handle, 0x80|ep, (unsigned char *)data, 64, &actual_len, 100);
-
-    QByteArray b;
+    int ret = libusb_bulk_transfer(handle, 0x80|ep, (unsigned char *)data, 64, &actual_len, timeOut);
+    QByteArray s(reinterpret_cast<char*>(data),actual_len);
     if (actual_len == 0) {
         //qDebug()<<"received nothing";
     } else {
-        qDebug()<<"ep "<<ep<<"rev  len: "<<actual_len<<" data:"<<data;
+        qDebug()<<"ep"<<ep<<"rev  len"<<actual_len<<" data"<<s.toHex(' ').toUpper();
     }
 
-    return b;
+    return s;
 }
 
 bool isFinash = false;
@@ -99,30 +98,42 @@ void UsbHid::asyncWrite(uint8_t epNum, QByteArray d)
     }
 }
 
+
+
 void callbackRevc(struct libusb_transfer *t)
 {
+    return ;
     if (t->status == LIBUSB_TRANSFER_COMPLETED) {       //数据传输完成
         if(t->actual_length > 0){                       //有数据，打包 qbytearrary
             QByteArray s(reinterpret_cast<char*>(t->buffer),t->actual_length);
             qDebug()<<"ep "<<QString::number(t->endpoint,16)<<"rev  len: "<<t->actual_length<<" data:"<<s.toHex(' ').toUpper();
         }
-        int rv = libusb_submit_transfer(t);             //再次提交传输用于接受
-        if (rv < 0){
-            qDebug()<<"error libusb_submit_transfer : "<< libusb_strerror(libusb_error(rv));
-            libusb_cancel_transfer(t);                   //异步取消之前提交传输
-        }
+//        int rv = libusb_submit_transfer(t);             //再次提交传输用于接受
+//        if (rv < 0){
+//            qDebug()<<"error libusb_submit_transfer : "<< libusb_strerror(libusb_error(rv));
+//            libusb_cancel_transfer(t);                   //异步取消之前提交传输
+//        }
     }else if (t->status == LIBUSB_TRANSFER_CANCELLED) {  //取消传输
-        libusb_free_transfer(t);                         //释放传输结构
+//        libusb_free_transfer(t);                         //释放传输结构
+
+        libusb_cancel_transfer(t);           //取消传输
+        libusb_free_transfer(t);             //释放传输结构
     }else{
     }
+
 }
+
+static unsigned char buf[64];
 
 void UsbHid::asyncRead(uint8_t epNum)
 {
-//    for(int i = 0;i<100;i++)     //循环100次 提交100次传输结构，类似于提交了100个缓存等待接受，这样不会丢包
+
+    for(int i = 0;i<1;i++)     //循环100次 提交100次传输结构，类似于提交了100个缓存等待接受，这样不会丢包
     {
         libusb_transfer* transfer = libusb_alloc_transfer(0);               //创建异步传输结构
-        unsigned char *buf = new unsigned char[64];                         //开辟接受内存地址
+//        unsigned char *buf = new unsigned char[64];                         //开辟接受内存地址
+//        unsigned char *buf=(unsigned char*)malloc(64*sizeof(char));
+
         memset(buf,0,64);       //清空内存
         transfer->actual_length = 0;
         //填充传输结构
@@ -134,19 +145,13 @@ void UsbHid::asyncRead(uint8_t epNum)
                                   (libusb_transfer_cb_fn)&callbackRevc,     //接收回调，接收完成、超时、失败等状态都会调用第回调
                                   this,                                     //this 用户数据 ，此处可以放任意数据，
                                   0);                                       //0超时时间此处写的是0代表是无限等待超时直到有数据触发。
-
-        //提交传输
-        int rc = libusb_submit_transfer(transfer);
-//        qDebug()<<"ep "<<2<<"rev  len: "<<transfer->actual_length<<" data:"<<buf;
+        int rc = libusb_submit_transfer(transfer);      //提交传输
         if(rc < 0){
-            //取消传输
-            libusb_cancel_transfer(transfer);
-            //释放传输结构
-            libusb_free_transfer(transfer);
+            libusb_cancel_transfer(transfer);           //取消传输
+            libusb_free_transfer(transfer);             //释放传输结构
             transfer = nullptr;
-            return;
+//            return;
         }
-
     }
 }
 
@@ -237,24 +242,13 @@ void UsbHid::init()
 void UsbHid::run()
 {
     qDebug()<<"start listen rev:";
-    static int num = 222;
     while(1)
     {
-//        AsyncRead();
-        libusb_handle_events(ctx);
-
-
-//        QString numStr = QString::number(num++);
-//        QByteArray qbStr = numStr.toLocal8Bit();
-//        QByteArray a = qbStr + "qsx" +qbStr + "fgh" +qbStr+ "fgh" +qbStr+ "fgh" +qbStr ;
-//        send(0x01, a);
-//        revice(0x01, 100);
-
-//        send(0x02, a);
-//        revice(0x02, 100);
-//        usleep(1);
+//        libusb_handle_events(ctx);
+        revice(0x01,1);
+        revice(0x02,1);
+        usleep(3);
     }
-
 }
 
 void UsbHid::test()

@@ -12,12 +12,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     tim = new QTimer();
     connect(tim, &QTimer::timeout, this,[=](){
-//        static int num = 222;
-//        QString numStr = QString::number(num++);
-//        QByteArray qbStr = numStr.toLocal8Bit();
-//        QByteArray a = qbStr + "qsx" +qbStr + "fgh" +qbStr+ "fgh" +qbStr+ "fgh" +qbStr ;
-
-//        u->asyncWrite(0x01, a);
 
         u->asyncRead(0x01);
         u->asyncRead(0x02);
