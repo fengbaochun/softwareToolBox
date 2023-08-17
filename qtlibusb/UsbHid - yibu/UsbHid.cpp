@@ -54,6 +54,8 @@ QByteArray UsbHid::revice(unsigned char ep, int timeOut)
     return b;
 }
 
+bool isFinash = false;
+
 //异步写 回调
 void UsbHid::sendCallBack(libusb_transfer *t)
 {
@@ -70,11 +72,13 @@ void UsbHid::sendCallBack(libusb_transfer *t)
     }
     libusb_free_transfer(t);                        //释放传输结构
     t = nullptr;
+    isFinash = true;
 }
 
 //异步写
 void UsbHid::asyncWrite(uint8_t epNum, QByteArray d)
 {
+    isFinash = false;
     libusb_transfer* transfer = libusb_alloc_transfer(0);       //创建异步传输结构
     //填充异步传输结构
     libusb_fill_bulk_transfer(transfer,                                 //传输结构
@@ -89,6 +93,9 @@ void UsbHid::asyncWrite(uint8_t epNum, QByteArray d)
     int rc = libusb_submit_transfer(transfer);  //提交传输结构
     if(rc < 0){                                 //判断是否传输成功
         libusb_free_transfer(transfer);         //释放传输结构
+    }
+    while(!isFinash){
+        libusb_handle_events(ctx);
     }
 }
 

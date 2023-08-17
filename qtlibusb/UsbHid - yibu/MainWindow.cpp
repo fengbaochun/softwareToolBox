@@ -51,5 +51,6 @@ void MainWindow::on_pushButton_2_clicked()
     QByteArray a = qbStr + "qsx" +qbStr + "fgh" +qbStr+ "fgh" +qbStr+ "fgh" +qbStr ;
 
     u->asyncWrite(0x01, a);
+    u->asyncWrite(0x02, a);
 }
 
