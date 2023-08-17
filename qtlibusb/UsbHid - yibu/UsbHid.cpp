@@ -119,7 +119,7 @@ void callbackRevc(struct libusb_transfer *t)
 
 void UsbHid::asyncRead(uint8_t epNum)
 {
-    for(int i = 0;i<20;i++)     //循环100次 提交100次传输结构，类似于提交了100个缓存等待接受，这样不会丢包
+//    for(int i = 0;i<100;i++)     //循环100次 提交100次传输结构，类似于提交了100个缓存等待接受，这样不会丢包
     {
         libusb_transfer* transfer = libusb_alloc_transfer(0);               //创建异步传输结构
         unsigned char *buf = new unsigned char[64];                         //开辟接受内存地址
@@ -146,7 +146,7 @@ void UsbHid::asyncRead(uint8_t epNum)
             transfer = nullptr;
             return;
         }
-//        qTransferList.append(transfer);
+
     }
 }
 
