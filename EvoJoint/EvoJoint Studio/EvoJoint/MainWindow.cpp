@@ -90,73 +90,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->insertWidget(2, ctlPageUi);
 
     ui->stackedWidget->setCurrentIndex(0);
-
-
-    // widgetPlot2D为通过窗口提升得到的控件
-    ui->widgetPlot2D->initGraphName(QStringList() << "正弦波" << "矩形波" << "随机数");
-
-    /* 使用WidgetPlot2D绘制实时波形只需两步：
-     * 1.初始化波形名称：函数initGraphName(QStringList)
-     * 2.给对应的波形添加数据：函数addData(QString, double)
-     * 波形名称和数据要一一对应。
-     * 函数addData为公有槽函数，也可使用信号槽传递波形数据。*/
-
-    timer1 = new QTimer();
-    connect(timer1, SIGNAL(timeout()), this, SLOT(timer1Handler()));
-    timer1->start(1);
-
-    timer2 = new QTimer();
-    connect(timer2, SIGNAL(timeout()), this, SLOT(timer2Handler()));
-    timer2->start(1);
-
-    timer3 = new QTimer();
-    connect(timer3, SIGNAL(timeout()), this, SLOT(timer3Handler()));
-    timer3->start(1);
 }
 
-
-/* 定时器1溢出事件 */
-void MainWindow::timer1Handler()
-{
-    // 模拟正弦波
-    static double degrees = 0;
-    double radians = qDegreesToRadians(degrees);
-    double s = 15.0 * qSin(radians);
-    ui->widgetPlot2D->addData("正弦波", s);
-    ui->widgetPlot2D->addData("正弦波", s);
-    degrees += 1.0;
-    if (degrees >= 360.0) degrees = 0;
-
-    // 模拟矩形波
-    static int rect = 0;
-    static uint16_t cnt = 0;
-    cnt++;
-    if (cnt >= 100) {
-        cnt = 0;
-        if (rect == 0) rect = 10;
-        else rect = 0;
-    }
-    ui->widgetPlot2D->addData("矩形波", rect);
-    ui->widgetPlot2D->addData("矩形波", rect);
-
-    // 模拟随机数，随机数在-20到20内
-    static QRandomGenerator rg;
-    double rand = rg.generateDouble() * 40 - 20;
-    ui->widgetPlot2D->addData("随机数", rand);
-    ui->widgetPlot2D->addData("随机数", rand);
-}
-
-/* 定时器2溢出事件 */
-void MainWindow::timer2Handler()
-{
-
-}
-
-/* 定时器3溢出事件 */
-void MainWindow::timer3Handler()
-{
-
-}
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 {

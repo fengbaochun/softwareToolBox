@@ -1,4 +1,4 @@
-#ifndef WIDGETPLOT2D_H
+﻿#ifndef WIDGETPLOT2D_H
 #define WIDGETPLOT2D_H
 
 #include <QWidget>
@@ -23,6 +23,7 @@ public:
 
 private:
     Ui::WidgetPlot2D *ui;
+//    const QList<QColor> color();
 
     QVector<QCheckBox*> isShowCheckBoxVector;              // 是否显示勾选框
     QVector<QLabel*> valueLabelVector;                     // label数值显示

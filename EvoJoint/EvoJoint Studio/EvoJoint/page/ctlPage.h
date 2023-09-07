@@ -54,6 +54,7 @@ private slots:
 
 private slots:
     void reportCallBack(uint8_t fun, QByteArray qb);
+    void timer1Handler();
 
 private:
     Ui::ctlPage *ui;

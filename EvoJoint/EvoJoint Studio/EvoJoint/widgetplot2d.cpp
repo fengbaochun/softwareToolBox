@@ -25,6 +25,7 @@ WidgetPlot2D::WidgetPlot2D(QWidget *parent) :
     // 默认坐标范围
     ui->customPlot->yAxis->setRange(-20, 20);
     ui->customPlot->replot();
+    ui->customPlot->setOpenGl(true);
 }
 
 WidgetPlot2D::~WidgetPlot2D()
@@ -44,9 +45,9 @@ void WidgetPlot2D::initGraphName(QStringList name)
     header->setTextAlignment(1, Qt::AlignLeft);
     header->setTextAlignment(2, Qt::AlignLeft);
     // 设置列宽
-    ui->treeWidget->setColumnWidth(0, 100);
-    ui->treeWidget->setColumnWidth(1, 90);
-    ui->treeWidget->setColumnWidth(2, 30);
+    ui->treeWidget->setColumnWidth(0, 80);
+    ui->treeWidget->setColumnWidth(1, 40);
+    ui->treeWidget->setColumnWidth(2, 15);
     // 表头顺序是否可以拖动改变
     ui->treeWidget->header()->setCascadingSectionResizes(true);
     // 被选部分是否高亮显示
@@ -90,10 +91,10 @@ void WidgetPlot2D::initGraphName(QStringList name)
         GraphColorPushButton->setAutoFillBackground(true);  // 该句不能缺少，否则背景颜色无法改变
         GraphColorPushButton->setFlat(true);
         // 固定颜色按钮大小
-        GraphColorPushButton->setMinimumHeight(18);  // 固定高度
-        GraphColorPushButton->setMaximumHeight(18);
-        GraphColorPushButton->setMinimumWidth(30);   // 固定宽度
-        GraphColorPushButton->setMaximumWidth(30);
+        GraphColorPushButton->setMinimumHeight(20);  // 固定高度
+        GraphColorPushButton->setMaximumHeight(20);
+        GraphColorPushButton->setMinimumWidth(20);   // 固定宽度
+        GraphColorPushButton->setMaximumWidth(20);
         connect(GraphColorPushButton, SIGNAL(clicked()), this, SLOT(changeGraphColor()));
         ui->treeWidget->setItemWidget(item, 2, GraphColorPushButton);
         GraphColorPushButtonVector.append(GraphColorPushButton);
@@ -163,9 +164,11 @@ void WidgetPlot2D::addData(QString name, double value)
         ui->statusLabel->setText(QString("%1 FPS, Total Data points: %2").arg(frameCount/(key-lastFpsKey), 0, 'f', 0).arg(sum));
         lastFpsKey = key;
         frameCount = 0;
-        // 更新数据标签
-        for (int t = 0; t < ui->customPlot->plottableCount(); t++) {
-            valueLabelVector[t]->setText(QString::number(valueVector[t]));
+    }
+    // 更新数据标签
+    for (int t = 0; t < ui->customPlot->plottableCount(); t++) {
+        if(isShowCheckBoxVector[t]->isChecked()){       //复选框没有选中 数据不刷新
+            valueLabelVector[t]->setText(QString::number(valueVector[t], 'f', 2));
         }
     }
 //----------------------------------------------------------------------------------------//
@@ -230,6 +233,7 @@ void WidgetPlot2D::initQCP()
     ui->customPlot->yAxis2->setVisible(true);
     ui->customPlot->yAxis2->setTicks(true);
     ui->customPlot->yAxis2->setTickLabels(true);
+
     // make top right axes clones of bottom left axes. Looks prettier:
 //    ui->customPlot->axisRect()->setupFullAxesBox();
     // make left and bottom axes always transfer their ranges to right and top axes:

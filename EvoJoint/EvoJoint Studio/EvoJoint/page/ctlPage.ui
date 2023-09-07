@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>769</width>
-    <height>671</height>
+    <width>995</width>
+    <height>949</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -415,8 +415,8 @@
   <widget class="QLabel" name="label_12">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>130</y>
+     <x>10</x>
+     <y>90</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -428,8 +428,8 @@
   <widget class="QLabel" name="label_13">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>160</y>
+     <x>10</x>
+     <y>120</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -441,8 +441,8 @@
   <widget class="QLabel" name="label_14">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>180</y>
+     <x>10</x>
+     <y>140</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -454,8 +454,8 @@
   <widget class="QSpinBox" name="spinBoxTarPos">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>130</y>
+     <x>60</x>
+     <y>90</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -464,8 +464,8 @@
   <widget class="QSlider" name="horizontalSliderSpeed">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>160</y>
+     <x>100</x>
+     <y>120</y>
      <width>160</width>
      <height>22</height>
     </rect>
@@ -477,8 +477,8 @@
   <widget class="QSlider" name="horizontalSliderDq">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>180</y>
+     <x>100</x>
+     <y>140</y>
      <width>160</width>
      <height>22</height>
     </rect>
@@ -487,27 +487,31 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QWidget" name="widget" native="true">
+  <widget class="WidgetPlot2D" name="widgetPlot2D" native="true">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>220</y>
-     <width>61</width>
-     <height>41</height>
+     <x>10</x>
+     <y>170</y>
+     <width>971</width>
+     <height>761</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QWidget" name="widget_2" native="true">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>280</y>
-     <width>501</width>
-     <height>291</height>
-    </rect>
+   <property name="minimumSize">
+    <size>
+     <width>971</width>
+     <height>761</height>
+    </size>
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WidgetPlot2D</class>
+   <extends>QWidget</extends>
+   <header location="global">widgetplot2d.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

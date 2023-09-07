@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>904</width>
-    <height>531</height>
+    <height>682</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -230,7 +230,7 @@ QPushButton#clearPBtn:pressed, #fullShowPBtn:pressed, #savePBtn:pressed, #openPB
                 <number>1</number>
                </property>
                <property name="maximum">
-                <number>999999999</number>
+                <number>10</number>
                </property>
                <property name="value">
                 <number>10</number>
@@ -292,7 +292,7 @@ QPushButton#clearPBtn:pressed, #fullShowPBtn:pressed, #savePBtn:pressed, #openPB
                 <string>暂停</string>
                </property>
                <property name="icon">
-                <iconset resource="image.qrc">
+                <iconset>
                  <normaloff>:/image/pause.png</normaloff>:/image/pause.png</iconset>
                </property>
               </widget>
@@ -332,6 +332,12 @@ QPushButton#clearPBtn:pressed, #fullShowPBtn:pressed, #savePBtn:pressed, #openPB
       </widget>
      </widget>
      <widget class="QTreeWidget" name="treeWidget">
+      <property name="minimumSize">
+       <size>
+        <width>177</width>
+        <height>0</height>
+       </size>
+      </property>
       <column>
        <property name="text">
         <string notr="true">1</string>
@@ -350,8 +356,6 @@ QPushButton#clearPBtn:pressed, #fullShowPBtn:pressed, #savePBtn:pressed, #openPB
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="image.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

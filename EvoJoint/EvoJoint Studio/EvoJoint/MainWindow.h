@@ -36,13 +36,8 @@ private slots:
 
     void on_stackedWidget_currentChanged(int arg1);
 
-    void timer1Handler();
-    void timer2Handler();
-    void timer3Handler();
-
 private:
     Ui::MainWindow *ui;
     ctlPage *ctlPageUi;
-    QTimer *timer1, *timer2, *timer3;
 };
 #endif // MAINWINDOW_H

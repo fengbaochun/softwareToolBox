@@ -9,6 +9,25 @@ ctlPage::ctlPage(QWidget *parent) :
     ui(new Ui::ctlPage)
 {
     ui->setupUi(this);
+
+    // widgetPlot2D为通过窗口提升得到的控件
+    ui->widgetPlot2D->initGraphName(QStringList()
+                                    << "tarPos" << "curPos"
+                                    << "tarSpeed" << "curSpeed"
+                                    << "tarIq" << "curIq"
+                                    << "adcA" << "adcB"<< "adcC"
+                                    );
+    /* 使用WidgetPlot2D绘制实时波形只需两步：
+     * 1.初始化波形名称：函数initGraphName(QStringList)
+     * 2.给对应的波形添加数据：函数addData(QString, double)
+     * 波形名称和数据要一一对应。
+     * 函数addData为公有槽函数，也可使用信号槽传递波形数据。*/
+
+    waveT = new QTimer();
+    connect(waveT, SIGNAL(timeout()), this, SLOT(timer1Handler()));
+    waveT->start(1);
+
+
     ui->horizontalSliderSpeed->setRange(-1000, 1000);
     ui->horizontalSliderSpeed->setValue(0);
 
@@ -21,7 +40,7 @@ ctlPage::ctlPage(QWidget *parent) :
             SLOT(reportCallBack(uint8_t, QByteArray)));
 
     QStringList  str;
-    str<<"0fps"<<"50fps"<<"100fps"<<"200fps"<<"500fps"<<"1000fps";
+    str<<"0fps"<<"50fps"<<"100fps"<<"200fps"<<"500fps";//<<"1000fps";
 
     ui->comboBoxFps->addItems(str);
     QTimer *t = new QTimer();
@@ -31,30 +50,6 @@ ctlPage::ctlPage(QWidget *parent) :
         ui->lableFps->setText(s);
     });
     t->start(500);
-
-    waveT = new QTimer();
-    connect(waveT,&QTimer::timeout,this,[=](){
-        if(qVdata.isEmpty()) return;
-        static int index=0;
-
-        QPointF p;
-//        foreach (QVector qv, qVdata) {                      //数据组
-            QVector qv = qVdata.at(0);
-            for(int i=0;i<qv.size();i++) {                  //每组里面的曲线组
-                p.setY(qv.at(i));
-                p.setX(index);
-                this->waveData[i].append(p);
-                if (this->waveData[i].size() > 3000){
-                    this->waveData[i].removeFirst();
-//                    this->waveData[i].remove(0, this->waveData[i].size()-3000);
-                }
-            }
-            index = index + 1;
-//        }
-
-        qVdata.clear();
-    });
-    waveT->start(10);
 }
 
 ctlPage::~ctlPage()
@@ -192,5 +187,23 @@ void ctlPage::reportCallBack(uint8_t fun, QByteArray qb)
     QVector<float> gData = ctl::instance()->splitByteArrayToData(qb, sizeof(float));
 //    qDebug()<<"ctl report -> fun"<<QString::number(fun, 16)<<"data"<<gData;
     qVdata.append(gData);
+}
+
+void ctlPage::timer1Handler()
+{
+    if(!qVdata.isEmpty()){
+        for(int i=0; i<qVdata.size(); i++){
+            ui->widgetPlot2D->addData("tarPos"  , qVdata.at(i).at(0));
+            ui->widgetPlot2D->addData("curPos"  , qVdata.at(i).at(1));
+            ui->widgetPlot2D->addData("tarSpeed", qVdata.at(i).at(2));
+            ui->widgetPlot2D->addData("curSpeed", qVdata.at(i).at(3));
+            ui->widgetPlot2D->addData("tarIq"   , qVdata.at(i).at(4));
+            ui->widgetPlot2D->addData("curIq"   , qVdata.at(i).at(5));
+            ui->widgetPlot2D->addData("adcA"    , qVdata.at(i).at(6));
+            ui->widgetPlot2D->addData("adcB"    , qVdata.at(i).at(7));
+            ui->widgetPlot2D->addData("adcC"    , qVdata.at(i).at(8));
+        }
+        qVdata.clear();
+    }
 }
 
