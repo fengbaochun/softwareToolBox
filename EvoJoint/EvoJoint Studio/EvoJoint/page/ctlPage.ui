@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="pushButtonCal">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>10</y>
+     <x>310</x>
+     <y>0</y>
      <width>75</width>
      <height>24</height>
     </rect>
@@ -93,8 +93,8 @@
   <widget class="QSpinBox" name="spinBoxMaxSpeed">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>110</y>
+     <x>480</x>
+     <y>100</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -109,8 +109,8 @@
   <widget class="QSpinBox" name="spinBoxMinSpeed">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>140</y>
+     <x>480</x>
+     <y>130</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -125,8 +125,8 @@
   <widget class="QDoubleSpinBox" name="doubleSpinBoxMaxCur">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>110</y>
+     <x>620</x>
+     <y>100</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -144,8 +144,8 @@
   <widget class="QDoubleSpinBox" name="doubleSpinBoxMinCur">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>140</y>
+     <x>620</x>
+     <y>130</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -163,8 +163,8 @@
   <widget class="QPushButton" name="pushButtonSync">
    <property name="geometry">
     <rect>
-     <x>370</x>
-     <y>10</y>
+     <x>450</x>
+     <y>0</y>
      <width>75</width>
      <height>24</height>
     </rect>
@@ -176,8 +176,8 @@
   <widget class="QDoubleSpinBox" name="doubleSpinBoxPosP">
    <property name="geometry">
     <rect>
-     <x>261</x>
-     <y>50</y>
+     <x>341</x>
+     <y>40</y>
      <width>71</width>
      <height>22</height>
     </rect>
@@ -192,8 +192,8 @@
   <widget class="QDoubleSpinBox" name="doubleSpinBoxPosD">
    <property name="geometry">
     <rect>
-     <x>261</x>
-     <y>80</y>
+     <x>341</x>
+     <y>70</y>
      <width>71</width>
      <height>22</height>
     </rect>
@@ -208,8 +208,8 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>50</y>
+     <x>290</x>
+     <y>40</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -221,8 +221,8 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>80</y>
+     <x>290</x>
+     <y>70</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -234,8 +234,8 @@
   <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedP">
    <property name="geometry">
     <rect>
-     <x>401</x>
-     <y>50</y>
+     <x>481</x>
+     <y>40</y>
      <width>71</width>
      <height>22</height>
     </rect>
@@ -250,8 +250,8 @@
   <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedI">
    <property name="geometry">
     <rect>
-     <x>401</x>
-     <y>80</y>
+     <x>481</x>
+     <y>70</y>
      <width>71</width>
      <height>22</height>
     </rect>
@@ -266,8 +266,8 @@
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>50</y>
+     <x>430</x>
+     <y>40</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -279,8 +279,8 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>80</y>
+     <x>430</x>
+     <y>70</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -292,8 +292,8 @@
   <widget class="QDoubleSpinBox" name="doubleSpinBoxDqI">
    <property name="geometry">
     <rect>
-     <x>541</x>
-     <y>80</y>
+     <x>621</x>
+     <y>70</y>
      <width>71</width>
      <height>22</height>
     </rect>
@@ -308,8 +308,8 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>490</x>
-     <y>80</y>
+     <x>570</x>
+     <y>70</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -321,8 +321,8 @@
   <widget class="QDoubleSpinBox" name="doubleSpinBoxDqP">
    <property name="geometry">
     <rect>
-     <x>541</x>
-     <y>50</y>
+     <x>621</x>
+     <y>40</y>
      <width>71</width>
      <height>22</height>
     </rect>
@@ -337,8 +337,8 @@
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>490</x>
-     <y>50</y>
+     <x>570</x>
+     <y>40</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -350,8 +350,8 @@
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>110</y>
+     <x>430</x>
+     <y>100</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -363,8 +363,8 @@
   <widget class="QLabel" name="label_9">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>140</y>
+     <x>430</x>
+     <y>130</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -376,8 +376,8 @@
   <widget class="QLabel" name="label_10">
    <property name="geometry">
     <rect>
-     <x>490</x>
-     <y>110</y>
+     <x>570</x>
+     <y>100</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -389,8 +389,8 @@
   <widget class="QLabel" name="label_11">
    <property name="geometry">
     <rect>
-     <x>490</x>
-     <y>140</y>
+     <x>570</x>
+     <y>130</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -402,8 +402,8 @@
   <widget class="QPushButton" name="pushButtonSave">
    <property name="geometry">
     <rect>
-     <x>460</x>
-     <y>10</y>
+     <x>540</x>
+     <y>0</y>
      <width>75</width>
      <height>24</height>
     </rect>
@@ -415,8 +415,8 @@
   <widget class="QLabel" name="label_12">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>90</y>
+     <x>100</x>
+     <y>70</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -428,8 +428,8 @@
   <widget class="QLabel" name="label_13">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>120</y>
+     <x>100</x>
+     <y>100</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -441,8 +441,8 @@
   <widget class="QLabel" name="label_14">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>140</y>
+     <x>100</x>
+     <y>120</y>
      <width>53</width>
      <height>16</height>
     </rect>
@@ -454,8 +454,8 @@
   <widget class="QSpinBox" name="spinBoxTarPos">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>90</y>
+     <x>150</x>
+     <y>70</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -464,8 +464,8 @@
   <widget class="QSlider" name="horizontalSliderSpeed">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>120</y>
+     <x>190</x>
+     <y>100</y>
      <width>160</width>
      <height>22</height>
     </rect>
@@ -477,8 +477,8 @@
   <widget class="QSlider" name="horizontalSliderDq">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>140</y>
+     <x>190</x>
+     <y>120</y>
      <width>160</width>
      <height>22</height>
     </rect>
@@ -491,7 +491,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>170</y>
+     <y>150</y>
      <width>971</width>
      <height>761</height>
     </rect>

@@ -46,6 +46,7 @@ private slots:
     void horzScrollBarChanged(int value);
     void changePlotTheme();
 
+
 public slots:
     void addData(QString name, double data);
 };

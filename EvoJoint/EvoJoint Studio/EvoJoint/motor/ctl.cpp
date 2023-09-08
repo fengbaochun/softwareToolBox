@@ -38,6 +38,7 @@ ctl::ctl(QObject *parent)
     this->registerFun(ctlFun["currentP"]);
     this->registerFun(ctlFun["currentI"]);
     this->registerFun(ctlFun["currentD"]);
+
 }
 
 ctl *ctl::instance()

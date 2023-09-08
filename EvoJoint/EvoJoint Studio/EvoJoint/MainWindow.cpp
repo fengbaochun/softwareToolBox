@@ -4,9 +4,20 @@
 #include <QTimer>
 #include <QtEndian>
 
+#include <QMenuBar>
+#include <QMenu>
+#include <QAction>
+#include <QDebug>
+
+#include <QCheckBox>
+#include <QComboBox>
 #include <QPainter>
 #include <QProxyStyle>
+#include <QSpinBox>
+#include <QStandardItemModel>
 #include <QStyleOptionTab>
+
+#include "motor/ctl.h"
 
 class CustomTabStyle : public QProxyStyle
 {
@@ -63,109 +74,93 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // 新建菜单栏
+    QMenuBar *menuBr = menuBar();
+    setMenuBar(menuBr);
+    // 添加菜单
+    QMenu *pdev = menuBr->addMenu("设备");
+    // 添加菜单项
+    QAction *pNew = pdev->addAction("打开设备");
+    QAction *pOpen = pdev->addAction("关闭设备");
+    pdev->addSeparator();  // 添加分割线
+
+    connect(pNew, &QAction::triggered,[=] (){
+//        if(!devUi){
+            devUi = new devCfgPage();
+//        }
+        devUi->show();
+        qDebug() << "Create new file";
+    });
+    connect(pOpen, &QAction::triggered,[] (){
+        qDebug() << "Open file";
+    });
+
     this->setWindowTitle("ToolBOX");
-    ui->comboBox->installEventFilter(this);     //安装QComboBox的事件过滤器：
-
-    //设备信息
-    dev.append({    .index=0,
-                    .name="aimapro massage",
-                    .port=""}   );
-
-
-    dev.append({    .index=1,
-                    .name="vima massage",
-                    .port=""}   );
-
-    dev.append({    .index=2,
-                    .name="ctl ",
-                    .port=""}   );
-
-    QStringList str;
-    foreach (devInfoType d, dev) {
-        str.append(d.name);
-    }
-
-    ui->devList->addItems(str);
     this->ctlPageUi = new ctlPage(this);                    //控制页（功能 demo 测试使用）
-    ui->stackedWidget->insertWidget(2, ctlPageUi);
-
+    ui->stackedWidget->insertWidget(0, ctlPageUi);
     ui->stackedWidget->setCurrentIndex(0);
-}
 
+    // 设置表头
+    ui->treeWidget->setHeaderLabels(QStringList() << "名称" << "值" );
+    ui->treeWidget->header()->setVisible(true);
+    // 表头文字中间对齐
+    QTreeWidgetItem* header = ui->treeWidget->headerItem();
+    header->setTextAlignment(0, Qt::AlignLeft);
+    header->setTextAlignment(1, Qt::AlignLeft);
+    // 设置列宽
+    ui->treeWidget->setColumnWidth(0, 100);
+    ui->treeWidget->setColumnWidth(1, 60);
 
-bool MainWindow::eventFilter(QObject *watched, QEvent *event)
-{
-    if(event->type() == QEvent::MouseButtonPress)
-    {
-        if(watched == ui->comboBox){
-            QComboBox* comboBox = qobject_cast<QComboBox *>(watched);
-            comboBox->clear();
-            QList<QSerialPortInfo> serials = QSerialPortInfo::availablePorts();
-            foreach (QSerialPortInfo info, serials){
-                comboBox->addItem(info.portName());
-            }
-        }
-    }
-    return QMainWindow::eventFilter(watched, event);
-}
+    /***************************************************************************/
+    //devInfo
+    QTreeWidgetItem *devInfo=new QTreeWidgetItem(QStringList()<<"devInfo");
+    devInfo->setIcon(0,QIcon("://images/setting2.png"));
+    ui->treeWidget->insertTopLevelItem(0, devInfo);
 
-void MainWindow::on_pushButton_clicked(bool checked)
-{
-    QString str = (!checked) ? "打开":"关闭";
-    ui->pushButton->setText(str);
-    if(ui->comboBox->currentText() != NULL){
-        qDebug()<<ui->stackedWidget->currentIndex()
-                <<ui->devList->currentText()
-                <<ui->comboBox->currentText()<<str;
+    QTreeWidgetItem* FixedFrame = new QTreeWidgetItem(QStringList()<<"type");
+    devInfo->addChild(FixedFrame);
 
-        //区分设备
-        if(ui->devList->currentText() == dev.at(0).name){                           //aimapro massage
-//            if(checked){
-//                ledTempture::instance()->open(ui->comboBox->currentText(), 921600);
-//            }else{
-//                ledTempture::instance()->close();
-//            }
-        }else if(ui->devList->currentText() == dev.at(1).name){                     //vima massage
-//            if(checked){
-//                Massage::instance()->open(ui->comboBox->currentText(), 921600);
-//            }else{
-//                Massage::instance()->close();
-//            }
-        }else if(ui->devList->currentText() == dev.at(2).name){
-            if(checked){
-                ctl::instance()->open(ui->comboBox->currentText(), 921600);
-            }else{
-                ctl::instance()->close();
-            }
-        }
-    }
-}
+    //添加combox控件
+    QComboBox *Type=new QComboBox();
+    Type->addItem("type 1");
+    Type->addItem("type 2");
+    Type->addItem("type 3");
+    Type->setMaximumWidth(60);
+    ui->treeWidget->setItemWidget(FixedFrame, 1, Type);
 
-//设备列表
-void MainWindow::on_devList_activated(int index)
-{
-    static int lastIndex = -1;
-    if(lastIndex != index){
-        qDebug()<<index;
-        ui->stackedWidget->setCurrentIndex(index);
-        lastIndex = index;
-    }
-}
+    QTreeWidgetItem* devIdItem=new QTreeWidgetItem(QStringList()<<"devId");
+    devInfo->addChild(devIdItem);
+    //添加QSpinBox控件
+    QSpinBox  *DevId=new QSpinBox();
+    DevId->setRange(0x00, 0xFF);
+    DevId->setMaximumWidth(60);
+    ui->treeWidget->setItemWidget(devIdItem, 1, DevId);
 
-//串口列表
-void MainWindow::on_comboBox_activated(int index)
-{
-    (void)index;
-    qDebug()<<ui->comboBox->currentText();
-}
+    /***************************************************************************/
+    /* paramTab */
+    QTreeWidgetItem *paramTab=new QTreeWidgetItem(QStringList()<<"paramTab");
+    paramTab->setIcon(0,QIcon("://images/setting2.png"));
+    ui->treeWidget->insertTopLevelItem(1, paramTab);
 
-void MainWindow::on_stackedWidget_currentChanged(int arg1)
-{
-    static int lastIndex = 0;
-    if(lastIndex != arg1){
-        qDebug()<<dev.at(lastIndex).name<<"->"<<dev.at(arg1).name;
-        lastIndex = arg1;
-    }
+    //max Iq
+    QTreeWidgetItem* maxIqItem=new QTreeWidgetItem(QStringList()<<"maxIq");
+    paramTab->addChild(maxIqItem);
+    QDoubleSpinBox  *maxIqQSpinBox=new QDoubleSpinBox();        //添加控件
+    maxIqQSpinBox->setDecimals(4);                              //4位小数点
+    maxIqQSpinBox->setRange(0, 20);
+    maxIqQSpinBox->setMaximumWidth(60);
+    ui->treeWidget->setItemWidget(maxIqItem, 1, maxIqQSpinBox);
+
+    //min Iq
+    QTreeWidgetItem* minIqItem=new QTreeWidgetItem(QStringList()<<"minIq");
+    paramTab->addChild(minIqItem);
+    QDoubleSpinBox  *minIqQSpinBox=new QDoubleSpinBox();        //添加控件
+    minIqQSpinBox->setDecimals(4);                              //4位小数点
+    minIqQSpinBox->setRange(-20, 0);
+    minIqQSpinBox->setMaximumWidth(60);
+    ui->treeWidget->setItemWidget(minIqItem, 1, minIqQSpinBox);
+
+    ctl::instance()->open("COM35", 921600);
 }
 
 
@@ -174,3 +169,4 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+//https://blog.csdn.net/qq_38441692/article/details/105290933

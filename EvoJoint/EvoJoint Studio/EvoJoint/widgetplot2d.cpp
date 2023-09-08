@@ -12,12 +12,12 @@ WidgetPlot2D::WidgetPlot2D(QWidget *parent) :
     initQCP();
     // 初始化控件
     initWidget();
-    // 上下分裂器
-    ui->splitter->setStretchFactor(0, 20);
-    ui->splitter->setStretchFactor(1, 1);
-    // 左右分裂器
-    ui->splitter1->setStretchFactor(0, 10);
-    ui->splitter1->setStretchFactor(1, 3);
+//    // 上下分裂器
+//    ui->splitter->setStretchFactor(0, 20);
+//    ui->splitter->setStretchFactor(1, 1);
+//    // 左右分裂器
+//    ui->splitter1->setStretchFactor(0, 10);
+//    ui->splitter1->setStretchFactor(1, 3);
     // 滚动条设置
     ui->horizontalScrollBar->setRange(0, 0);
     // 拖动水平滚动条，图幅跟随变化
@@ -26,6 +26,7 @@ WidgetPlot2D::WidgetPlot2D(QWidget *parent) :
     ui->customPlot->yAxis->setRange(-20, 20);
     ui->customPlot->replot();
     ui->customPlot->setOpenGl(true);
+    connect(ui->customPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(slot_show_region_context_menu(QMouseEvent*)));
 }
 
 WidgetPlot2D::~WidgetPlot2D()
@@ -103,6 +104,7 @@ void WidgetPlot2D::initGraphName(QStringList name)
         ui->customPlot->addGraph();
         ui->customPlot->graph(ui->customPlot->graphCount()-1)->setPen(QPen(QColor(r, g, b)));
         ui->customPlot->graph(ui->customPlot->graphCount()-1)->setVisible(true);
+        ui->customPlot->graph(ui->customPlot->graphCount()-1)->setName(name.at(i));
         // 将曲线名称与曲线序号一一对应，之后添加数据就可以一一对应
         nameToGraphMap[name.at(i)] = i;
         // 初始化数据容器的值
@@ -219,6 +221,7 @@ void WidgetPlot2D::initQCP()
     // 刻度显示
     ui->customPlot->xAxis->setTicks(true);
     ui->customPlot->yAxis->setTicks(true);
+//    ui->customPlot->legend->setVisible(true);
     // 刻度值显示
     ui->customPlot->xAxis->setTickLabels(true);
     ui->customPlot->yAxis->setTickLabels(true);
@@ -256,18 +259,18 @@ void WidgetPlot2D::initQCP()
 /* 设置绘图主题 */
 void WidgetPlot2D::setTheme(QColor axis, QColor background)
 {
-    // 坐标颜色按钮
-    QPalette pal = ui->axisColorPBtn->palette();
-    pal.setColor(QPalette::Button, axis);
-    ui->axisColorPBtn->setPalette(pal);
-    ui->axisColorPBtn->setAutoFillBackground(true);  // 该句不能缺少，否则背景颜色无法改变
-    ui->axisColorPBtn->setFlat(true);                // 该句不能缺少，否则背景颜色无法改变
-    // 背景颜色按钮
-    pal = ui->backgroundColorPBtn->palette();
-    pal.setColor(QPalette::Button, background);
-    ui->backgroundColorPBtn->setPalette(pal);
-    ui->backgroundColorPBtn->setAutoFillBackground(true);  // 该句不能缺少，否则背景颜色无法改变
-    ui->backgroundColorPBtn->setFlat(true);                // 该句不能缺少，否则背景颜色无法改变
+//    // 坐标颜色按钮
+//    QPalette pal = ui->axisColorPBtn->palette();
+//    pal.setColor(QPalette::Button, axis);
+//    ui->axisColorPBtn->setPalette(pal);
+//    ui->axisColorPBtn->setAutoFillBackground(true);  // 该句不能缺少，否则背景颜色无法改变
+//    ui->axisColorPBtn->setFlat(true);                // 该句不能缺少，否则背景颜色无法改变
+//    // 背景颜色按钮
+//    pal = ui->backgroundColorPBtn->palette();
+//    pal.setColor(QPalette::Button, background);
+//    ui->backgroundColorPBtn->setPalette(pal);
+//    ui->backgroundColorPBtn->setAutoFillBackground(true);  // 该句不能缺少，否则背景颜色无法改变
+//    ui->backgroundColorPBtn->setFlat(true);                // 该句不能缺少，否则背景颜色无法改变
 //----------------------------------------------------------------------------------------//
     // 坐标标注颜色
     ui->customPlot->xAxis->setLabelColor(axis);
@@ -318,20 +321,20 @@ void WidgetPlot2D::initWidget()
     ui->themeCombo->addItems(theme);
     connect(ui->themeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changePlotTheme()));
 //----------------------------------------------------------------------------------------//
-    // 坐标颜色按钮
-    QPalette pal = ui->axisColorPBtn->palette();
-    pal.setColor(QPalette::Button, Qt::black);
-    ui->axisColorPBtn->setPalette(pal);
-    ui->axisColorPBtn->setAutoFillBackground(true);  // 该句不能缺少，否则背景颜色无法改变
-    ui->axisColorPBtn->setFlat(true);                // 该句不能缺少，否则背景颜色无法改变
-    connect(ui->axisColorPBtn, SIGNAL(clicked()), this, SLOT(changePlotTheme()));
-    // 背景颜色按钮
-    pal = ui->backgroundColorPBtn->palette();
-    pal.setColor(QPalette::Button, Qt::white);
-    ui->backgroundColorPBtn->setPalette(pal);
-    ui->backgroundColorPBtn->setAutoFillBackground(true);  // 该句不能缺少，否则背景颜色无法改变
-    ui->backgroundColorPBtn->setFlat(true);                // 该句不能缺少，否则背景颜色无法改变
-    connect(ui->backgroundColorPBtn, SIGNAL(clicked()), this, SLOT(changePlotTheme()));
+//    // 坐标颜色按钮
+//    QPalette pal = ui->axisColorPBtn->palette();
+//    pal.setColor(QPalette::Button, Qt::black);
+//    ui->axisColorPBtn->setPalette(pal);
+//    ui->axisColorPBtn->setAutoFillBackground(true);  // 该句不能缺少，否则背景颜色无法改变
+//    ui->axisColorPBtn->setFlat(true);                // 该句不能缺少，否则背景颜色无法改变
+//    connect(ui->axisColorPBtn, SIGNAL(clicked()), this, SLOT(changePlotTheme()));
+//    // 背景颜色按钮
+//    pal = ui->backgroundColorPBtn->palette();
+//    pal.setColor(QPalette::Button, Qt::white);
+//    ui->backgroundColorPBtn->setPalette(pal);
+//    ui->backgroundColorPBtn->setAutoFillBackground(true);  // 该句不能缺少，否则背景颜色无法改变
+//    ui->backgroundColorPBtn->setFlat(true);                // 该句不能缺少，否则背景颜色无法改变
+//    connect(ui->backgroundColorPBtn, SIGNAL(clicked()), this, SLOT(changePlotTheme()));
     // 操作按钮
     connect(ui->clearPBtn,    SIGNAL(clicked()), this, SLOT(plotOperation()));
     connect(ui->fullShowPBtn, SIGNAL(clicked()), this, SLOT(plotOperation()));
@@ -352,40 +355,40 @@ void WidgetPlot2D::changePlotTheme()
         else if (combo->currentText() == "暗色") {
             setTheme(Qt::white, Qt::black);  // 暗色主题
         }
-        else if (combo->currentText() == "自定义") {
-            // 绘图坐标颜色
-            QPalette axisPal = ui->axisColorPBtn->palette();
-            QColor axisColor = axisPal.color(QPalette::Button);
-            // 绘图背景颜色
-            QPalette backgroundPal = ui->backgroundColorPBtn->palette();
-            QColor backgroundColor = backgroundPal.color(QPalette::Button);
+//        else if (combo->currentText() == "自定义") {
+//            // 绘图坐标颜色
+//            QPalette axisPal = ui->axisColorPBtn->palette();
+//            QColor axisColor = axisPal.color(QPalette::Button);
+//            // 绘图背景颜色
+//            QPalette backgroundPal = ui->backgroundColorPBtn->palette();
+//            QColor backgroundColor = backgroundPal.color(QPalette::Button);
 
-            setTheme(axisColor, backgroundColor);
-        }
+//            setTheme(axisColor, backgroundColor);
+//        }
     }
 
-    // 用户自定义主题
-    if (QPushButton* btn = dynamic_cast<QPushButton*>(sender())) {
-        QColor color = QColorDialog::getColor(Qt::white, this);
-        // 用户取消颜色对话框
-        if (color.isValid() == false)
-            return;
-        // 设置按钮背景色
-        QPalette pal = btn->palette();
-        pal.setColor(QPalette::Button, color);
-        btn->setPalette(pal);
-        btn->setAutoFillBackground(true);  // 该句不能缺少，否则背景颜色无法改变
-        btn->setFlat(true);                // 该句不能缺少，否则背景颜色无法改变
-        // 绘图坐标颜色
-        QPalette axisPal = ui->axisColorPBtn->palette();
-        QColor axisColor = axisPal.color(QPalette::Button);
-        // 绘图背景颜色
-        QPalette backgroundPal = ui->backgroundColorPBtn->palette();
-        QColor backgroundColor = backgroundPal.color(QPalette::Button);
-        // 改变主题颜色
-        setTheme(axisColor, backgroundColor);
-        ui->themeCombo->setCurrentText("自定义");
-    }
+//    // 用户自定义主题
+//    if (QPushButton* btn = dynamic_cast<QPushButton*>(sender())) {
+//        QColor color = QColorDialog::getColor(Qt::white, this);
+//        // 用户取消颜色对话框
+//        if (color.isValid() == false)
+//            return;
+//        // 设置按钮背景色
+//        QPalette pal = btn->palette();
+//        pal.setColor(QPalette::Button, color);
+//        btn->setPalette(pal);
+//        btn->setAutoFillBackground(true);  // 该句不能缺少，否则背景颜色无法改变
+//        btn->setFlat(true);                // 该句不能缺少，否则背景颜色无法改变
+//        // 绘图坐标颜色
+//        QPalette axisPal = ui->axisColorPBtn->palette();
+//        QColor axisColor = axisPal.color(QPalette::Button);
+//        // 绘图背景颜色
+//        QPalette backgroundPal = ui->backgroundColorPBtn->palette();
+//        QColor backgroundColor = backgroundPal.color(QPalette::Button);
+//        // 改变主题颜色
+//        setTheme(axisColor, backgroundColor);
+//        ui->themeCombo->setCurrentText("自定义");
+//    }
 }
 
 /* 绘图操作 */

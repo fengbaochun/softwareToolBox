@@ -22,6 +22,7 @@ SOURCES += \
     motor/ctl.cpp \
     motor/uProtocol.cpp \
     page/ctlPage.cpp \
+    page/devCfgPage.cpp \
     qcustomplot.cpp \
     widgetplot2d.cpp
 
@@ -30,12 +31,14 @@ HEADERS += \
     motor/ctl.h \
     motor/uProtocol.h \
     page/ctlPage.h \
+    page/devCfgPage.h \
     qcustomplot.h \
     widgetplot2d.h
 
 FORMS += \
     MainWindow.ui \
     page/ctlPage.ui \
+    page/devCfgPage.ui \
     widgetplot2d.ui
 
 # Default rules for deployment.
