@@ -27,6 +27,7 @@ WidgetPlot2D::WidgetPlot2D(QWidget *parent) :
     ui->customPlot->replot();
     ui->customPlot->setOpenGl(true);
     connect(ui->customPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(slot_show_region_context_menu(QMouseEvent*)));
+    ui->treeWidget->hide();
 }
 
 WidgetPlot2D::~WidgetPlot2D()
@@ -118,7 +119,9 @@ void WidgetPlot2D::initGraphName(QStringList name)
 void WidgetPlot2D::addData(QString name, double value)
 {
     // 如果点击了“暂停”按钮，则不绘制图形
-    if (ui->pausePBtn->text() == "开始") return;
+//    if (ui->pausePBtn->text() == "开始") return;
+    if(isPause)     return;
+
     // 系统当前时间 = 系统运行初始时间 + 系统运行时间
     static double start = time.hour()*60*60 + time.minute()*60 + time.second() + time.msec()/1000.0;
     double key = start + time.elapsed()/1000.0;
@@ -338,8 +341,8 @@ void WidgetPlot2D::initWidget()
     // 操作按钮
     connect(ui->clearPBtn,    SIGNAL(clicked()), this, SLOT(plotOperation()));
     connect(ui->fullShowPBtn, SIGNAL(clicked()), this, SLOT(plotOperation()));
-    connect(ui->savePBtn,     SIGNAL(clicked()), this, SLOT(plotOperation()));
-    connect(ui->pausePBtn,    SIGNAL(clicked()), this, SLOT(plotOperation()));
+//    connect(ui->savePBtn,     SIGNAL(clicked()), this, SLOT(plotOperation()));
+//    connect(ui->pausePBtn,    SIGNAL(clicked()), this, SLOT(plotOperation()));
 //----------------------------------------------------------------------------------------//
 }
 
@@ -388,7 +391,33 @@ void WidgetPlot2D::changePlotTheme()
 //        // 改变主题颜色
 //        setTheme(axisColor, backgroundColor);
 //        ui->themeCombo->setCurrentText("自定义");
-//    }
+    //    }
+}
+
+//右键处理
+void WidgetPlot2D::slot_show_region_context_menu(QMouseEvent *event)
+{
+    if(event->button() != Qt::RightButton)
+        return;
+    QMenu *menu = new QMenu(this);
+    QStringList list;
+    list << ((!isPause) ? "暂停":"开始") << "保存" << ((isShowCfg) ? "隐藏图示":"显示图示");
+    QList<QAction *> actList;
+    for(int i = 0; i < list.count(); i ++){
+        actList.append(new QAction(list.at(i)));
+    }
+    connect(actList.at(0),&QAction::triggered,this,[=](){       //暂停/开始
+        isPause = !isPause;
+    });
+    connect(actList.at(1),&QAction::triggered,this,[=]{         //保存
+        savePlotPng();
+    });
+    connect(actList.at(2),&QAction::triggered,this,[=]{         //隐藏、显示图示
+        isShowCfg = !isShowCfg;
+        (isShowCfg) ? (ui->treeWidget->show()) : (ui->treeWidget->hide());
+    });
+    menu->addActions(actList);
+    menu->exec(QCursor::pos());
 }
 
 /* 绘图操作 */
@@ -406,18 +435,6 @@ void WidgetPlot2D::plotOperation()
         if (btn->text() == "整图") {
             ui->customPlot->rescaleAxes();
             ui->customPlot->replot();
-        }
-        if (btn->text() == "保存") {
-            savePlotPng();
-        }
-        if (btn->text() == "暂停") {
-            btn->setText("开始");
-            QIcon icon(":/image/player.png");
-            btn->setIcon(icon);
-        } else if (btn->text() == "开始") {
-            btn->setText("暂停");
-            QIcon icon(":/image/pause.png");
-            btn->setIcon(icon);
         }
     }
 }

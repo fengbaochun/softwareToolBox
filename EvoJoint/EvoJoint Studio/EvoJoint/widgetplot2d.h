@@ -23,7 +23,6 @@ public:
 
 private:
     Ui::WidgetPlot2D *ui;
-//    const QList<QColor> color();
 
     QVector<QCheckBox*> isShowCheckBoxVector;              // 是否显示勾选框
     QVector<QLabel*> valueLabelVector;                     // label数值显示
@@ -38,6 +37,8 @@ private:
     bool isDirExist(QString fullPath);
     void savePlotPng();
 
+    bool isPause = false;
+    bool isShowCfg = false;
 
 private slots:
     void changeGraphVisible();
@@ -46,6 +47,7 @@ private slots:
     void horzScrollBarChanged(int value);
     void changePlotTheme();
 
+    void slot_show_region_context_menu(QMouseEvent *event);
 
 public slots:
     void addData(QString name, double data);
