@@ -11,10 +11,12 @@
 
 #include <QCheckBox>
 #include <QComboBox>
+#include <QLabel>
 #include <QPainter>
 #include <QProxyStyle>
 #include <QSpinBox>
 #include <QStandardItemModel>
+#include <QStatusBar>
 #include <QStyleOptionTab>
 
 #include "motor/ctl.h"
@@ -112,6 +114,14 @@ MainWindow::MainWindow(QWidget *parent)
     debugUi = new debugPage();
     ui->debugStackedWidget->insertWidget(0, debugUi);
     ui->debugStackedWidget->setCurrentIndex(0);
+
+    //状态栏操作
+    QStatusBar *_status=statusBar();
+    QLabel *titleLabel = new QLabel;//定义一个label
+    titleLabel->setMinimumSize(120, 10);
+    titleLabel->setFrameShadow(QFrame::Sunken);
+    titleLabel->setText("Qt状态栏（statusbar）的使用!");//label显示内容
+    statusBar()->addWidget(titleLabel);//将label加到状态栏上
 
     //treeview
     treeViewInit();
@@ -217,6 +227,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 //https://blog.csdn.net/qq_38441692/article/details/105290933
 //http://www.dedeyun.com/it/c/103182.html
 //https://blog.csdn.net/qq_32348883/article/details/126390913
+//https://blog.csdn.net/fittec/article/details/130244036
 
 
 
