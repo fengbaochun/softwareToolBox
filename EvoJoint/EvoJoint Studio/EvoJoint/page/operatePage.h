@@ -1,21 +1,24 @@
-﻿#ifndef CTLPAGE_H
-#define CTLPAGE_H
+﻿#ifndef OPERATEPAGE_H
+#define OPERATEPAGE_H
 
 #include <QWidget>
+#include "motor/ctl.h"
 
 namespace Ui {
-class ctlPage;
+class operatePage;
 }
 
-class ctlPage : public QWidget
+class operatePage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit ctlPage(QWidget *parent = nullptr);
-    ~ctlPage();
+    explicit operatePage(QWidget *parent = nullptr);
+    ~operatePage();
 
 private slots:
+    void on_modeComboBox_activated(int index);
+
     void on_comboBoxFps_currentIndexChanged(int index);
 
     void on_spinBoxMaxSpeed_valueChanged(int arg1);
@@ -25,10 +28,6 @@ private slots:
     void on_doubleSpinBoxMaxCur_valueChanged(double arg1);
 
     void on_doubleSpinBoxMinCur_valueChanged(double arg1);
-
-    void on_pushButton_clicked();
-
-    void on_pushButtonSync_clicked();
 
     void on_doubleSpinBoxPosP_valueChanged(double arg1);
 
@@ -46,19 +45,16 @@ private slots:
 
     void on_horizontalSliderDq_valueChanged(int value);
 
-    void on_pushButtonSave_clicked();
-
     void on_spinBoxTarPos_editingFinished();
 
     void on_pushButtonCal_clicked();
 
-private slots:
-    void reportCallBack(uint8_t fun, QByteArray qb);
-    void timer1Handler();
+    void on_pushButtonSave_clicked();
+
+    void on_pushButtonSync_clicked();
 
 private:
-    Ui::ctlPage *ui;
-    QVector<QPointF> waveData[16];     //最多16条曲线
+    Ui::operatePage *ui;
 
     typedef enum{                       //上报速度
         S0FPS       = 1000000,
@@ -68,8 +64,8 @@ private:
         S500FPS     = 1000/500,
         S1000FPS    = 1000/1000,
     }reportSpeedType;
-    QTimer *waveT;
-    QVector<QVector<float>> qVdata;
+
+
 };
 
-#endif // CTLPAGE_H
+#endif // OPERATEPAGE_H

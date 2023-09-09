@@ -85,9 +85,7 @@ MainWindow::MainWindow(QWidget *parent)
     pdev->addSeparator();  // 添加分割线
 
     connect(pNew, &QAction::triggered,[=] (){
-//        if(!devUi){
-            devUi = new devCfgPage();
-//        }
+        devUi = new devCfgPage();
         devUi->show();
         qDebug() << "Create new file";
     });
@@ -96,10 +94,38 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     this->setWindowTitle("ToolBOX");
-    this->ctlPageUi = new ctlPage(this);                    //控制页（功能 demo 测试使用）
-    ui->stackedWidget->insertWidget(0, ctlPageUi);
+
+    //添加示波器
+    chartUi = new chartPage();
+    ui->stackedWidget->insertWidget(0, chartUi);
+    //添加参数表
+    paramUi = new paramPage();
+    ui->stackedWidget->insertWidget(1, paramUi);
+
     ui->stackedWidget->setCurrentIndex(0);
 
+    //添加 操作页
+    operateUi = new operatePage(this);
+    ui->operateStacketWidget->insertWidget(0, operateUi);
+    ui->operateStacketWidget->setCurrentIndex(0);
+
+    debugUi = new debugPage();
+    ui->debugStackedWidget->insertWidget(0, debugUi);
+    ui->debugStackedWidget->setCurrentIndex(0);
+
+    //treeview
+    treeViewInit();
+    ctl::instance()->open("COM35", 921600);
+}
+
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::treeViewInit()
+{
     // 设置表头
     ui->treeWidget->setHeaderLabels(QStringList() << "名称" << "值" );
     ui->treeWidget->header()->setVisible(true);
@@ -159,15 +185,38 @@ MainWindow::MainWindow(QWidget *parent)
     minIqQSpinBox->setRange(-20, 0);
     minIqQSpinBox->setMaximumWidth(60);
     ui->treeWidget->setItemWidget(minIqItem, 1, minIqQSpinBox);
-
-    ctl::instance()->open("COM35", 921600);
 }
 
-
-MainWindow::~MainWindow()
+void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    delete ui;
+    if(event->button() != Qt::RightButton)
+        return;
+
+    static bool isOperateView = true;
+    static bool isDebugView = true;
+    QMenu *menu = new QMenu(this);
+    QStringList list;
+    list << ((isDebugView) ? "隐藏debug页面":"显示debug页面")
+         << ((isOperateView) ? "隐藏操作页面":"显示操作页面");
+    QList<QAction *> actList;
+    for(int i = 0; i < list.count(); i ++){
+        actList.append(new QAction(list.at(i)));
+    }
+    connect(actList.at(0),&QAction::triggered,this,[=](){       //暂停/开始
+        isDebugView = !isDebugView;
+        (isDebugView) ? (ui->debugStackedWidget->show()) : (ui->debugStackedWidget->hide());
+    });
+    connect(actList.at(1),&QAction::triggered,this,[=]{         //隐藏、显示操作页面
+        isOperateView = !isOperateView;
+        (isOperateView) ? (ui->operateStacketWidget->show()) : (ui->operateStacketWidget->hide());
+    });
+    menu->addActions(actList);
+    menu->exec(QCursor::pos());
 }
 
 //https://blog.csdn.net/qq_38441692/article/details/105290933
 //http://www.dedeyun.com/it/c/103182.html
+//https://blog.csdn.net/qq_32348883/article/details/126390913
+
+
+

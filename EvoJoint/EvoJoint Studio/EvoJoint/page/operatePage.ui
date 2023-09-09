@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>operatePage</class>
+ <widget class="QWidget" name="operatePage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>209</width>
+    <height>634</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>帧率</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="comboBoxFps"/>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="minimumSize">
+      <size>
+       <width>191</width>
+       <height>151</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>便捷操作</string>
+     </property>
+     <widget class="QPushButton" name="pushButtonCal">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>75</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>标定</string>
+      </property>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>电机控制</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>2</number>
+        </property>
+        <property name="topMargin">
+         <number>2</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="leftMargin">
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_15">
+            <property name="minimumSize">
+             <size>
+              <width>60</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>60</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>控制模式</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="modeComboBox">
+            <property name="minimumSize">
+             <size>
+              <width>69</width>
+              <height>22</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QStackedWidget" name="ctlSstackedWidget">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>250</height>
+           </size>
+          </property>
+          <widget class="QWidget" name="dqPage">
+           <widget class="QSlider" name="horizontalSliderDq">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>50</y>
+              <width>160</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_6">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>140</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>DQ I</string>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="doubleSpinBoxDqI">
+            <property name="geometry">
+             <rect>
+              <x>90</x>
+              <y>140</y>
+              <width>71</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="decimals">
+             <number>4</number>
+            </property>
+            <property name="singleStep">
+             <double>0.000100000000000</double>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_10">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>170</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>MAX</string>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="doubleSpinBoxDqP">
+            <property name="geometry">
+             <rect>
+              <x>90</x>
+              <y>100</y>
+              <width>71</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="decimals">
+             <number>4</number>
+            </property>
+            <property name="singleStep">
+             <double>0.000100000000000</double>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="doubleSpinBoxMinCur">
+            <property name="geometry">
+             <rect>
+              <x>90</x>
+              <y>200</y>
+              <width>71</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="minimum">
+             <double>-50.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>50.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_14">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>20</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>力矩</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_11">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>200</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>MIN</string>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="doubleSpinBoxMaxCur">
+            <property name="geometry">
+             <rect>
+              <x>90</x>
+              <y>170</y>
+              <width>71</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="minimum">
+             <double>-50.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>50.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_7">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>100</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>DQ P</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="speedPage">
+           <widget class="QLabel" name="label_13">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>30</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>速度</string>
+            </property>
+           </widget>
+           <widget class="QSlider" name="horizontalSliderSpeed">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>50</y>
+              <width>160</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_9">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>170</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>MIN</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_8">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>150</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>MAX</string>
+            </property>
+           </widget>
+           <widget class="QSpinBox" name="spinBoxMaxSpeed">
+            <property name="geometry">
+             <rect>
+              <x>70</x>
+              <y>150</y>
+              <width>71</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="minimum">
+             <number>-5000</number>
+            </property>
+            <property name="maximum">
+             <number>5000</number>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_4">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>110</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>SPEED P</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_5">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>130</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>SPEED I</string>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedI">
+            <property name="geometry">
+             <rect>
+              <x>70</x>
+              <y>130</y>
+              <width>71</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="decimals">
+             <number>4</number>
+            </property>
+            <property name="singleStep">
+             <double>0.000100000000000</double>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedP">
+            <property name="geometry">
+             <rect>
+              <x>70</x>
+              <y>100</y>
+              <width>71</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="decimals">
+             <number>4</number>
+            </property>
+            <property name="singleStep">
+             <double>0.000100000000000</double>
+            </property>
+           </widget>
+           <widget class="QSpinBox" name="spinBoxMinSpeed">
+            <property name="geometry">
+             <rect>
+              <x>70</x>
+              <y>170</y>
+              <width>71</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="minimum">
+             <number>-5000</number>
+            </property>
+            <property name="maximum">
+             <number>5000</number>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="posPage">
+           <widget class="QLabel" name="label_12">
+            <property name="geometry">
+             <rect>
+              <x>20</x>
+              <y>40</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>位置</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_2">
+            <property name="geometry">
+             <rect>
+              <x>20</x>
+              <y>90</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>POS P</string>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="doubleSpinBoxPosP">
+            <property name="geometry">
+             <rect>
+              <x>70</x>
+              <y>90</y>
+              <width>71</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="decimals">
+             <number>4</number>
+            </property>
+            <property name="singleStep">
+             <double>0.000100000000000</double>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="doubleSpinBoxPosD">
+            <property name="geometry">
+             <rect>
+              <x>70</x>
+              <y>120</y>
+              <width>71</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="decimals">
+             <number>4</number>
+            </property>
+            <property name="singleStep">
+             <double>0.000100000000000</double>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_3">
+            <property name="geometry">
+             <rect>
+              <x>20</x>
+              <y>120</y>
+              <width>53</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>POS D</string>
+            </property>
+           </widget>
+           <widget class="QSpinBox" name="spinBoxTarPos">
+            <property name="geometry">
+             <rect>
+              <x>80</x>
+              <y>40</y>
+              <width>71</width>
+              <height>21</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QDial" name="dial">
+            <property name="geometry">
+             <rect>
+              <x>30</x>
+              <y>160</y>
+              <width>81</width>
+              <height>71</height>
+             </rect>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="tPosPage"/>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lableFps">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>实时帧率：</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButtonSave">
+     <property name="text">
+      <string>save</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButtonSync">
+     <property name="text">
+      <string>sync</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

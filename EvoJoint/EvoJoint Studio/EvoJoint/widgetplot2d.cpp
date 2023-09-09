@@ -166,7 +166,7 @@ void WidgetPlot2D::addData(QString name, double value)
         for (int i = 0; i < ui->customPlot->plottableCount(); i++) {
             sum += uint64_t(ui->customPlot->graph(i)->data()->size());
         }
-        ui->statusLabel->setText(QString("%1 FPS, Total Data points: %2").arg(frameCount/(key-lastFpsKey), 0, 'f', 0).arg(sum));
+        ui->statusLabel->setText(QString("%1 FPS, Points: %2").arg(frameCount/(key-lastFpsKey), 0, 'f', 0).arg(sum));
         lastFpsKey = key;
         frameCount = 0;
     }

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>876</width>
+    <width>784</width>
     <height>584</height>
    </rect>
   </property>
@@ -74,8 +74,26 @@ QPushButton#clearPBtn:pressed, #fullShowPBtn:pressed, #savePBtn:pressed, #openPB
 </string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <item>
       <widget class="QCustomPlot" name="customPlot" native="true">
        <property name="sizePolicy">
@@ -86,7 +104,7 @@ QPushButton#clearPBtn:pressed, #fullShowPBtn:pressed, #savePBtn:pressed, #openPB
        </property>
        <property name="minimumSize">
         <size>
-         <width>700</width>
+         <width>500</width>
          <height>500</height>
         </size>
        </property>
@@ -114,6 +132,21 @@ QPushButton#clearPBtn:pressed, #fullShowPBtn:pressed, #savePBtn:pressed, #openPB
         </size>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
