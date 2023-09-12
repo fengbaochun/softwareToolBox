@@ -48,35 +48,35 @@ ctl *ctl::instance()
 
 bool ctl::setFps(int timeout)
 {
-    qDebug()<<"设置帧率"<<1000/timeout<<"fps";
+    QLOG_INFO()<<"设置帧率"<<1000/timeout<<"fps";
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&timeout), 4);
     return this->packageToBus(cmd["write"], ctlFun["fps"], qb, 30, true);
 }
 
 void ctl::setMode(ctlModeTypedef m)
 {
-    qDebug()<<"设置模式"<<m;
+    QLOG_INFO()<<"设置模式"<<m;
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&m), 1);
     bool ret = this->packageToBus(cmd["write"], ctlFun["mode"], qb, 30, true);
 }
 
 bool ctl::setTarPos(float val)
 {
-    qDebug()<<"设置目标位置"<<val;
+    QLOG_INFO()<<"设置目标位置"<<val;
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&val), 4);
     return this->packageToBus(cmd["write"], ctlFun["tarPos"], qb, 30, true);
 }
 
 bool ctl::setTarSpeed(float val)
 {
-    qDebug()<<"设置目标速度"<<val;
+    QLOG_INFO()<<"设置目标速度"<<val;
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&val), 4);
     return this->packageToBus(cmd["write"], ctlFun["tarSpeed"], qb, 30, true);
 }
 
 bool ctl::setTarCurrent(float val)
 {
-    qDebug()<<"设置目标Iq"<<val;
+    QLOG_INFO()<<"设置目标Iq"<<val;
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&val), 4);
     return this->packageToBus(cmd["write"], ctlFun["tarCurrent"], qb, 30, true);
 }
@@ -88,7 +88,7 @@ bool ctl::setPosRange(float minVal, float maxVal)
 
 bool ctl::setSpeedRange(float minVal, float maxVal)
 {
-    qDebug()<<"设置速度范围"<<minVal<<maxVal;
+    QLOG_INFO()<<"设置速度范围"<<minVal<<maxVal;
 
     float val[2] = { minVal, maxVal};
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&val), 4*2);
@@ -97,7 +97,7 @@ bool ctl::setSpeedRange(float minVal, float maxVal)
 
 bool ctl::setCurrentRange(float minVal, float maxVal)
 {
-    qDebug()<<"设置电流范围"<<minVal<<maxVal;
+    QLOG_INFO()<<"设置电流范围"<<minVal<<maxVal;
     float val[2] = { minVal, maxVal};
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&val), 4*2);
     return this->packageToBus(cmd["write"], ctlFun["currentRange"], qb, 30, true);
@@ -123,7 +123,7 @@ bool ctl::getSpeedRange(float *minVal, float *maxVal)
         }
         *minVal = gs.at(0);
         *maxVal = gs.at(1);
-        qDebug()<<"速度 范围："<<gs;
+        QLOG_INFO()<<"速度 范围："<<gs;
     }
     return ret;
 }
@@ -141,49 +141,49 @@ bool ctl::getCurrentRange(float *minVal, float *maxVal)
         }
         *minVal = gs.at(0);
         *maxVal = gs.at(1);
-        qDebug()<<"IQ 范围："<<gs;
+        QLOG_INFO()<<"IQ 范围："<<gs;
     }
     return ret;
 }
 
 bool ctl::setPosP(float val)
 {
-    qDebug()<<"设置位置环P"<<val;
+    QLOG_INFO()<<"设置位置环P"<<val;
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&val), 4);
     return this->packageToBus(cmd["write"], ctlFun["posP"], qb, 30, true);
 }
 
 bool ctl::setPosD(float val)
 {
-    qDebug()<<"设置位置环D"<<val;
+    QLOG_INFO()<<"设置位置环D"<<val;
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&val), 4);
     return this->packageToBus(cmd["write"], ctlFun["posD"], qb, 30, true);
 }
 
 bool ctl::setSpeedP(float val)
 {
-    qDebug()<<"设置速度环P"<<val;
+    QLOG_INFO()<<"设置速度环P"<<val;
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&val), 4);
     return this->packageToBus(cmd["write"], ctlFun["speedP"], qb, 30, true);
 }
 
 bool ctl::setSpeedI(float val)
 {
-    qDebug()<<"设置速度环I"<<val;
+    QLOG_INFO()<<"设置速度环I"<<val;
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&val), 4);
     return this->packageToBus(cmd["write"], ctlFun["speedI"], qb, 30, true);
 }
 
 bool ctl::setCurrentP(float val)
 {
-    qDebug()<<"设置力矩换环P"<<val;
+    QLOG_INFO()<<"设置力矩换环P"<<val;
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&val), 4);
     return this->packageToBus(cmd["write"], ctlFun["currentP"], qb, 30, true);
 }
 
 bool ctl::setCurrentI(float val)
 {
-    qDebug()<<"设置力矩换环I"<<val;
+    QLOG_INFO()<<"设置力矩换环I"<<val;
     QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&val), 4);
     return this->packageToBus(cmd["write"], ctlFun["currentI"], qb, 30, true);
 }
@@ -191,7 +191,7 @@ bool ctl::setCurrentI(float val)
 //参数同步
 bool ctl::paramSync()
 {
-    qDebug()<<"******************************** 获取参数 ********************************";
+    QLOG_INFO()<<"******************************** 获取参数 ********************************";
     QByteArray qb;
     bool ret = this->packageToBus(cmd["read"], ctlFun["currentRange"], qb, 30, true);
     if(ret){
@@ -199,7 +199,7 @@ bool ctl::paramSync()
         QVector<float> gs = splitByteArrayToData(qb, sizeof(float));
         motor.minIq = gs.at(0);
         motor.maxIq = gs.at(1);
-        qDebug()<<"IQ 范围："<<gs;
+        QLOG_INFO()<<"IQ 范围："<<gs;
     }
     ret = this->packageToBus(cmd["read"], ctlFun["speedRange"], qb, 30, true);
     if(ret){
@@ -207,58 +207,58 @@ bool ctl::paramSync()
         QVector<float> gs = splitByteArrayToData(qb, sizeof(float));
         motor.minSpeed = gs.at(0);
         motor.maxSpeed = gs.at(1);
-        qDebug()<<"速度 范围："<<gs;
+        QLOG_INFO()<<"速度 范围："<<gs;
     }
     ret = this->packageToBus(cmd["read"], ctlFun["posP"], qb, 30, true);
     if(ret){
         QByteArray qb = getResultData(ctlFun["posP"]);
         QVector<float> gs = splitByteArrayToData(qb, sizeof(float));
         motor.posP = gs.at(0);
-        qDebug()<<"位置环P："<<gs;
+        QLOG_INFO()<<"位置环P："<<gs;
     }
     ret = this->packageToBus(cmd["read"], ctlFun["posD"], qb, 30, true);
     if(ret){
         QByteArray qb = getResultData(ctlFun["posD"]);
         QVector<float> gs = splitByteArrayToData(qb, sizeof(float));
         motor.posD = gs.at(0);
-        qDebug()<<"位置环D："<<gs;
+        QLOG_INFO()<<"位置环D："<<gs;
     }
     ret = this->packageToBus(cmd["read"], ctlFun["speedP"], qb, 30, true);
     if(ret){
         QByteArray qb = getResultData(ctlFun["speedP"]);
         QVector<float> gs = splitByteArrayToData(qb, sizeof(float));
         motor.speedP = gs.at(0);
-        qDebug()<<"速度环P："<<gs;
+        QLOG_INFO()<<"速度环P："<<gs;
     }
     ret = this->packageToBus(cmd["read"], ctlFun["speedI"], qb, 30, true);
     if(ret){
         QByteArray qb = getResultData(ctlFun["speedI"]);
         QVector<float> gs = splitByteArrayToData(qb, sizeof(float));
         motor.speedI = gs.at(0);
-        qDebug()<<"速度环I："<<gs;
+        QLOG_INFO()<<"速度环I："<<gs;
     }
     ret = this->packageToBus(cmd["read"], ctlFun["currentP"], qb, 30, true);
     if(ret){
         QByteArray qb = getResultData(ctlFun["currentP"]);
         QVector<float> gs = splitByteArrayToData(qb, sizeof(float));
         motor.currentP = gs.at(0);
-        qDebug()<<"力矩环P："<<gs;
+        QLOG_INFO()<<"力矩环P："<<gs;
     }
     ret = this->packageToBus(cmd["read"], ctlFun["currentI"], qb, 30, true);
     if(ret){
         QByteArray qb = getResultData(ctlFun["currentI"]);
         QVector<float> gs = splitByteArrayToData(qb, sizeof(float));
         motor.currentI = gs.at(0);
-        qDebug()<<"力矩环I："<<gs;
+        QLOG_INFO()<<"力矩环I："<<gs;
     }
-    qDebug()<<"********************************   end   ********************************";
+    QLOG_INFO()<<"********************************   end   ********************************";
     return true;
 }
 
 //参数保存
 bool ctl::paramSave()
 {
-    qDebug()<<"参数保存";
+    QLOG_INFO()<<"参数保存";
     QByteArray qb;
     return this->packageToBus(cmd["write"], ctlFun["saveParam"], qb, 30, true);
 }
@@ -266,5 +266,5 @@ bool ctl::paramSave()
 void ctl::reportCallBack(uint8_t fun, QByteArray qb)
 {
     QVector<float> gData = splitByteArrayToData(qb, sizeof(float));
-//    qDebug()<<"ctl report -> fun"<<QString::number(fun, 16)<<"data"<<gData;
+//    QLOG_INFO()<<"ctl report -> fun"<<QString::number(fun, 16)<<"data"<<gData;
 }

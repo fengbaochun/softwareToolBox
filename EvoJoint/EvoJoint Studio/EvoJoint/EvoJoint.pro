@@ -12,6 +12,8 @@ CONFIG += c++17
 #include($$PWD/plot)
 #include($$PWD/plot/plot.pri)
 
+include(./QsLog/QsLog.pri)
+
 include($$PWD/motor)
 include($$PWD/page)
 

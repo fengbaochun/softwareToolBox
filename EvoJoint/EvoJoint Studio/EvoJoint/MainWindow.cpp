@@ -11,6 +11,7 @@
 
 #include <QCheckBox>
 #include <QComboBox>
+#include <QDir>
 #include <QLabel>
 #include <QPainter>
 #include <QProxyStyle>
@@ -70,6 +71,12 @@ public:
 };
 
 
+#include"QsLog.h"
+#include"QsLogDest.h"
+
+using namespace QsLogging;
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -84,7 +91,6 @@ MainWindow::MainWindow(QWidget *parent)
     // 添加菜单项
     QAction *pNew = pdev->addAction("打开设备");
     QAction *pOpen = pdev->addAction("关闭设备");
-    pdev->addSeparator();  // 添加分割线
 
     connect(pNew, &QAction::triggered,[=] (){
         devUi = new devCfgPage();
@@ -94,6 +100,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(pOpen, &QAction::triggered,[] (){
         qDebug() << "Open file";
     });
+
+//    QMenu *pView = menuBr->addMenu("视图");
+//    QAction *pView1 = pView->addAction("视图1");
+//    QAction *pView2 = pView->addAction("视图2");
 
     this->setWindowTitle("ToolBOX");
 
@@ -125,12 +135,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     //treeview
     treeViewInit();
+    initLogger();
+
     ctl::instance()->open("COM35", 921600);
+
 }
 
 
 MainWindow::~MainWindow()
 {
+    destroyLogger();
     delete ui;
 }
 
@@ -223,6 +237,56 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     menu->addActions(actList);
     menu->exec(QCursor::pos());
 }
+
+void MainWindow::initLogger()
+{
+    // 1. 启动日志记录机制
+    Logger& logger = Logger::instance();
+    logger.setLoggingLevel(QsLogging::TraceLevel);
+    //设置log位置为exe所在目录
+    const QString sLogPath(QDir(QCoreApplication::applicationDirPath()).filePath("log.txt"));
+
+    // 2. 添加两个destination
+    DestinationPtr fileDestination(DestinationFactory::MakeFileDestination(
+      sLogPath, EnableLogRotation, MaxSizeBytes(512), MaxOldLogCount(2)));
+    DestinationPtr debugDestination(DestinationFactory::MakeDebugOutputDestination());
+    //DestinationPtr functorDestination(DestinationFactory::MakeFunctorDestination(&logFunction));
+
+    //这样和槽函数连接
+    DestinationPtr sigsSlotDestination(DestinationFactory::MakeFunctorDestination(debugUi, SLOT(logSlot(QString,int))));
+
+    logger.addDestination(debugDestination);
+    logger.addDestination(fileDestination);
+    //logger.addDestination(functorDestination);
+    logger.addDestination(sigsSlotDestination);
+
+//    // 3. 开始日志记录
+//    QLOG_INFO() << "Program started";
+//    QLOG_INFO() << "Built with Qt" << QT_VERSION_STR << "running on" << qVersion();
+
+//    QLOG_TRACE() << "Here's a" << QString::fromUtf8("trace") << "message";
+//    QLOG_DEBUG() << "Here's a" << static_cast<int>(QsLogging::DebugLevel) << "message";
+//    QLOG_WARN()  << "Uh-oh!";
+//    qDebug() << "This message won't be picked up by the logger";
+//    QLOG_ERROR() << "An error has occurred";
+//    qWarning() << "Neither will this one";
+//    QLOG_FATAL() << "Fatal error!";
+//    QLOG_ERROR() << "An error has occurred";
+//    qWarning() << "Neither will this one";
+//    QLOG_FATAL() << "Fatal error!";
+//    QLOG_ERROR() << "An error has occurred";
+//    qWarning() << "Neither will this one";
+//    QLOG_FATAL() << "Fatal error!";
+//    QLOG_ERROR() << "An error has occurred";
+//    qWarning() << "Neither will this one";
+//    QLOG_FATAL() << "Fatal error!";
+}
+
+void MainWindow::destroyLogger()
+{
+    QsLogging::Logger::destroyInstance();
+}
+
 
 //https://blog.csdn.net/qq_38441692/article/details/105290933
 //http://www.dedeyun.com/it/c/103182.html

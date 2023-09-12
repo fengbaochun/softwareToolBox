@@ -2,6 +2,7 @@
 #define CTL_H
 
 #include "uProtocol.h"
+#include"QsLog.h"
 
 #define FUN_BASE_ADDR			0x30	//参数表的基地址
 typedef enum{

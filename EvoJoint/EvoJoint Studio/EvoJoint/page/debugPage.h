@@ -1,4 +1,4 @@
-#ifndef DEBUGPAGE_H
+﻿#ifndef DEBUGPAGE_H
 #define DEBUGPAGE_H
 
 #include <QWidget>
@@ -14,6 +14,9 @@ class debugPage : public QWidget
 public:
     explicit debugPage(QWidget *parent = nullptr);
     ~debugPage();
+
+private slots:
+    void logSlot(const QString &message, int level);
 
 private:
     Ui::debugPage *ui;

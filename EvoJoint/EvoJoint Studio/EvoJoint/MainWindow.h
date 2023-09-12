@@ -23,7 +23,10 @@ public:
     void treeViewInit();
     void mousePressEvent(QMouseEvent *event) override;
 
+    void initLogger();
+    void destroyLogger();
 private slots:
+
 
 private:
     Ui::MainWindow *ui;
