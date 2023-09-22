@@ -19,6 +19,7 @@ include($$PWD/page)
 
 
 SOURCES += \
+    config.cpp \
     main.cpp \
     MainWindow.cpp \
     motor/ctl.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
 
 HEADERS += \
     MainWindow.h \
+    config.h \
     motor/ctl.h \
     motor/uProtocol.h \
     page/chartPage.h \

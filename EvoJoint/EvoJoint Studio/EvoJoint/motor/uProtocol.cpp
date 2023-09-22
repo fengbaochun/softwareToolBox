@@ -107,12 +107,9 @@ void uProtocol::packageToBus(uint8_t cmd, uint8_t fun, uint8_t *data, uint8_t dL
 
     buf[2] = cnt-3+1;		    //除去 头(2B),长度(1B);包含校验(1B)
 
-    uint8_t sum = 0;
-    for(uint8_t i = 2; i < cnt; i++){		//计算校验
-        sum += buf[i];
-    }
+    QByteArray qb = QByteArray::fromRawData(reinterpret_cast<const char*>(&buf), cnt);
 
-    buf[cnt++] = sum;
+    buf[cnt++] = crc8(qb, 2, cnt);        //计算校验
 
     QByteArray byte;
     byte = QByteArray((char *)buf,cnt);
@@ -213,6 +210,15 @@ uint8_t uProtocol::checkValCode(QByteArray ary, uint8_t start, uint8_t end)
     return val;
 }
 
+uint8_t uProtocol::crc8(QByteArray ary, uint8_t start, uint8_t end)
+{
+    uint8_t crc = 0;
+    for ( uint32_t i = start; i < end; ++i ) {
+        crc = crc8_table[(ary.at(i) ^ crc) & 0xFF];
+    }
+    return crc;
+}
+
 bool uProtocol::isExist(uint8_t code)
 {
     return mFun.contains(code);
@@ -226,7 +232,7 @@ void uProtocol::process()
             qCritical()<<"bufsize error"<<qb.toHex(' ');
             break;
         }
-        uint8_t code = checkValCode(qb, 2, qb.size()-1);    //计算校验
+        uint8_t code = crc8(qb, 2, qb.size()-1);    //计算校验
         if((uint8_t)qb.at(qb.size()-1) != code){
             qCritical()<<"check error"<<QString::number(code,16)<<QString::number((uint8_t)qb.at(qb.size()-1),16);
             break;
@@ -296,3 +302,4 @@ void uProtocol::readyReadSlot()
 //    qDebug()<<"tailRemain"<<tailRemain.toHex(' ');
     return ;
 }
+

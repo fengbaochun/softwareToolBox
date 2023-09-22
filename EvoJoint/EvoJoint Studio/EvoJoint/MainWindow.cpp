@@ -19,7 +19,7 @@
 #include <QStandardItemModel>
 #include <QStatusBar>
 #include <QStyleOptionTab>
-
+#include "config.h"
 #include "motor/ctl.h"
 
 class CustomTabStyle : public QProxyStyle
@@ -82,6 +82,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //读配置
+    config::getInstance().readAllGroups();
+
 
     // 新建菜单栏
     QMenuBar *menuBr = menuBar();
