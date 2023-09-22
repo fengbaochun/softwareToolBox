@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QSettings>
+#include <QStackedWidget>
 
 class config
 {
@@ -16,10 +17,15 @@ public:
     void removeKey(const QString key);
     QStringList readAllKeys(const QString group);        //读取指定结点下的所有键
     QStringList readAllGroups();        //读取所有结点
+
+    void loadWidgetCfg(const QString group, const QString key, QStackedWidget *ui);
+    void updateWidgetCfg(const QString group, const QString key, QStackedWidget *ui);
 private:
     config();
     static config * instance;
 
 };
+
+
 
 #endif // CONFIG_H

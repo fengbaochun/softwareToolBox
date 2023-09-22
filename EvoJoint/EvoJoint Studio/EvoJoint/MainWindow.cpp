@@ -84,7 +84,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     //读配置
     config::getInstance().readAllGroups();
-
+    config::getInstance().loadWidgetCfg("VIEW","debugView",ui->debugStackedWidget);
+    config::getInstance().loadWidgetCfg("VIEW","operateView",ui->operateStacketWidget);
 
     // 新建菜单栏
     QMenuBar *menuBr = menuBar();
@@ -219,8 +220,8 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     if(event->button() != Qt::RightButton)
         return;
 
-    static bool isOperateView = true;
-    static bool isDebugView = true;
+    static bool isOperateView = (!ui->operateStacketWidget->isHidden());
+    static bool isDebugView = (!ui->debugStackedWidget->isHidden());
     QMenu *menu = new QMenu(this);
     QStringList list;
     list << ((isDebugView) ? "隐藏debug页面":"显示debug页面")
@@ -232,10 +233,12 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     connect(actList.at(0),&QAction::triggered,this,[=](){       //暂停/开始
         isDebugView = !isDebugView;
         (isDebugView) ? (ui->debugStackedWidget->show()) : (ui->debugStackedWidget->hide());
+        config::getInstance().updateWidgetCfg("VIEW","debugView",ui->debugStackedWidget);
     });
     connect(actList.at(1),&QAction::triggered,this,[=]{         //隐藏、显示操作页面
         isOperateView = !isOperateView;
         (isOperateView) ? (ui->operateStacketWidget->show()) : (ui->operateStacketWidget->hide());
+        config::getInstance().updateWidgetCfg("VIEW","operateView",ui->operateStacketWidget);
     });
     menu->addActions(actList);
     menu->exec(QCursor::pos());
@@ -263,26 +266,6 @@ void MainWindow::initLogger()
     //logger.addDestination(functorDestination);
     logger.addDestination(sigsSlotDestination);
 
-//    // 3. 开始日志记录
-//    QLOG_INFO() << "Program started";
-//    QLOG_INFO() << "Built with Qt" << QT_VERSION_STR << "running on" << qVersion();
-
-//    QLOG_TRACE() << "Here's a" << QString::fromUtf8("trace") << "message";
-//    QLOG_DEBUG() << "Here's a" << static_cast<int>(QsLogging::DebugLevel) << "message";
-//    QLOG_WARN()  << "Uh-oh!";
-//    qDebug() << "This message won't be picked up by the logger";
-//    QLOG_ERROR() << "An error has occurred";
-//    qWarning() << "Neither will this one";
-//    QLOG_FATAL() << "Fatal error!";
-//    QLOG_ERROR() << "An error has occurred";
-//    qWarning() << "Neither will this one";
-//    QLOG_FATAL() << "Fatal error!";
-//    QLOG_ERROR() << "An error has occurred";
-//    qWarning() << "Neither will this one";
-//    QLOG_FATAL() << "Fatal error!";
-//    QLOG_ERROR() << "An error has occurred";
-//    qWarning() << "Neither will this one";
-//    QLOG_FATAL() << "Fatal error!";
 }
 
 void MainWindow::destroyLogger()

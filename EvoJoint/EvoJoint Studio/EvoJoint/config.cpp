@@ -6,19 +6,13 @@ config::config()
 {
     configFile = new QSettings("./config/configFile.ini",QSettings::IniFormat);
     configFile->setIniCodec(QTextCodec::codecForName("UTF-8"));
-
-    //可以自行添加一些默认配置
-    if (configFile->value("Set/length").isNull())
-        configFile->setValue("Set/length", 2);
-    if (configFile->value("Set/width").isNull())
-        configFile->setValue("Set/width", 2.5);
-    if (configFile->value("Set/showLog").isNull())
-        configFile->setValue("Set/showLog", true);
-    if (configFile->value("Net/ip").isNull())
-        configFile->setValue("Net/ip", "127.0.0.1");
-    if (configFile->value("Net/port").isNull())
-        configFile->setValue("Net/port", 8888);
-
+    //参数初始化
+    if (configFile->value("VIEW/debugView").isNull())
+        configFile->setValue("VIEW/debugView", false);
+    if (configFile->value("VIEW/operateView").isNull())
+        configFile->setValue("VIEW/operateView", false);
+    if (configFile->value("VIEW/test").isNull())
+        configFile->setValue("VIEW/test", false);
 }
 
 config::~config()
@@ -64,3 +58,24 @@ QStringList config::readAllGroups()
 {
     return  configFile->childGroups();
 }
+
+//根据配置加载UI
+void config::loadWidgetCfg(const QString group, const QString key, QStackedWidget *ui){
+    QVariant res = readConfig(group, key);
+    if(res == true){
+        ui->show();
+    }else{
+        ui->hide();
+    }
+}
+
+void config::updateWidgetCfg(const QString group, const QString key, QStackedWidget *ui)
+{
+    QVariant val = ui->isHidden() ? false : true;
+    writeConfig(group, key, val);
+}
+
+
+
+
+
